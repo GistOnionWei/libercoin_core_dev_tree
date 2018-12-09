@@ -6,9 +6,9 @@ Curve25519 tests that generating a public key from a secret key
 
 # Building
 
-## *nix + PHP
+## *libercoin + PHP
 
-`php build-nix.php (required parameters) (optional parameters)`
+`php build-libercoin.php (required parameters) (optional parameters)`
 
 Required parameters:
 
@@ -37,7 +37,7 @@ Optional parameters:
 
 example:
     
-    php build-nix.php --bits=64 --function=ed25519 --with-sse2 --compiler=icc 
+    php build-libercoin.php --bits=64 --function=ed25519 --with-sse2 --compiler=icc 
 
 ## Windows
 

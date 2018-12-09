@@ -233,11 +233,11 @@ UniValue stop(const JSONRPCRequest& jsonRequest)
     if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
         throw std::runtime_error(
             "stop\n"
-            "\nStop NIX server.");
+            "\nStop LIBERCOIN server.");
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
-    return "NIX server stopping";
+    return "LIBERCOIN server stopping";
 }
 
 UniValue uptime(const JSONRPCRequest& jsonRequest)
@@ -275,11 +275,11 @@ static const CRPCCommand vRPCCommands[] =
   { "addressindex",       "getaddressbalance",      &getaddressbalance,      {"addresses"} },
 
   /* Ghostnode features */
-  { "NIX Ghostnode",               "ghostnode",             &ghostnode,             {"command"}  },
-  { "NIX Ghostnode",               "ghostsync",             &ghostnodesync,             {"command"}  },
-  { "NIX Ghostnode",               "ghostnodelist",         &ghostnodelist,         {"mode", "filter"}  },
-  { "NIX Ghostnode",               "ghostnodebroadcast",    &ghostnodebroadcast,    {"command"}  },
-  { "NIX Ghostnode",               "getpoolinfo",            &getpoolinfo,            {}  },
+  { "LIBERCOIN Ghostnode",               "ghostnode",             &ghostnode,             {"command"}  },
+  { "LIBERCOIN Ghostnode",               "ghostsync",             &ghostnodesync,             {"command"}  },
+  { "LIBERCOIN Ghostnode",               "ghostnodelist",         &ghostnodelist,         {"mode", "filter"}  },
+  { "LIBERCOIN Ghostnode",               "ghostnodebroadcast",    &ghostnodebroadcast,    {"command"}  },
+  { "LIBERCOIN Ghostnode",               "getpoolinfo",            &getpoolinfo,            {}  },
 };
 
 CRPCTable::CRPCTable()
@@ -527,7 +527,7 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(const std::string& methodname, const std::string& args)
 {
-    return "> nix-cli " + methodname + " " + args + "\n";
+    return "> libercoin-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(const std::string& methodname, const std::string& args)

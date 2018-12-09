@@ -151,14 +151,14 @@ UniValue getnewaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() > 2)
         throw std::runtime_error(
             "getnewaddress ( \"account\" \"address_type\" )\n"
-            "\nReturns a new NIX address for receiving payments.\n"
+            "\nReturns a new LIBERCOIN address for receiving payments.\n"
             "If 'account' is specified (DEPRECATED), it is added to the address book \n"
             "so payments received with the address will be credited to 'account'.\n"
             "\nArguments:\n"
             "1. \"account\"        (string, optional) DEPRECATED. The account name for the address to be linked to. If not provided, the default account \"\" is used. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created if there is no account by the given name.\n"
             "2. \"address_type\"   (string, optional) The address type to use. Options are \"ghostnode\", \"p2sh-segwit(default)\", and \"bech32\". Default is set by -addresstype.\n"
             "\nResult:\n"
-            "\"address\"    (string) The new nix address\n"
+            "\"address\"    (string) The new libercoin address\n"
             "\nExamples:\n"
             + HelpExampleCli("getnewaddress", "")
             + HelpExampleRpc("getnewaddress", "")
@@ -217,11 +217,11 @@ UniValue getaccountaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() != 1)
         throw std::runtime_error(
             "getaccountaddress \"account\"\n"
-            "\nDEPRECATED. Returns the current NIX address for receiving payments to this account.\n"
+            "\nDEPRECATED. Returns the current LIBERCOIN address for receiving payments to this account.\n"
             "\nArguments:\n"
             "1. \"account\"       (string, required) The account name for the address. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created and a new address created  if there is no account by the given name.\n"
             "\nResult:\n"
-            "\"address\"          (string) The account nix address\n"
+            "\"address\"          (string) The account libercoin address\n"
             "\nExamples:\n"
             + HelpExampleCli("getaccountaddress", "")
             + HelpExampleCli("getaccountaddress", "\"\"")
@@ -251,7 +251,7 @@ UniValue getrawchangeaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() > 1)
         throw std::runtime_error(
             "getrawchangeaddress ( \"address_type\" )\n"
-            "\nReturns a new NIX address, for receiving change.\n"
+            "\nReturns a new LIBERCOIN address, for receiving change.\n"
             "This is for use with raw transactions, NOT normal use.\n"
             "\nArguments:\n"
             "1. \"address_type\"           (string, optional) The address type to use. Options are \"legacy\", \"p2sh-segwit\", and \"bech32\". Default is set by -changetype.\n"
@@ -302,7 +302,7 @@ UniValue setaccount(const JSONRPCRequest& request)
             "setaccount \"address\" \"account\"\n"
             "\nDEPRECATED. Sets the account associated with the given address.\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The nix address to be associated with an account.\n"
+            "1. \"address\"         (string, required) The libercoin address to be associated with an account.\n"
             "2. \"account\"         (string, required) The account to assign the address to.\n"
             "\nExamples:\n"
             + HelpExampleCli("setaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XX\" \"tabby\"")
@@ -313,7 +313,7 @@ UniValue setaccount(const JSONRPCRequest& request)
 
     CTxDestination dest = DecodeDestination(request.params[0].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid NIX address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid LIBERCOIN address");
     }
 
     std::string strAccount;
@@ -350,7 +350,7 @@ UniValue getaccount(const JSONRPCRequest& request)
             "getaccount \"address\"\n"
             "\nDEPRECATED. Returns the account associated with the given address.\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The nix address for account lookup.\n"
+            "1. \"address\"         (string, required) The libercoin address for account lookup.\n"
             "\nResult:\n"
             "\"accountname\"        (string) the account address\n"
             "\nExamples:\n"
@@ -362,7 +362,7 @@ UniValue getaccount(const JSONRPCRequest& request)
 
     CTxDestination dest = DecodeDestination(request.params[0].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid NIX address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid LIBERCOIN address");
     }
 
     std::string strAccount;
@@ -389,7 +389,7 @@ UniValue getaddressesbyaccount(const JSONRPCRequest& request)
             "1. \"account\"        (string, required) The account name.\n"
             "\nResult:\n"
             "[                     (json array of string)\n"
-            "  \"address\"         (string) a nix address associated with the given account\n"
+            "  \"address\"         (string) a libercoin address associated with the given account\n"
             "  ,...\n"
             "]\n"
             "\nExamples:\n"
@@ -530,7 +530,7 @@ UniValue sendtoaddress(const JSONRPCRequest& request)
             "\nSend an amount to a given address.\n"
             + HelpRequiringPassphrase(pwallet) +
             "\nArguments:\n"
-            "1. \"address\"            (string, required) The nix address to send to.\n"
+            "1. \"address\"            (string, required) The libercoin address to send to.\n"
             "2. \"amount\"             (numeric or string, required) The amount in " + CURRENCY_UNIT + " to send. eg 0.1\n"
             "3. \"comment\"            (string, optional) A comment used to store what the transaction is for. \n"
             "                             This is not part of the transaction, just kept in your wallet.\n"
@@ -538,7 +538,7 @@ UniValue sendtoaddress(const JSONRPCRequest& request)
             "                             to which you're sending the transaction. This is not part of the \n"
             "                             transaction, just kept in your wallet.\n"
             "5. subtractfeefromamount  (boolean, optional, default=false) The fee will be deducted from the amount being sent.\n"
-            "                             The recipient will receive less nix than you enter in the amount field.\n"
+            "                             The recipient will receive less libercoin than you enter in the amount field.\n"
             "6. replaceable            (boolean, optional) Allow this transaction to be replaced by a transaction with higher fees via BIP 125\n"
             "7. conf_target            (numeric, optional) Confirmation target (in blocks)\n"
             "8. \"estimate_mode\"      (string, optional, default=UNSET) The fee estimate mode, must be one of:\n"
@@ -669,13 +669,13 @@ UniValue leasestaking(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() < 2 || request.params.size() > 8)
         throw std::runtime_error(
             "leasestaking \"address\" amount ( \"comment\" \"comment_to\" subtractfeefromamount replaceable conf_target \"estimate_mode\")\n"
-            "\nLease an amount of nix to a certain address to stake.\n"
+            "\nLease an amount of libercoin to a certain address to stake.\n"
             + HelpRequiringPassphrase(pwallet) +
             "\nArguments:\n"
-            "1. \"lease address\"                    (string, required) The nix address to lease stakes to.\n"
+            "1. \"lease address\"                    (string, required) The libercoin address to lease stakes to.\n"
             "2. \"amount\"                              (numeric or string, required) The amount in " + CURRENCY_UNIT + " to send. eg 0.1\n"
             "3. \"fee percent\"                         (numeric, optional) The percentage to allow delegator to take. eg 11.9 (11.9%)\n"
-            "4. \"lease percent reward address\"     (string, optional) The nix address to force lease fee stakes to.\n"
+            "4. \"lease percent reward address\"     (string, optional) The libercoin address to force lease fee stakes to.\n"
 
             "5. \"comment\"            (string, optional) A comment used to store what the transaction is for. \n"
             "                             This is not part of the transaction, just kept in your wallet.\n"
@@ -683,7 +683,7 @@ UniValue leasestaking(const JSONRPCRequest& request)
             "                             to which you're sending the transaction. This is not part of the \n"
             "                             transaction, just kept in your wallet.\n"
             "7. subtractfeefromamount  (boolean, optional, default=false) The fee will be deducted from the amount being sent.\n"
-            "                             The recipient will receive less nix than you enter in the amount field.\n"
+            "                             The recipient will receive less libercoin than you enter in the amount field.\n"
             "8. replaceable            (boolean, optional) Allow this transaction to be replaced by a transaction with higher fees via BIP 125\n"
             "9. conf_target            (numeric, optional) Confirmation target (in blocks)\n"
             "10. \"estimate_mode\"      (string, optional, default=UNSET) The fee estimate mode, must be one of:\n"
@@ -893,7 +893,7 @@ UniValue listaddressgroupings(const JSONRPCRequest& request)
             "[\n"
             "  [\n"
             "    [\n"
-            "      \"address\",            (string) The nix address\n"
+            "      \"address\",            (string) The libercoin address\n"
             "      amount,                 (numeric) The amount in " + CURRENCY_UNIT + "\n"
             "      \"account\"             (string, optional) DEPRECATED. The account\n"
             "    ]\n"
@@ -948,7 +948,7 @@ UniValue signmessage(const JSONRPCRequest& request)
             "\nSign a message with the private key of an address"
             + HelpRequiringPassphrase(pwallet) + "\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The nix address to use for the private key.\n"
+            "1. \"address\"         (string, required) The libercoin address to use for the private key.\n"
             "2. \"message\"         (string, required) The message to create a signature of.\n"
             "\nResult:\n"
             "\"signature\"          (string) The signature of the message encoded in base 64\n"
@@ -1008,7 +1008,7 @@ UniValue getreceivedbyaddress(const JSONRPCRequest& request)
             "getreceivedbyaddress \"address\" ( minconf )\n"
             "\nReturns the total amount received by the given address in transactions with at least minconf confirmations.\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The nix address for transactions.\n"
+            "1. \"address\"         (string, required) The libercoin address for transactions.\n"
             "2. minconf             (numeric, optional, default=1) Only include transactions confirmed at least this many times.\n"
             "\nResult:\n"
             "amount   (numeric) The total amount in " + CURRENCY_UNIT + " received at this address.\n"
@@ -1034,7 +1034,7 @@ UniValue getreceivedbyaddress(const JSONRPCRequest& request)
     // Bitcoin address
     CTxDestination dest = DecodeDestination(request.params[0].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid NIX address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid LIBERCOIN address");
     }
     CScript scriptPubKey = GetScriptForDestination(dest);
     if (!IsMine(*pwallet, scriptPubKey)) {
@@ -1293,14 +1293,14 @@ UniValue sendfrom(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() < 3 || request.params.size() > 6)
         throw std::runtime_error(
             "sendfrom \"fromaccount\" \"toaddress\" amount ( minconf \"comment\" \"comment_to\" )\n"
-            "\nDEPRECATED (use sendtoaddress). Sent an amount from an account to a nix address."
+            "\nDEPRECATED (use sendtoaddress). Sent an amount from an account to a libercoin address."
             + HelpRequiringPassphrase(pwallet) + "\n"
             "\nArguments:\n"
             "1. \"fromaccount\"       (string, required) The name of the account to send funds from. May be the default account using \"\".\n"
             "                       Specifying an account does not influence coin selection, but it does associate the newly created\n"
             "                       transaction with the account, so the account's balance computation and transaction history can reflect\n"
             "                       the spend.\n"
-            "2. \"toaddress\"         (string, required) The nix address to send funds to.\n"
+            "2. \"toaddress\"         (string, required) The libercoin address to send funds to.\n"
             "3. amount                (numeric or string, required) The amount in " + CURRENCY_UNIT + " (transaction fee is added on top).\n"
             "4. minconf               (numeric, optional, default=1) Only use funds with at least this many confirmations.\n"
             "5. \"comment\"           (string, optional) A comment used to store what the transaction is for. \n"
@@ -1330,7 +1330,7 @@ UniValue sendfrom(const JSONRPCRequest& request)
     std::string strAccount = AccountFromValue(request.params[0]);
     CTxDestination dest = DecodeDestination(request.params[1].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid NIX address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid LIBERCOIN address");
     }
     CAmount nAmount = AmountFromValue(request.params[2]);
     if (nAmount <= 0)
@@ -1376,14 +1376,14 @@ UniValue sendmany(const JSONRPCRequest& request)
             "1. \"fromaccount\"         (string, required) DEPRECATED. The account to send the funds from. Should be \"\" for the default account\n"
             "2. \"amounts\"             (string, required) A json object with addresses and amounts\n"
             "    {\n"
-            "      \"address\":amount   (numeric or string) The nix address is the key, the numeric amount (can be string) in " + CURRENCY_UNIT + " is the value\n"
+            "      \"address\":amount   (numeric or string) The libercoin address is the key, the numeric amount (can be string) in " + CURRENCY_UNIT + " is the value\n"
             "      ,...\n"
             "    }\n"
             "3. minconf                 (numeric, optional, default=1) Only use the balance confirmed at least this many times.\n"
             "4. \"comment\"             (string, optional) A comment\n"
             "5. subtractfeefrom         (array, optional) A json array with addresses.\n"
             "                           The fee will be equally deducted from the amount of each selected address.\n"
-            "                           Those recipients will receive less nix than you enter in their corresponding amount field.\n"
+            "                           Those recipients will receive less libercoin than you enter in their corresponding amount field.\n"
             "                           If no addresses are specified here, the sender pays the fee.\n"
             "    [\n"
             "      \"address\"          (string) Subtract fee from this address\n"
@@ -1459,7 +1459,7 @@ UniValue sendmany(const JSONRPCRequest& request)
     for (const std::string& name_ : keys) {
         CTxDestination dest = DecodeDestination(name_);
         if (!IsValidDestination(dest)) {
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid NIX address: ") + name_);
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid LIBERCOIN address: ") + name_);
         }
 
         if (destinations.count(dest)) {
@@ -1518,16 +1518,16 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() < 2 || request.params.size() > 4) {
         std::string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" \"address_type\" )\n"
             "\nAdd a nrequired-to-sign multisignature address to the wallet. Requires a new wallet backup.\n"
-            "Each key is a NIX address or hex-encoded public key.\n"
+            "Each key is a LIBERCOIN address or hex-encoded public key.\n"
             "This functionality is only intended for use with non-watchonly addresses.\n"
             "See `importaddress` for watchonly p2sh address support.\n"
             "If 'account' is specified (DEPRECATED), assign address to that account.\n"
 
             "\nArguments:\n"
             "1. nrequired                      (numeric, required) The number of required signatures out of the n keys or addresses.\n"
-            "2. \"keys\"                         (string, required) A json array of nix addresses or hex-encoded public keys\n"
+            "2. \"keys\"                         (string, required) A json array of libercoin addresses or hex-encoded public keys\n"
             "     [\n"
-            "       \"address\"                  (string) nix address or hex-encoded public key\n"
+            "       \"address\"                  (string) libercoin address or hex-encoded public key\n"
             "       ...,\n"
             "     ]\n"
             "3. \"account\"                      (string, optional) DEPRECATED. An account to assign the addresses to.\n"
@@ -1538,9 +1538,9 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
             "  \"address\":\"multisigaddress\",    (string) The value of the new multisig address.\n"
             "  \"redeemScript\":\"script\"         (string) The string value of the hex-encoded redemption script.\n"
             "}\n"
-            "\nResult (DEPRECATED. To see this result in v0.16 instead, please start nixd with -deprecatedrpc=addmultisigaddress).\n"
+            "\nResult (DEPRECATED. To see this result in v0.16 instead, please start libercoind with -deprecatedrpc=addmultisigaddress).\n"
             "        clients should transition to the new output api before upgrading to v0.17.\n"
-            "\"address\"                         (string) A nix address associated with the keys.\n"
+            "\"address\"                         (string) A libercoin address associated with the keys.\n"
 
             "\nExamples:\n"
             "\nAdd a multisig address from 2 addresses\n"
@@ -1680,7 +1680,7 @@ UniValue addwitnessaddress(const JSONRPCRequest& request)
 
     if (!IsDeprecatedRPCEnabled("addwitnessaddress")) {
         throw JSONRPCError(RPC_METHOD_DEPRECATED, "addwitnessaddress is deprecated and will be fully removed in v0.17. "
-            "To use addwitnessaddress in v0.16, restart nixd with -deprecatedrpc=addwitnessaddress.\n"
+            "To use addwitnessaddress in v0.16, restart libercoind with -deprecatedrpc=addwitnessaddress.\n"
             "Projects should transition to using the address_type argument of getnewaddress, or option -addresstype=[bech32|p2sh-segwit] instead.\n");
     }
 
@@ -1693,7 +1693,7 @@ UniValue addwitnessaddress(const JSONRPCRequest& request)
 
     CTxDestination dest = DecodeDestination(request.params[0].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid NIX address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid LIBERCOIN address");
     }
 
     bool p2sh = true;
@@ -2122,7 +2122,7 @@ UniValue listtransactions(const JSONRPCRequest& request)
             "  {\n"
             "    \"account\":\"accountname\",       (string) DEPRECATED. The account name associated with the transaction. \n"
             "                                                It will be \"\" for the default account.\n"
-            "    \"address\":\"address\",    (string) The nix address of the transaction. Not present for \n"
+            "    \"address\":\"address\",    (string) The libercoin address of the transaction. Not present for \n"
             "                                                move transactions (category = move).\n"
             "    \"category\":\"send|receive|move\", (string) The transaction category. 'move' is a local (off blockchain)\n"
             "                                                transaction between accounts, and not associated with an address,\n"
@@ -2349,7 +2349,7 @@ UniValue listsinceblock(const JSONRPCRequest& request)
             "{\n"
             "  \"transactions\": [\n"
             "    \"account\":\"accountname\",       (string) DEPRECATED. The account name associated with the transaction. Will be \"\" for the default account.\n"
-            "    \"address\":\"address\",    (string) The nix address of the transaction. Not present for move transactions (category = move).\n"
+            "    \"address\":\"address\",    (string) The libercoin address of the transaction. Not present for move transactions (category = move).\n"
             "    \"category\":\"send|receive\",     (string) The transaction category. 'send' has negative amounts, 'receive' has positive amounts.\n"
             "    \"amount\": x.xxx,          (numeric) The amount in " + CURRENCY_UNIT + ". This is negative for the 'send' category, and for the 'move' category for moves \n"
             "                                          outbound. It is positive for the 'receive' category, and for the 'move' category for inbound funds.\n"
@@ -2499,7 +2499,7 @@ UniValue gettransaction(const JSONRPCRequest& request)
             "  \"details\" : [\n"
             "    {\n"
             "      \"account\" : \"accountname\",      (string) DEPRECATED. The account name involved in the transaction, can be \"\" for the default account.\n"
-            "      \"address\" : \"address\",          (string) The nix address involved in the transaction\n"
+            "      \"address\" : \"address\",          (string) The libercoin address involved in the transaction\n"
             "      \"category\" : \"send|receive\",    (string) The category, either 'send' or 'receive'\n"
             "      \"amount\" : x.xxx,                 (numeric) The amount in " + CURRENCY_UNIT + "\n"
             "      \"label\" : \"label\",              (string) A comment for the address/transaction, if any\n"
@@ -2900,7 +2900,7 @@ UniValue encryptwallet(const JSONRPCRequest& request)
             "\nExamples:\n"
             "\nEncrypt your wallet\n"
             + HelpExampleCli("encryptwallet", "\"my pass phrase\"") +
-            "\nNow set the passphrase to use the wallet, such as for signing or sending nix\n"
+            "\nNow set the passphrase to use the wallet, such as for signing or sending libercoin\n"
             + HelpExampleCli("walletpassphrase", "\"my pass phrase\"") +
             "\nNow we can do something like sign\n"
             + HelpExampleCli("signmessage", "\"address\" \"test message\"") +
@@ -2938,7 +2938,7 @@ UniValue encryptwallet(const JSONRPCRequest& request)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys. So:
     StartShutdown();
-    return "wallet encrypted; NIX server stopping, restart to run with encrypted wallet. The keypool has been flushed and a new HD seed was generated (if you are using HD). You need to make a new backup.";
+    return "wallet encrypted; LIBERCOIN server stopping, restart to run with encrypted wallet. The keypool has been flushed and a new HD seed was generated (if you are using HD). You need to make a new backup.";
 }
 
 UniValue lockunspent(const JSONRPCRequest& request)
@@ -2954,7 +2954,7 @@ UniValue lockunspent(const JSONRPCRequest& request)
             "\nUpdates list of temporarily unspendable outputs.\n"
             "Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs.\n"
             "If no transaction outputs are specified when unlocking then all current locked transaction outputs are unlocked.\n"
-            "A locked transaction output will not be chosen by automatic coin selection, when spending nix.\n"
+            "A locked transaction output will not be chosen by automatic coin selection, when spending libercoin.\n"
             "Locks are stored in memory only. Nodes start with zero locked outputs, and the locked output list\n"
             "is always cleared (by virtue of process exit) when a node stops or fails.\n"
             "Also see the listunspent call\n"
@@ -3168,7 +3168,7 @@ UniValue getwalletinfo(const JSONRPCRequest& request)
             "  \"unconfirmed_balance\": xxx,      (numeric) the total unconfirmed balance of the wallet in " + CURRENCY_UNIT + "\n"
             "  \"immature_balance\": xxxxxx,      (numeric) the total immature balance of the wallet in " + CURRENCY_UNIT + "\n"
             "  \"txcount\": xxxxxxx,              (numeric) the total number of transactions in the wallet\n"
-            "  \"keypoololdest\": xxxxxx,         (numeric) the timestamp (seconds since Unix epoch) of the oldest pre-generated key in the key pool\n"
+            "  \"keypoololdest\": xxxxxx,         (numeric) the timestamp (seconds since Ulibercoin epoch) of the oldest pre-generated key in the key pool\n"
             "  \"keypoolsize\": xxxx,             (numeric) how many new keys are pre-generated (only counts external keys)\n"
             "  \"keypoolsize_hd_internal\": xxxx, (numeric) how many new keys are pre-generated for internal use (used for change outputs, only appears if the wallet is using this feature, otherwise external keys are used)\n"
             "  \"unlocked_until\": ttt,           (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked\n"
@@ -3307,9 +3307,9 @@ UniValue listunspent(const JSONRPCRequest& request)
             "\nArguments:\n"
             "1. minconf          (numeric, optional, default=1) The minimum confirmations to filter\n"
             "2. maxconf          (numeric, optional, default=9999999) The maximum confirmations to filter\n"
-            "3. \"addresses\"      (string) A json array of nix addresses to filter\n"
+            "3. \"addresses\"      (string) A json array of libercoin addresses to filter\n"
             "    [\n"
-            "      \"address\"     (string) nix address\n"
+            "      \"address\"     (string) libercoin address\n"
             "      ,...\n"
             "    ]\n"
             "4. include_unsafe (bool, optional, default=true) Include outputs that are not safe to spend\n"
@@ -3326,7 +3326,7 @@ UniValue listunspent(const JSONRPCRequest& request)
             "  {\n"
             "    \"txid\" : \"txid\",          (string) the transaction id \n"
             "    \"vout\" : n,               (numeric) the vout value\n"
-            "    \"address\" : \"address\",    (string) the nix address\n"
+            "    \"address\" : \"address\",    (string) the libercoin address\n"
             "    \"account\" : \"account\",    (string) DEPRECATED. The associated account, or \"\" for the default account\n"
             "    \"scriptPubKey\" : \"key\",   (string) the script key\n"
             "    \"amount\" : x.xxx,         (numeric) the transaction output amount in " + CURRENCY_UNIT + "\n"
@@ -3371,7 +3371,7 @@ UniValue listunspent(const JSONRPCRequest& request)
             const UniValue& input = inputs[idx];
             CTxDestination dest = DecodeDestination(input.get_str());
             if (!IsValidDestination(dest)) {
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid NIX address: ") + input.get_str());
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid LIBERCOIN address: ") + input.get_str());
             }
             if (!destinations.insert(dest).second) {
                 throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + input.get_str());
@@ -3479,7 +3479,7 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
                             "1. \"hexstring\"           (string, required) The hex string of the raw transaction\n"
                             "2. options                 (object, optional)\n"
                             "   {\n"
-                            "     \"changeAddress\"          (string, optional, default pool address) The nix address to receive the change\n"
+                            "     \"changeAddress\"          (string, optional, default pool address) The libercoin address to receive the change\n"
                             "     \"changePosition\"         (numeric, optional, default random) The index of the change output\n"
                             "     \"change_type\"            (string, optional) The output type to use. Only valid if changeAddress is not specified. Options are \"legacy\", \"p2sh-segwit\", and \"bech32\". Default is set by -changetype.\n"
                             "     \"includeWatching\"        (boolean, optional, default false) Also select inputs which are watch only\n"
@@ -3488,7 +3488,7 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
                             "     \"subtractFeeFromOutputs\" (array, optional) A json array of integers.\n"
                             "                              The fee will be equally deducted from the amount of each specified output.\n"
                             "                              The outputs are specified by their zero-based index, before any change output is added.\n"
-                            "                              Those recipients will receive less nix than you enter in their corresponding amount field.\n"
+                            "                              Those recipients will receive less libercoin than you enter in their corresponding amount field.\n"
                             "                              If no outputs are specified here, the sender pays the fee.\n"
                             "                                  [vout_index,...]\n"
                             "     \"replaceable\"            (boolean, optional) Marks this transaction as BIP125 replaceable.\n"
@@ -3563,7 +3563,7 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
             CTxDestination dest = DecodeDestination(options["changeAddress"].get_str());
 
             if (!IsValidDestination(dest)) {
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "changeAddress must be a valid nix address");
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "changeAddress must be a valid libercoin address");
             }
 
             coinControl.destChange = dest;
@@ -3937,7 +3937,7 @@ UniValue rescanblockchain(const JSONRPCRequest& request)
 }
 
 
-//Nix Privacy section
+//Libercoin Privacy section
 
 UniValue listunspentmintzerocoins(const JSONRPCRequest& request) {
     if (request.fHelp || request.params.size() > 2)
@@ -4012,7 +4012,7 @@ UniValue ghostamount(const JSONRPCRequest& request)
     if (!strError)
         throw JSONRPCError(RPC_WALLET_ERROR, "ghostamount");
 
-    return "Sucessfully ghosted " + std::to_string(nAmount) +  " NIX";
+    return "Sucessfully ghosted " + std::to_string(nAmount) +  " LIBERCOIN";
 }
 
 UniValue unghostamount(const JSONRPCRequest& request)
@@ -4139,7 +4139,7 @@ UniValue mintzerocoin(const JSONRPCRequest& request)
         return "";
     }
 
-    return "Sucessfully ghosted " + std::to_string(nAmount/COIN) +  " NIX";
+    return "Sucessfully ghosted " + std::to_string(nAmount/COIN) +  " LIBERCOIN";
 }
 
 UniValue spendzerocoin(const JSONRPCRequest& request) {
@@ -4386,7 +4386,7 @@ UniValue totalghosted(const JSONRPCRequest& request) {
     if (request.fHelp || request.params.size() > 1)
         throw runtime_error(
                 "totalghosted\n"
-                        "Returns total amount of ghosted NIX on the network\n");
+                        "Returns total amount of ghosted LIBERCOIN on the network\n");
 
     return TotalGhosted();
 }
@@ -4398,7 +4398,7 @@ UniValue enableTor(const JSONRPCRequest& request){
         throw runtime_error(
                 "enabletor <enable>(false/true)\n"
                         "To enable obfuscation, set enabletor to \"true\"\n"
-                        "Please restart the NIX daemon to update your changes");
+                        "Please restart the LIBERCOIN daemon to update your changes");
 
     bool fStatus = true;
     std::string sfStatus = request.params[0].get_str();
@@ -4410,19 +4410,19 @@ UniValue enableTor(const JSONRPCRequest& request){
         throw runtime_error(
                 "enabletor <enable>(false/true)\n"
                         "To enable obfuscation, set enabletor to \"true\"\n"
-                        "Please restart the NIX daemon to update your changes");
+                        "Please restart the LIBERCOIN daemon to update your changes");
 
     std::string result = "Error with enabletor feature\n";
-    boost::filesystem::path pathTorSetting = GetDataDir()/"nixtorsetting.dat";
+    boost::filesystem::path pathTorSetting = GetDataDir()/"libercointorsetting.dat";
     if(fStatus){
         if (WriteBinaryFileTor(pathTorSetting.string().c_str(), "enabled")) {
-            result = ("Please restart the NIX Core wallet to route your connection to obfuscate your IP address. \nSyncing your wallet might be slower.");
+            result = ("Please restart the LIBERCOIN Core wallet to route your connection to obfuscate your IP address. \nSyncing your wallet might be slower.");
         }else{
             result = ("Obfuscation cannot enable");
         }
     }else{
         if (WriteBinaryFileTor(pathTorSetting.string().c_str(), "disabled")) {
-            result = ("Please restart the NIX Core wallet to disable IP obfuscation.");
+            result = ("Please restart the LIBERCOIN Core wallet to disable IP obfuscation.");
         } else {
             result = ("Obfuscation cannot disable");
         }
@@ -4435,9 +4435,9 @@ UniValue torStatus(const JSONRPCRequest& request){
     if (request.fHelp || request.params.size() > 1)
         throw runtime_error(
                 "torstatus\n"
-                        "Returns the status of tor obfuscation on your NIX daemon");
+                        "Returns the status of tor obfuscation on your LIBERCOIN daemon");
 
-    boost::filesystem::path pathTorSetting = GetDataDir()/"nixtorsetting.dat";
+    boost::filesystem::path pathTorSetting = GetDataDir()/"libercointorsetting.dat";
     std::string result = "Error with torstatus feature\n";
     // read config
     std::pair<bool,std::string> torEnabled = ReadBinaryFileTor(pathTorSetting.string().c_str());
@@ -4520,7 +4520,7 @@ UniValue manageaddressbook(const JSONRPCRequest &request)
     CBitcoinAddress address(sAddress);
 
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_PARAMETER, _("Invalid NIX address."));
+        throw JSONRPCError(RPC_INVALID_PARAMETER, _("Invalid LIBERCOIN address."));
 
     CTxDestination dest = address.Get();
 
@@ -4639,8 +4639,8 @@ UniValue getstakinginfo(const JSONRPCRequest &request)
             "  \"staking\": true|false,         (boolean) if this wallet is staking or not\n"
             "  \"errors\": \"...\"              (string) any error messages\n"
             "  \"percentyearreward\": xxxxxxx,  (numeric) current stake reward percentage\n"
-            "  \"moneysupply\": xxxxxxx,        (numeric) the total amount of NIX in the network\n"
-            "  \"reserve\": xxxxxxx,            (numeric) the total amount of NIX in the network\n"
+            "  \"moneysupply\": xxxxxxx,        (numeric) the total amount of LIBERCOIN in the network\n"
+            "  \"reserve\": xxxxxxx,            (numeric) the total amount of LIBERCOIN in the network\n"
             "  \"walletdonationpercent\": xxxxxxx,\n    (numeric) user set percentage of the block reward ceded to development\n"
             "  \"currentblocksize\": nnn,       (numeric) the last block size in bytes\n"
             "  \"currentblockweight\": nnn,     (numeric) the last block weight\n"
@@ -5400,7 +5400,7 @@ static const CRPCCommand commands[] =
 
     { "generating",         "generate",                 &generate,                 {"nblocks","maxtries"} },
 
-    // NIX Staking functions
+    // LIBERCOIN Staking functions
     { "wallet",             "getstakinginfo",                   &getstakinginfo,                {} },
     { "wallet",             "getcoldstakinginfo",               &getcoldstakinginfo,            {} },
     { "wallet",             "reservebalance",                   &reservebalance,                {"enabled","amount"} },
@@ -5411,32 +5411,32 @@ static const CRPCCommand commands[] =
 
 
 
-    // NIX Ghost functions (experimental)
-    { "NIX Ghost Protocol",             "listunspentghostednix",    &listunspentmintzerocoins,  {} },
-    { "NIX Ghost Protocol",             "ghostamount",              &ghostamount,               {"amount"} },
-    { "NIX Ghost Protocol",             "unghostamount",            &unghostamount,             {"amount"} },
-    { "NIX Ghost Protocol",             "resetghostednix",          &resetmintzerocoin,         {} },
-    { "NIX Ghost Protocol",             "setghostednixstatus",      &setmintzerocoinstatus,     {} },
-    { "NIX Ghost Protocol",             "listghostednix",           &listmintzerocoins,         {"all"} },
-    { "NIX Ghost Protocol",             "listpubcoins",             &listpubcoins,              {} },
-    { "NIX Ghost Protocol",             "totalghosted",             &totalghosted,              {} },
+    // LIBERCOIN Ghost functions (experimental)
+    { "LIBERCOIN Ghost Protocol",             "listunspentghostedlibercoin",    &listunspentmintzerocoins,  {} },
+    { "LIBERCOIN Ghost Protocol",             "ghostamount",              &ghostamount,               {"amount"} },
+    { "LIBERCOIN Ghost Protocol",             "unghostamount",            &unghostamount,             {"amount"} },
+    { "LIBERCOIN Ghost Protocol",             "resetghostedlibercoin",          &resetmintzerocoin,         {} },
+    { "LIBERCOIN Ghost Protocol",             "setghostedlibercoinstatus",      &setmintzerocoinstatus,     {} },
+    { "LIBERCOIN Ghost Protocol",             "listghostedlibercoin",           &listmintzerocoins,         {"all"} },
+    { "LIBERCOIN Ghost Protocol",             "listpubcoins",             &listpubcoins,              {} },
+    { "LIBERCOIN Ghost Protocol",             "totalghosted",             &totalghosted,              {} },
 
-    { "NIX Ghost Protocol",             "refillghostkeys",          &refillghostkeys,           {"amount"} },
-    { "NIX Ghost Protocol",             "listunloadedpubcoins",     &listunloadedpubcoins,      {"amount"} },
-    { "NIX Ghost Protocol",             "payunloadedpubcoins",      &payunloadedpubcoins,       {"amount", "address"} },
-    { "NIX Ghost Protocol",             "getpubcoinpack",           &getpubcoinpack,            {"amount"} },
-    { "NIX Ghost Protocol",             "resetzerocoinamounts",     &resetzerocoinamounts,      {} },
-    { "NIX Ghost Protocol",             "resetzerocoinunconfirmed", &resetzerocoinunconfirmed,  {} },
-    { "NIX Ghost Protocol",             "listallserials",           &listallserials,            {"height"} },
-    { "NIX Ghost Protocol",             "eraseusedzerocoindata",    &eraseusedzerocoindata,     {""} },
-    { "NIX Ghost Protocol",             "encryptallzerocoins",      &encryptallzerocoins,       {""} },
-    { "NIX Ghost Protocol",             "decryptallzerocoins",      &decryptallzerocoins,       {""} },
+    { "LIBERCOIN Ghost Protocol",             "refillghostkeys",          &refillghostkeys,           {"amount"} },
+    { "LIBERCOIN Ghost Protocol",             "listunloadedpubcoins",     &listunloadedpubcoins,      {"amount"} },
+    { "LIBERCOIN Ghost Protocol",             "payunloadedpubcoins",      &payunloadedpubcoins,       {"amount", "address"} },
+    { "LIBERCOIN Ghost Protocol",             "getpubcoinpack",           &getpubcoinpack,            {"amount"} },
+    { "LIBERCOIN Ghost Protocol",             "resetzerocoinamounts",     &resetzerocoinamounts,      {} },
+    { "LIBERCOIN Ghost Protocol",             "resetzerocoinunconfirmed", &resetzerocoinunconfirmed,  {} },
+    { "LIBERCOIN Ghost Protocol",             "listallserials",           &listallserials,            {"height"} },
+    { "LIBERCOIN Ghost Protocol",             "eraseusedzerocoindata",    &eraseusedzerocoindata,     {""} },
+    { "LIBERCOIN Ghost Protocol",             "encryptallzerocoins",      &encryptallzerocoins,       {""} },
+    { "LIBERCOIN Ghost Protocol",             "decryptallzerocoins",      &decryptallzerocoins,       {""} },
 
 
 
-    //NIX TOR routing functions
-    { "NIX TOR",             "enabletor",        &enableTor,        {"set"} },
-    { "NIX TOR",             "torstatus",        &torStatus,        {} },
+    //LIBERCOIN TOR routing functions
+    { "LIBERCOIN TOR",             "enabletor",        &enableTor,        {"set"} },
+    { "LIBERCOIN TOR",             "torstatus",        &torStatus,        {} },
 
 
 

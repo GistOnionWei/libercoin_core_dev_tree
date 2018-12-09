@@ -42,7 +42,7 @@
 #include "ghostnode/flat-database.h"
 
 #if defined(NDEBUG)
-# error "NIX cannot be compiled without assertions."
+# error "LIBERCOIN cannot be compiled without assertions."
 #endif
 
 std::atomic<int64_t> nTimeBestReceived(0); // Used only to inform the wallet of when we last received a block
@@ -1836,7 +1836,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             SeenLocal(addrMe);
         }
 
-        if(strSubVer == "/Nix Core:1.0.0/"){
+        if(strSubVer == "/Libercoin Core:1.0.0/"){
             // disconnect from peers older than this version due to min tx fee
             LogPrint(BCLog::NET, "peer=%d using obsolete version %i; disconnecting\n", pfrom->GetId(), nVersion);
             connman->PushMessage(pfrom, CNetMsgMaker(INIT_PROTO_VERSION).Make(NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,

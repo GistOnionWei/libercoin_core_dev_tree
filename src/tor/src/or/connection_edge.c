@@ -361,7 +361,7 @@ warn_if_hs_unreachable(const edge_connection_t *conn, uint8_t reason)
     char *m;
     if ((m = rate_limit_log(&warn_limit, approx_time()))) {
       log_warn(LD_EDGE, "Onion service connection to %s failed (%s)",
-               (conn->base_.socket_family == AF_UNIX) ?
+               (conn->base_.socket_family == AF_ULIBERCOIN) ?
                safe_str(conn->base_.address) :
                safe_str(fmt_addrport(&conn->base_.addr, conn->base_.port)),
                stream_end_reason_to_string(reason));
@@ -3662,7 +3662,7 @@ connection_exit_connect(edge_connection_t *edge_conn)
   }
 
 #ifdef HAVE_SYS_UN_H
-  if (conn->socket_family != AF_UNIX) {
+  if (conn->socket_family != AF_ULIBERCOIN) {
 #else
   {
 #endif /* defined(HAVE_SYS_UN_H) */
@@ -3678,7 +3678,7 @@ connection_exit_connect(edge_connection_t *edge_conn)
 #ifdef HAVE_SYS_UN_H
   } else {
     /*
-     * In the AF_UNIX case, we expect to have already had conn->port = 1,
+     * In the AF_ULIBERCOIN case, we expect to have already had conn->port = 1,
      * tor_addr_make_unspec(conn->addr) (cf. the way we mark in the incoming
      * case in connection_handle_listener_read()), and conn->address should
      * have the socket path to connect to.
@@ -3686,7 +3686,7 @@ connection_exit_connect(edge_connection_t *edge_conn)
     tor_assert(conn->address && strlen(conn->address) > 0);
 
     log_debug(LD_EXIT, "about to try connecting");
-    result = connection_connect_unix(conn, conn->address, &socket_error);
+    result = connection_connect_ulibercoin(conn, conn->address, &socket_error);
 #endif /* defined(HAVE_SYS_UN_H) */
   }
 

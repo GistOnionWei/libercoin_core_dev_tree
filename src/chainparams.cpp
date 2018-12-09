@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2016 The Bitcoin Core developers
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -71,7 +71,7 @@ CAmount GetInitialRewards(int nHeight, const Consensus::Params& consensusParams)
     CAmount nSubsidy = 64 * COIN;
     // Subsidy is cut in half every 1,050,000 blocks which will occur approximately every 4 years.
     nSubsidy >>= halvings;
-    //On genesis, create 38 million NIX for the Zoin airdrop
+    //On genesis, create 38 million LIBERCOIN for the Zoin airdrop
     if(nHeight == 1)
         nSubsidy = 38000000 * COIN;
 
@@ -219,13 +219,13 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0xdd28ad86def767c3cfc34267a950d871fc7462bc57ea4a929fc3596d9b598e41"));
         assert(genesis.hashMerkleRoot == uint256S("0x06c118557a3a44b144a31c9f3a967bd94f94e0d7ff666d30587360f695f0873d"));
 
-        vSeeds.emplace_back("ny.nixplatform.io");
-        vSeeds.emplace_back("sf.nixplatform.io");
-        vSeeds.emplace_back("ldn.nixplatform.io");
-        vSeeds.emplace_back("fra.nixplatform.io");
-        vSeeds.emplace_back("tor.nixplatform.io");
-        vSeeds.emplace_back("sgp.nixplatform.io");
-        vSeeds.emplace_back("blr.nixplatform.io");
+        vSeeds.emplace_back("ny.liberco.in");
+        vSeeds.emplace_back("sf.liberco.in");
+        vSeeds.emplace_back("ldn.liberco.in");
+        vSeeds.emplace_back("fra.liberco.in");
+        vSeeds.emplace_back("tor.liberco.in");
+        vSeeds.emplace_back("sgp.liberco.in");
+        vSeeds.emplace_back("blr.liberco.in");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,53);
@@ -251,7 +251,7 @@ public:
         bech32Prefixes[EXT_KEY_HASH].assign         ("nek","nek"+3);
         bech32Prefixes[EXT_ACC_HASH].assign         ("nea","nea"+3);
 
-        bech32_hrp = "nix";
+        bech32_hrp = "libercoin";
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
         //vFixedSeeds.clear();
@@ -276,7 +276,7 @@ public:
 
         chainTxData = ChainTxData{
                 //block 108750 (0x22712c14439959794cf3af0340757fa2b746ae06a945e8964264bc4b08d9b6ef)
-            1543963824, // * UNIX timestamp of last known number of transactions
+            1543963824, // * ULIBERCOIN timestamp of last known number of transactions
             137164,  // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.009889085387575334  // * estimated number of transactions per second after that timestamp
@@ -366,7 +366,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet.nixplatform.io");
+        vSeeds.emplace_back("testnet.liberco.in");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,1);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,3);
@@ -392,7 +392,7 @@ public:
         bech32Prefixes[EXT_KEY_HASH].assign         ("nek","nek"+3);
         bech32Prefixes[EXT_ACC_HASH].assign         ("nea","nea"+3);
 
-        bech32_hrp = "tnix";
+        bech32_hrp = "tlibercoin";
 
         //vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
         vFixedSeeds.clear();
@@ -558,7 +558,7 @@ public:
         bech32Prefixes[EXT_KEY_HASH].assign         ("nek","nek"+3);
         bech32Prefixes[EXT_ACC_HASH].assign         ("nea","nea"+3);
 
-        bech32_hrp = "rnix";
+        bech32_hrp = "rlibercoin";
     }
 };
 

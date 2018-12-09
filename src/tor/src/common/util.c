@@ -2128,7 +2128,7 @@ read_all(tor_socket_t fd, char *buf, size_t count, int isSocket)
  *    Filesystem operations.
  */
 
-/** Clean up <b>name</b> so that we can use it in a call to "stat".  On Unix,
+/** Clean up <b>name</b> so that we can use it in a call to "stat".  On Ulibercoin,
  * we do nothing.  On Windows, we remove a trailing slash, unless the path is
  * the root of a disk. */
 static void
@@ -2161,7 +2161,7 @@ tor_unlink,(const char *pathname))
 /** Return:
  * FN_ERROR if filename can't be read, is NULL, or is zero-length,
  * FN_NOENT if it doesn't exist,
- * FN_FILE if it is a non-empty regular file, or a FIFO on unix-like systems,
+ * FN_FILE if it is a non-empty regular file, or a FIFO on ulibercoin-like systems,
  * FN_EMPTY for zero-byte regular files,
  * FN_DIR if it's a directory, and
  * FN_ERROR for any other file type.
@@ -3623,7 +3623,7 @@ start_daemon(void)
      * Fork one more time, so the parent (the session group leader) can exit.
      * This means that we, as a non-session group leader, can never regain a
      * controlling terminal.   This part is recommended by Stevens's
-     * _Advanced Programming in the Unix Environment_.
+     * _Advanced Programming in the Ulibercoin Environment_.
      */
     if (fork() != 0) {
       exit(0);
@@ -4446,7 +4446,7 @@ tor_spawn_background(const char *const filename, const char **argv,
        execvp doesn't define argv as const, even though it
        does not modify the arguments */
     if (env)
-      execve(filename, (char *const *) argv, env->unixoid_environment_block);
+      execve(filename, (char *const *) argv, env->ulibercoinoid_environment_block);
     else {
       static char *new_env[] = { NULL };
       execve(filename, (char *const *) argv, new_env);
@@ -4605,7 +4605,7 @@ tor_process_handle_destroy,(process_handle_t *process_handle,
  * PROCESS_EXIT_RUNNING, and exit_code will be left unchanged. Returns
  * PROCESS_EXIT_EXITED if the process did exit. If there is a failure,
  * PROCESS_EXIT_ERROR will be returned and the contents of exit_code (if
- * non-NULL) will be undefined. N.B. Under *nix operating systems, this will
+ * non-NULL) will be undefined. N.B. Under *libercoin operating systems, this will
  * probably not work in Tor, because waitpid() is called in main.c to reap any
  * terminated child processes.*/
 int
@@ -4717,12 +4717,12 @@ process_environment_free(process_environment_t *env)
 {
   if (env == NULL) return;
 
-  /* As both an optimization hack to reduce consing on Unixoid systems
+  /* As both an optimization hack to reduce consing on Ulibercoinoid systems
    * and a nice way to ensure that some otherwise-Windows-specific
    * code will always get tested before changes to it get merged, the
-   * strings which env->unixoid_environment_block points to are packed
+   * strings which env->ulibercoinoid_environment_block points to are packed
    * into env->windows_environment_block. */
-  tor_free(env->unixoid_environment_block);
+  tor_free(env->ulibercoinoid_environment_block);
   tor_free(env->windows_environment_block);
 
   tor_free(env);
@@ -4741,8 +4741,8 @@ process_environment_make(struct smartlist_t *env_vars)
   smartlist_t *env_vars_sorted;
 
   tor_assert(n_env_vars + 1 != 0);
-  env->unixoid_environment_block = tor_calloc(n_env_vars + 1, sizeof(char *));
-  /* env->unixoid_environment_block is already NULL-terminated,
+  env->ulibercoinoid_environment_block = tor_calloc(n_env_vars + 1, sizeof(char *));
+  /* env->ulibercoinoid_environment_block is already NULL-terminated,
    * because we assume that NULL == 0 (and check that during compilation). */
 
   total_env_length = 1; /* terminating NUL of terminating empty string */
@@ -4799,7 +4799,7 @@ process_environment_make(struct smartlist_t *env_vars)
 
       /* Actually copy the string into the environment. */
       memcpy(cp, s, slen+1);
-      env->unixoid_environment_block[i] = cp;
+      env->ulibercoinoid_environment_block[i] = cp;
       cp += slen+1;
     }
 
@@ -5140,7 +5140,7 @@ tor_get_lines_from_handle, (HANDLE *handle,
  * Returns -1 if there is a error reading, and 0 otherwise.
  * If the generated stream is flushed more often than on new lines, or
  * a read exceeds 256 bytes, lines will be truncated. This should be fixed,
- * along with the corresponding problem on *nix (see bug #2045).
+ * along with the corresponding problem on *libercoin (see bug #2045).
  */
 static int
 log_from_handle(HANDLE *pipe, int severity)

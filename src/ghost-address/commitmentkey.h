@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The NIX developers
+// Copyright (c) 2017-2018 The LIBERCOIN developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef NIX_PEDERSENKEY_H
-#define NIX_PEDERSENKEY_H
+#ifndef LIBERCOIN_PEDERSENKEY_H
+#define LIBERCOIN_PEDERSENKEY_H
 
 #include <vector>
 #include <string>
@@ -123,4 +123,4 @@ void AppendCommitmentChecksum(std::vector<uint8_t> &data);
 uint32_t CommitmentChecksum(uint8_t *p, uint32_t nBytes);
 
 
-#endif // NIX_PEDERSENKEY_H
+#endif // LIBERCOIN_PEDERSENKEY_H

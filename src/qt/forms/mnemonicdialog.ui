@@ -336,7 +336,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../nix.qrc"/>
+  <include location="../libercoin.qrc"/>
  </resources>
  <connections/>
 </ui>

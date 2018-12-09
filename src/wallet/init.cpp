@@ -51,7 +51,7 @@ std::string GetWalletHelpString(bool showDebug)
     strUsage += HelpMessageOpt("-donationpercent=<n>", _("Percentage of block reward donated to the donation address. e.g. 1190 (11.90%) (default: 0)"));
     strUsage += HelpMessageOpt("-donationaddress=<n>", _("Destination to send donated staking rewards. (default: N/A)"));
     strUsage += HelpMessageOpt("-stakesplitthreshold=<n>", _("Maximum amount of coins to stake before splitting into two outputs. (default: 20000)"));
-    strUsage += HelpMessageOpt("-stakecombinethreshold=<n>", _("Minimum amount of NIX to combine into one stake if wallet has multiple outputs to stake. (default: 5000)"));
+    strUsage += HelpMessageOpt("-stakecombinethreshold=<n>", _("Minimum amount of LIBERCOIN to combine into one stake if wallet has multiple outputs to stake. (default: 5000)"));
     strUsage += HelpMessageOpt("-maxstakecombine=<n>", _("Maximim of outputs to combine when achieving stakecombinethreshold. (default: 3)"));
     strUsage += HelpMessageOpt("-coldstakeaddress=<n>", _("Coldstaking address used for smart contract staking. To be used for local wallet setup. (default: "" (None)"));
     strUsage += HelpMessageOpt("-minimumleasepercentage=<n>", _("Minimum lease percentage required for a contract to stake if you are leasing stakes. Value can be between 0 and 10000 e.g. 1191 (11.91%) (default: 0"));

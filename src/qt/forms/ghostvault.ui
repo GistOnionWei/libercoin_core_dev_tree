@@ -69,7 +69,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0 Ghosted NIX</string>
+          <string>0 Ghosted LIBERCOIN</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -150,7 +150,7 @@
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
-         <string>Ghost NIX to Vault</string>
+         <string>Ghost LIBERCOIN to Vault</string>
         </attribute>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="spacing">
@@ -268,12 +268,12 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="ghostNIXButton">
+            <widget class="QPushButton" name="ghostLIBERCOINButton">
              <property name="toolTip">
-              <string>Ghost NIX</string>
+              <string>Ghost LIBERCOIN</string>
              </property>
              <property name="text">
-              <string>&amp;Ghost NIX</string>
+              <string>&amp;Ghost LIBERCOIN</string>
              </property>
              <property name="autoDefault">
               <bool>false</bool>
@@ -286,7 +286,7 @@
        </widget>
        <widget class="QWidget" name="tab_2">
         <attribute name="title">
-         <string>Un-Ghost NIX from Vault</string>
+         <string>Un-Ghost LIBERCOIN from Vault</string>
         </attribute>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="spacing">
@@ -374,7 +374,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="convertNIXAmount">
+            <widget class="QLineEdit" name="convertLIBERCOINAmount">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -415,10 +415,10 @@
            <item>
             <widget class="QPushButton" name="convertGhostButton">
              <property name="toolTip">
-              <string>Convert Ghosted NIX</string>
+              <string>Convert Ghosted LIBERCOIN</string>
              </property>
              <property name="text">
-              <string>&amp;Un-Ghost NIX</string>
+              <string>&amp;Un-Ghost LIBERCOIN</string>
              </property>
              <property name="autoDefault">
               <bool>false</bool>

@@ -156,21 +156,21 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "rescanblockchain", 1, "stop_height"},
     { "getfeeforamount", 0, "amount" },
 
-    //NIX Privacy functions
+    //LIBERCOIN Privacy functions
     { "setmininput", 0 , "amount"},
     { "ghostamount", 0 , "amount"},
     { "unghostamount", 0 , "amount"},
     { "setgenerate", 0 , "bool"},
     { "setgenerate", 1 , "bool"},
-    { "setghostednixstatus", 2 ,""},
-    { "setghostednixstatus", 1 ,""},
-    { "listunspentghostednix", 0 ,""},
+    { "setghostedlibercoinstatus", 2 ,""},
+    { "setghostedlibercoinstatus", 1 ,""},
+    { "listunspentghostedlibercoin", 0 ,""},
     { "listpubcoins", 0, ""},
     { "getnewstealthaddress", 1 ,"label"},
     { "importstealthaddress", 0 ,"scan_secret"},
     { "liststealthaddresses", 0, "show_secrets"},
 
-    //NIX Staking functions
+    //LIBERCOIN Staking functions
     { "walletsettings", 1, "json" },
     { "reservebalance", 0, "enabled" },
 
@@ -182,7 +182,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
 
     {"payunloadedpubcoins", 0, "amount"},
     {"refillghostkeys", 0, "amount"},
-    {"listghostednix", 0, "all"},
+    {"listghostedlibercoin", 0, "all"},
     {"listallserials", 0, "height"},
 
 

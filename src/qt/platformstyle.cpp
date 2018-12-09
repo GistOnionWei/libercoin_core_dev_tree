@@ -22,7 +22,7 @@ static const struct {
 } platform_styles[] = {
     {"macosx", false, false, true},
     {"windows", true, false, false},
-    /* Other: linux, unix, ... */
+    /* Other: linux, ulibercoin, ... */
     {"other", true, true, false}
 };
 static const unsigned platform_styles_count = sizeof(platform_styles)/sizeof(*platform_styles);

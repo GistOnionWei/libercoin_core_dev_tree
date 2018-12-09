@@ -2,125 +2,125 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-bin_PROGRAMS += qt/nix-qt
-EXTRA_LIBRARIES += qt/libnixqt.a
+bin_PROGRAMS += qt/libercoin-qt
+EXTRA_LIBRARIES += qt/liblibercoinqt.a
 
-# nix qt core #
+# libercoin qt core #
 QT_TS = \
-  qt/locale/nix_af.ts \
-  qt/locale/nix_af_ZA.ts \
-  qt/locale/nix_am.ts \
-  qt/locale/nix_ar.ts \
-  qt/locale/nix_be_BY.ts \
-  qt/locale/nix_bg_BG.ts \
-  qt/locale/nix_bg.ts \
-  qt/locale/nix_bn.ts \
-  qt/locale/nix_bs.ts \
-  qt/locale/nix_ca_ES.ts \
-  qt/locale/nix_ca.ts \
-  qt/locale/nix_ca@valencia.ts \
-  qt/locale/nix_cs_CZ.ts \
-  qt/locale/nix_cs.ts \
-  qt/locale/nix_cy.ts \
-  qt/locale/nix_da.ts \
-  qt/locale/nix_de_DE.ts \
-  qt/locale/nix_de.ts \
-  qt/locale/nix_el_GR.ts \
-  qt/locale/nix_el.ts \
-  qt/locale/nix_en_AU.ts \
-  qt/locale/nix_en_GB.ts \
-  qt/locale/nix_en.ts \
-  qt/locale/nix_eo.ts \
-  qt/locale/nix_es_419.ts \
-  qt/locale/nix_es_AR.ts \
-  qt/locale/nix_es_CL.ts \
-  qt/locale/nix_es_CO.ts \
-  qt/locale/nix_es_DO.ts \
-  qt/locale/nix_es_ES.ts \
-  qt/locale/nix_es_MX.ts \
-  qt/locale/nix_es.ts \
-  qt/locale/nix_es_UY.ts \
-  qt/locale/nix_es_VE.ts \
-  qt/locale/nix_et_EE.ts \
-  qt/locale/nix_et.ts \
-  qt/locale/nix_eu_ES.ts \
-  qt/locale/nix_fa_IR.ts \
-  qt/locale/nix_fa.ts \
-  qt/locale/nix_fi.ts \
-  qt/locale/nix_fr_CA.ts \
-  qt/locale/nix_fr_FR.ts \
-  qt/locale/nix_fr.ts \
-  qt/locale/nix_gl.ts \
-  qt/locale/nix_he_IL.ts \
-  qt/locale/nix_he.ts \
-  qt/locale/nix_hi_IN.ts \
-  qt/locale/nix_hr.ts \
-  qt/locale/nix_hu_HU.ts \
-  qt/locale/nix_hu.ts \
-  qt/locale/nix_id_ID.ts \
-  qt/locale/nix_id.ts \
-  qt/locale/nix_is.ts \
-  qt/locale/nix_it_IT.ts \
-  qt/locale/nix_it.ts \
-  qt/locale/nix_ja_JP.ts \
-  qt/locale/nix_ja.ts \
-  qt/locale/nix_ka.ts \
-  qt/locale/nix_kk_KZ.ts \
-  qt/locale/nix_km_KH.ts \
-  qt/locale/nix_ko_KR.ts \
-  qt/locale/nix_ko.ts \
-  qt/locale/nix_ku_IQ.ts \
-  qt/locale/nix_ky.ts \
-  qt/locale/nix_la.ts \
-  qt/locale/nix_lt.ts \
-  qt/locale/nix_lv_LV.ts \
-  qt/locale/nix_mk_MK.ts \
-  qt/locale/nix_ml.ts \
-  qt/locale/nix_mn.ts \
-  qt/locale/nix_mr_IN.ts \
-  qt/locale/nix_ms_MY.ts \
-  qt/locale/nix_ms.ts \
-  qt/locale/nix_my.ts \
-  qt/locale/nix_nb_NO.ts \
-  qt/locale/nix_nb.ts \
-  qt/locale/nix_ne.ts \
-  qt/locale/nix_nl_NL.ts \
-  qt/locale/nix_nl.ts \
-  qt/locale/nix_pam.ts \
-  qt/locale/nix_pl_PL.ts \
-  qt/locale/nix_pl.ts \
-  qt/locale/nix_pt_BR.ts \
-  qt/locale/nix_pt_PT.ts \
-  qt/locale/nix_pt.ts \
-  qt/locale/nix_ro_RO.ts \
-  qt/locale/nix_ro.ts \
-  qt/locale/nix_ru_RU.ts \
-  qt/locale/nix_ru.ts \
-  qt/locale/nix_si.ts \
-  qt/locale/nix_sk.ts \
-  qt/locale/nix_sl_SI.ts \
-  qt/locale/nix_sn.ts \
-  qt/locale/nix_sq.ts \
-  qt/locale/nix_sr@latin.ts \
-  qt/locale/nix_sr.ts \
-  qt/locale/nix_sv.ts \
-  qt/locale/nix_ta_IN.ts \
-  qt/locale/nix_ta.ts \
-  qt/locale/nix_te.ts \
-  qt/locale/nix_th_TH.ts \
-  qt/locale/nix_th.ts \
-  qt/locale/nix_tr_TR.ts \
-  qt/locale/nix_tr.ts \
-  qt/locale/nix_uk.ts \
-  qt/locale/nix_ur_PK.ts \
-  qt/locale/nix_uz@Cyrl.ts \
-  qt/locale/nix_vi.ts \
-  qt/locale/nix_vi_VN.ts \
-  qt/locale/nix_zh_CN.ts \
-  qt/locale/nix_zh-Hans.ts \
-  qt/locale/nix_zh_HK.ts \
-  qt/locale/nix_zh.ts \
-  qt/locale/nix_zh_TW.ts
+  qt/locale/libercoin_af.ts \
+  qt/locale/libercoin_af_ZA.ts \
+  qt/locale/libercoin_am.ts \
+  qt/locale/libercoin_ar.ts \
+  qt/locale/libercoin_be_BY.ts \
+  qt/locale/libercoin_bg_BG.ts \
+  qt/locale/libercoin_bg.ts \
+  qt/locale/libercoin_bn.ts \
+  qt/locale/libercoin_bs.ts \
+  qt/locale/libercoin_ca_ES.ts \
+  qt/locale/libercoin_ca.ts \
+  qt/locale/libercoin_ca@valencia.ts \
+  qt/locale/libercoin_cs_CZ.ts \
+  qt/locale/libercoin_cs.ts \
+  qt/locale/libercoin_cy.ts \
+  qt/locale/libercoin_da.ts \
+  qt/locale/libercoin_de_DE.ts \
+  qt/locale/libercoin_de.ts \
+  qt/locale/libercoin_el_GR.ts \
+  qt/locale/libercoin_el.ts \
+  qt/locale/libercoin_en_AU.ts \
+  qt/locale/libercoin_en_GB.ts \
+  qt/locale/libercoin_en.ts \
+  qt/locale/libercoin_eo.ts \
+  qt/locale/libercoin_es_419.ts \
+  qt/locale/libercoin_es_AR.ts \
+  qt/locale/libercoin_es_CL.ts \
+  qt/locale/libercoin_es_CO.ts \
+  qt/locale/libercoin_es_DO.ts \
+  qt/locale/libercoin_es_ES.ts \
+  qt/locale/libercoin_es_MX.ts \
+  qt/locale/libercoin_es.ts \
+  qt/locale/libercoin_es_UY.ts \
+  qt/locale/libercoin_es_VE.ts \
+  qt/locale/libercoin_et_EE.ts \
+  qt/locale/libercoin_et.ts \
+  qt/locale/libercoin_eu_ES.ts \
+  qt/locale/libercoin_fa_IR.ts \
+  qt/locale/libercoin_fa.ts \
+  qt/locale/libercoin_fi.ts \
+  qt/locale/libercoin_fr_CA.ts \
+  qt/locale/libercoin_fr_FR.ts \
+  qt/locale/libercoin_fr.ts \
+  qt/locale/libercoin_gl.ts \
+  qt/locale/libercoin_he_IL.ts \
+  qt/locale/libercoin_he.ts \
+  qt/locale/libercoin_hi_IN.ts \
+  qt/locale/libercoin_hr.ts \
+  qt/locale/libercoin_hu_HU.ts \
+  qt/locale/libercoin_hu.ts \
+  qt/locale/libercoin_id_ID.ts \
+  qt/locale/libercoin_id.ts \
+  qt/locale/libercoin_is.ts \
+  qt/locale/libercoin_it_IT.ts \
+  qt/locale/libercoin_it.ts \
+  qt/locale/libercoin_ja_JP.ts \
+  qt/locale/libercoin_ja.ts \
+  qt/locale/libercoin_ka.ts \
+  qt/locale/libercoin_kk_KZ.ts \
+  qt/locale/libercoin_km_KH.ts \
+  qt/locale/libercoin_ko_KR.ts \
+  qt/locale/libercoin_ko.ts \
+  qt/locale/libercoin_ku_IQ.ts \
+  qt/locale/libercoin_ky.ts \
+  qt/locale/libercoin_la.ts \
+  qt/locale/libercoin_lt.ts \
+  qt/locale/libercoin_lv_LV.ts \
+  qt/locale/libercoin_mk_MK.ts \
+  qt/locale/libercoin_ml.ts \
+  qt/locale/libercoin_mn.ts \
+  qt/locale/libercoin_mr_IN.ts \
+  qt/locale/libercoin_ms_MY.ts \
+  qt/locale/libercoin_ms.ts \
+  qt/locale/libercoin_my.ts \
+  qt/locale/libercoin_nb_NO.ts \
+  qt/locale/libercoin_nb.ts \
+  qt/locale/libercoin_ne.ts \
+  qt/locale/libercoin_nl_NL.ts \
+  qt/locale/libercoin_nl.ts \
+  qt/locale/libercoin_pam.ts \
+  qt/locale/libercoin_pl_PL.ts \
+  qt/locale/libercoin_pl.ts \
+  qt/locale/libercoin_pt_BR.ts \
+  qt/locale/libercoin_pt_PT.ts \
+  qt/locale/libercoin_pt.ts \
+  qt/locale/libercoin_ro_RO.ts \
+  qt/locale/libercoin_ro.ts \
+  qt/locale/libercoin_ru_RU.ts \
+  qt/locale/libercoin_ru.ts \
+  qt/locale/libercoin_si.ts \
+  qt/locale/libercoin_sk.ts \
+  qt/locale/libercoin_sl_SI.ts \
+  qt/locale/libercoin_sn.ts \
+  qt/locale/libercoin_sq.ts \
+  qt/locale/libercoin_sr@latin.ts \
+  qt/locale/libercoin_sr.ts \
+  qt/locale/libercoin_sv.ts \
+  qt/locale/libercoin_ta_IN.ts \
+  qt/locale/libercoin_ta.ts \
+  qt/locale/libercoin_te.ts \
+  qt/locale/libercoin_th_TH.ts \
+  qt/locale/libercoin_th.ts \
+  qt/locale/libercoin_tr_TR.ts \
+  qt/locale/libercoin_tr.ts \
+  qt/locale/libercoin_uk.ts \
+  qt/locale/libercoin_ur_PK.ts \
+  qt/locale/libercoin_uz@Cyrl.ts \
+  qt/locale/libercoin_vi.ts \
+  qt/locale/libercoin_vi_VN.ts \
+  qt/locale/libercoin_zh_CN.ts \
+  qt/locale/libercoin_zh-Hans.ts \
+  qt/locale/libercoin_zh_HK.ts \
+  qt/locale/libercoin_zh.ts \
+  qt/locale/libercoin_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -154,10 +154,10 @@ QT_MOC_CPP = \
   qt/moc_ghostvault.cpp \
   qt/moc_ghostnode.cpp \
   qt/moc_mnemonicdialog.cpp \
-  qt/moc_nixaddressvalidator.cpp \
-  qt/moc_nixamountfield.cpp \
-  qt/moc_nixgui.cpp \
-  qt/moc_nixunits.cpp \
+  qt/moc_libercoinaddressvalidator.cpp \
+  qt/moc_libercoinamountfield.cpp \
+  qt/moc_libercoingui.cpp \
+  qt/moc_libercoinunits.cpp \
   qt/moc_callback.cpp \
   qt/moc_clientmodel.cpp \
   qt/moc_coincontroldialog.cpp \
@@ -197,36 +197,36 @@ QT_MOC_CPP = \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp
 
-NIX_MM = \
+LIBERCOIN_MM = \
   qt/macdockiconhandler.mm \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/nix.moc \
-  qt/nixamountfield.moc \
+  qt/libercoin.moc \
+  qt/libercoinamountfield.moc \
   qt/callback.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_nix.cpp
-QT_QRC = qt/nix.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_nix_locale.cpp
-QT_QRC_LOCALE = qt/nix_locale.qrc
+QT_QRC_CPP = qt/qrc_libercoin.cpp
+QT_QRC = qt/libercoin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_libercoin_locale.cpp
+QT_QRC_LOCALE = qt/libercoin_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
 PROTOBUF_PROTO = qt/paymentrequest.proto
 
-NIX_QT_H = \
+LIBERCOIN_QT_H = \
   qt/addressbookpage.h \
   qt/addresstablemodel.h \
   qt/askpassphrasedialog.h \
   qt/bantablemodel.h \
-  qt/nixaddressvalidator.h \
-  qt/nixamountfield.h \
-  qt/nixgui.h \
-  qt/nixunits.h \
+  qt/libercoinaddressvalidator.h \
+  qt/libercoinamountfield.h \
+  qt/libercoingui.h \
+  qt/libercoinunits.h \
   qt/callback.h \
   qt/clientmodel.h \
   qt/coincontroldialog.h \
@@ -282,9 +282,9 @@ RES_ICONS = \
   qt/res/icons/address-book.png \
   qt/res/icons/about.png \
   qt/res/icons/about_qt.png \
-  qt/res/icons/nix.ico \
-  qt/res/icons/nix_testnet.ico \
-  qt/res/icons/nix.png \
+  qt/res/icons/libercoin.ico \
+  qt/res/icons/libercoin_testnet.ico \
+  qt/res/icons/libercoin.png \
   qt/res/icons/chevron.png \
   qt/res/icons/clock1.png \
   qt/res/icons/clock2.png \
@@ -335,12 +335,12 @@ RES_ICONS = \
   qt/res/icons/warning.png \
   qt/res/icons/verify.png
 
-NIX_QT_BASE_CPP = \
+LIBERCOIN_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
-  qt/nixaddressvalidator.cpp \
-  qt/nixamountfield.cpp \
-  qt/nixgui.cpp \
-  qt/nixunits.cpp \
+  qt/libercoinaddressvalidator.cpp \
+  qt/libercoinamountfield.cpp \
+  qt/libercoingui.cpp \
+  qt/libercoinunits.cpp \
   qt/clientmodel.cpp \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
@@ -360,9 +360,9 @@ NIX_QT_BASE_CPP = \
   qt/utilitydialog.cpp \
   qt/mnemonicdialog.cpp
 
-NIX_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+LIBERCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
 
-NIX_QT_WALLET_CPP = \
+LIBERCOIN_QT_WALLET_CPP = \
   qt/addressbookpage.cpp \
   qt/addresstablemodel.cpp \
   qt/askpassphrasedialog.cpp \
@@ -393,31 +393,31 @@ NIX_QT_WALLET_CPP = \
   qt/ghostvault.cpp \
   qt/ghostnode.cpp
 
-NIX_QT_CPP = $(NIX_QT_BASE_CPP)
+LIBERCOIN_QT_CPP = $(LIBERCOIN_QT_BASE_CPP)
 if TARGET_WINDOWS
-NIX_QT_CPP += $(NIX_QT_WINDOWS_CPP)
+LIBERCOIN_QT_CPP += $(LIBERCOIN_QT_WINDOWS_CPP)
 endif
 if ENABLE_WALLET
-NIX_QT_CPP += $(NIX_QT_WALLET_CPP)
+LIBERCOIN_QT_CPP += $(LIBERCOIN_QT_WALLET_CPP)
 endif
 
 RES_IMAGES = 
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-NIX_RC = qt/res/nix-qt-res.rc
+LIBERCOIN_RC = qt/res/libercoin-qt-res.rc
 
-NIX_QT_INCLUDES = -DQT_NO_KEYWORDS
+LIBERCOIN_QT_INCLUDES = -DQT_NO_KEYWORDS
 
-qt_libnixqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES) $(NIX_QT_INCLUDES) \
+qt_liblibercoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES) $(LIBERCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_libnixqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
-qt_libnixqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+qt_liblibercoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_liblibercoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_libnixqt_a_SOURCES = $(NIX_QT_CPP) $(NIX_QT_H) $(QT_FORMS_UI) \
+qt_liblibercoinqt_a_SOURCES = $(LIBERCOIN_QT_CPP) $(LIBERCOIN_QT_H) $(QT_FORMS_UI) \
   $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES)
 
-nodist_qt_libnixqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+nodist_qt_liblibercoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
   $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
 
 # forms/foo.h -> forms/ui_foo.h
@@ -426,34 +426,34 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libnixqt_a_OBJECTS) $(qt_nix_qt_OBJECTS) : | $(QT_MOC)
+$(qt_liblibercoinqt_a_OBJECTS) $(qt_libercoin_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# nix-qt binary #
-qt_nix_qt_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES) $(NIX_QT_INCLUDES) \
+# libercoin-qt binary #
+qt_libercoin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES) $(LIBERCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_nix_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libercoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_nix_qt_SOURCES = qt/nix.cpp
+qt_libercoin_qt_SOURCES = qt/libercoin.cpp
 if TARGET_DARWIN
-  qt_nix_qt_SOURCES += $(NIX_MM)
+  qt_libercoin_qt_SOURCES += $(LIBERCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_nix_qt_SOURCES += $(NIX_RC)
+  qt_libercoin_qt_SOURCES += $(LIBERCOIN_RC)
 endif
-qt_nix_qt_LDADD = qt/libnixqt.a $(LIBNIX_SERVER)
+qt_libercoin_qt_LDADD = qt/liblibercoinqt.a $(LIBLIBERCOIN_SERVER)
 if ENABLE_WALLET
-qt_nix_qt_LDADD += $(LIBNIX_WALLET)
+qt_libercoin_qt_LDADD += $(LIBLIBERCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_nix_qt_LDADD += $(LIBNIX_ZMQ) $(ZMQ_LIBS)
+qt_libercoin_qt_LDADD += $(LIBLIBERCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
-qt_nix_qt_LDADD += tor/src/or/libtor.a \
+qt_libercoin_qt_LDADD += tor/src/or/libtor.a \
     tor/src/common/libor.a \
     tor/src/common/libor-ctime.a \
     tor/src/common/libor-crypto.a \
@@ -464,46 +464,46 @@ qt_nix_qt_LDADD += tor/src/or/libtor.a \
     tor/src/ext/ed25519/ref10/libed25519_ref10.a \
     tor/src/ext/keccak-tiny/libkeccak-tiny.a
 
-qt_nix_qt_LDADD += $(LIBNIX_CLI) $(LIBNIX_COMMON) $(LIBNIX_UTIL) $(LIBNIX_CONSENSUS) $(LIBNIX_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+qt_libercoin_qt_LDADD += $(LIBLIBERCOIN_CLI) $(LIBLIBERCOIN_COMMON) $(LIBLIBERCOIN_UTIL) $(LIBLIBERCOIN_CONSENSUS) $(LIBLIBERCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) $(ZLIB_LIBS)\
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 
-qt_nix_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_nix_qt_LIBTOOLFLAGS = --tag CXX
+qt_libercoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_libercoin_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-$(srcdir)/qt/nixstrings.cpp: $(libnix_server_a_SOURCES) $(libnix_wallet_a_SOURCES) $(libnix_common_a_SOURCES) $(libnix_zmq_a_SOURCES) $(libnix_consensus_a_SOURCES) $(libnix_util_a_SOURCES)
+$(srcdir)/qt/libercoinstrings.cpp: $(liblibercoin_server_a_SOURCES) $(liblibercoin_wallet_a_SOURCES) $(liblibercoin_common_a_SOURCES) $(liblibercoin_zmq_a_SOURCES) $(liblibercoin_consensus_a_SOURCES) $(liblibercoin_util_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" COPYRIGHT_HOLDERS="$(COPYRIGHT_HOLDERS)" COPYRIGHT_HOLDERS_SUBSTITUTION="$(COPYRIGHT_HOLDERS_SUBSTITUTION)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: $(srcdir)/qt/nixstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(NIX_QT_BASE_CPP) qt/nix.cpp $(NIX_QT_WINDOWS_CPP) $(NIX_QT_WALLET_CPP) $(NIX_QT_H) $(NIX_MM)
+translate: $(srcdir)/qt/libercoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(LIBERCOIN_QT_BASE_CPP) qt/libercoin.cpp $(LIBERCOIN_QT_WINDOWS_CPP) $(LIBERCOIN_QT_WALLET_CPP) $(LIBERCOIN_QT_H) $(LIBERCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/nix_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/libercoin_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@cp -f $< $(@D)/temp_$(<F)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name nix_locale $(@D)/temp_$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name libercoin_locale $(@D)/temp_$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 	@rm $(@D)/temp_$(<F)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name nix $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name libercoin $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
-CLEAN_QT = $(nodist_qt_libnixqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_nix_locale.qrc
+CLEAN_QT = $(nodist_qt_liblibercoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_libercoin_locale.qrc
 
 CLEANFILES += $(CLEAN_QT)
 
-nix_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libnixqt_a_OBJECTS) $(qt_nix_qt_OBJECTS) qt/nix-qt$(EXEEXT) $(LIBNIXQT)
+libercoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_liblibercoinqt_a_OBJECTS) $(qt_libercoin_qt_OBJECTS) qt/libercoin-qt$(EXEEXT) $(LIBLIBERCOINQT)
 
-nix_qt : qt/nix-qt$(EXEEXT)
+libercoin_qt : qt/libercoin-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

@@ -317,7 +317,7 @@ alert_sockets_create(alert_sockets_t *socks_out, uint32_t flags)
 
   /* If nothing else worked, fall back on socketpair(). */
   if (!(flags & ASOCKS_NOSOCKETPAIR) &&
-      tor_socketpair(AF_UNIX, SOCK_STREAM, 0, socks) == 0) {
+      tor_socketpair(AF_ULIBERCOIN, SOCK_STREAM, 0, socks) == 0) {
     if (set_socket_nonblocking(socks[0]) < 0 ||
         set_socket_nonblocking(socks[1])) {
       // LCOV_EXCL_START -- if socketpair worked, you can make it nonblocking.

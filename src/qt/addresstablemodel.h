@@ -82,7 +82,7 @@ public:
     int lookupAddress(const QString &address) const;
 
     EditStatus getEditStatus() const { return editStatus; }
-    bool ghostNIX(std::string &stringError, std::string denomAmount);
+    bool ghostLIBERCOIN(std::string &stringError, std::string denomAmount);
     bool convertGhost(std::string &stringError, std::string thirdPartyAddress, std::string denomAmount);
 
 private:

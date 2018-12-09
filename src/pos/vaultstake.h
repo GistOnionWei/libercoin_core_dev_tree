@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef NIX_VAULTSTAKE_H
-#define NIX_VAULTSTAKE_H
+#ifndef LIBERCOIN_VAULTSTAKE_H
+#define LIBERCOIN_VAULTSTAKE_H
 
 #include "zerocoin/zerocoin.h"
 #include "primitives/transaction.h"
@@ -29,4 +29,4 @@ public:
     }
 };
 
-#endif // NIX_VAULTSTAKE_H
+#endif // LIBERCOIN_VAULTSTAKE_H

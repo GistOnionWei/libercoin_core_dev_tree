@@ -21,7 +21,7 @@ static const char * airdrop_addresses[102] = {
     "NV6jcPPMMmyRJvbcce3Ny5W7iSgrQYBcFv",
     "NdQDgFbnQT3TycZfBrmeRi8ECQoemjvga4",
     "NarQf223dAL2BiaPBG8aMSqT9Z3E6veBH6",
-    "NY4PnixpxNNwaLVMTNHBuFTzSBsFM33Tp4",
+    "NY4PlibercoinpxNNwaLVMTNHBuFTzSBsFM33Tp4",
     "Ncnj6Aigb9FoDWNTbT8taGAWMhTc6UzbAu",
     "NUbwfkGrqjUstin8fzNePywPfNnsUcjUPR",
     "NSvFc8BgS65A7sEHwqPMzXHHvsVz3LpcbB",

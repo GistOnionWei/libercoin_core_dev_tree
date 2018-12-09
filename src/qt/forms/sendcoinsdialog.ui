@@ -1153,7 +1153,7 @@
         <string>S&amp;end</string>
        </property>
        <property name="icon">
-        <iconset resource="../nix.qrc">
+        <iconset resource="../libercoin.qrc">
          <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
        </property>
        <property name="autoDefault">
@@ -1179,7 +1179,7 @@
         <string>Clear &amp;All</string>
        </property>
        <property name="icon">
-        <iconset resource="../nix.qrc">
+        <iconset resource="../libercoin.qrc">
          <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
        </property>
        <property name="autoDefault">
@@ -1196,7 +1196,7 @@
         <string>Add &amp;Recipient</string>
        </property>
        <property name="icon">
-        <iconset resource="../nix.qrc">
+        <iconset resource="../libercoin.qrc">
          <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
        </property>
        <property name="autoDefault">
@@ -1247,7 +1247,7 @@
           <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="text">
-          <string notr="true">123.456 NIX</string>
+          <string notr="true">123.456 LIBERCOIN</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -1269,12 +1269,12 @@
   <customwidget>
    <class>BitcoinAmountField</class>
    <extends>QLineEdit</extends>
-   <header>qt/nixamountfield.h</header>
+   <header>qt/libercoinamountfield.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../nix.qrc"/>
+  <include location="../libercoin.qrc"/>
  </resources>
  <connections/>
  <buttongroups>

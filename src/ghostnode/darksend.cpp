@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -2237,10 +2237,10 @@ int CDarksendPool::GetDenominations(const std::vector <CTxOut> &vecTxOut, bool f
 
 bool CDarksendPool::GetDenominationsBits(int nDenom, std::vector<int> &vecBitsRet) {
     // ( bit on if present, 4 denominations example )
-    // bit 0 - 100NIX+1
-    // bit 1 - 10NIX+1
-    // bit 2 - 1NIX+1
-    // bit 3 - .1NIX+1
+    // bit 0 - 100LIBERCOIN+1
+    // bit 1 - 10LIBERCOIN+1
+    // bit 2 - 1LIBERCOIN+1
+    // bit 3 - .1LIBERCOIN+1
 
     int nMaxDenoms = vecPrivateSendDenominations.size();
 

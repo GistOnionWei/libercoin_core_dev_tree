@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=LIBERCOIN Core
+Comment=Connect to the LIBERCOIN P2P Network
+Comment[de]=Verbinde mit dem LIBERCOIN peer-to-peer Netzwerk
+Comment[fr]=LIBERCOIN, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=LIBERCOIN, eşten eşe kriptografik sanal para birimi
+Exec=libercoin-qt %u
+Terminal=false
+Type=Application
+Icon=libercoin128
+MimeType=x-scheme-handler/libercoin;
+Categories=Office;Finance;
+StartupWMClass=LIBERCOIN-qt

@@ -267,7 +267,7 @@ test_valid_service_v2(void *arg)
       "HiddenServicePort 80\n"
       "HiddenServicePort 22 localhost:22\n"
 #ifdef HAVE_SYS_UN_H
-      "HiddenServicePort 42 unix:/path/to/socket\n"
+      "HiddenServicePort 42 ulibercoin:/path/to/socket\n"
 #endif
       "HiddenServiceAuthorizeClient basic alice,bob,eve\n"
       "HiddenServiceAllowUnknownPorts 1\n"
@@ -287,7 +287,7 @@ test_valid_service_v2(void *arg)
       "HiddenServicePort 65535\n"
       "HiddenServicePort 22 1.1.1.1:22\n"
 #ifdef HAVE_SYS_UN_H
-      "HiddenServicePort 9000 unix:/path/to/socket\n"
+      "HiddenServicePort 9000 ulibercoin:/path/to/socket\n"
 #endif
       "HiddenServiceAuthorizeClient stealth charlie,romeo\n"
       "HiddenServiceAllowUnknownPorts 0\n"
@@ -371,7 +371,7 @@ test_valid_service_v3(void *arg)
       "HiddenServicePort 80\n"
       "HiddenServicePort 22 localhost:22\n"
 #ifdef HAVE_SYS_UN_H
-      "HiddenServicePort 42 unix:/path/to/socket\n"
+      "HiddenServicePort 42 ulibercoin:/path/to/socket\n"
 #endif
       "HiddenServiceAllowUnknownPorts 1\n"
       "HiddenServiceMaxStreams 42\n"
@@ -390,7 +390,7 @@ test_valid_service_v3(void *arg)
       "HiddenServicePort 65535\n"
       "HiddenServicePort 22 1.1.1.1:22\n"
 #ifdef HAVE_SYS_UN_H
-      "HiddenServicePort 9000 unix:/path/to/socket\n"
+      "HiddenServicePort 9000 ulibercoin:/path/to/socket\n"
 #endif
       "HiddenServiceAllowUnknownPorts 0\n"
       "HiddenServiceMaxStreams 42\n"
@@ -441,7 +441,7 @@ test_staging_service_v3(void *arg)
     "HiddenServicePort 65535\n"
     "HiddenServicePort 22 1.1.1.1:22\n"
 #ifdef HAVE_SYS_UN_H
-    "HiddenServicePort 9000 unix:/path/to/socket\n"
+    "HiddenServicePort 9000 ulibercoin:/path/to/socket\n"
 #endif
     "HiddenServiceAllowUnknownPorts 0\n"
     "HiddenServiceMaxStreams 42\n"

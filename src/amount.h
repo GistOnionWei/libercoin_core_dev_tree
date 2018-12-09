@@ -16,8 +16,8 @@ static const CAmount CENT = 1000000;
 
 /** No amount larger than this (in satoshi) is valid.
  *
- * Note that this constant is *not* the total money supply, which in NIX
- * currently happens to be less than 175,000,000 NIX for various reasons, but
+ * Note that this constant is *not* the total money supply, which in LIBERCOIN
+ * currently happens to be less than 175,000,000 LIBERCOIN for various reasons, but
  * rather a sanity check. As this sanity check is used by consensus-critical
  * validation code, the exact value of the MAX_MONEY constant is consensus
  * critical; in unusual circumstances like a(nother) overflow bug that allowed

@@ -17,7 +17,7 @@
 
 const char *conn_type_to_string(int type);
 const char *conn_state_to_string(int type, int state);
-int conn_listener_type_supports_af_unix(int type);
+int conn_listener_type_supports_af_ulibercoin(int type);
 
 dir_connection_t *dir_connection_new(int socket_family);
 or_connection_t *or_connection_new(int type, int socket_family);
@@ -90,7 +90,7 @@ int connection_connect(connection_t *conn, const char *address,
 
 #ifdef HAVE_SYS_UN_H
 
-int connection_connect_unix(connection_t *conn, const char *socket_path,
+int connection_connect_ulibercoin(connection_t *conn, const char *socket_path,
                             int *socket_error);
 
 #endif /* defined(HAVE_SYS_UN_H) */

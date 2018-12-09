@@ -138,7 +138,7 @@ int addressmap_register_auto(const char *from, const char *to,
 
 int port_cfg_line_extract_addrport(const char *line,
                                    char **addrport_out,
-                                   int *is_unix_out,
+                                   int *is_ulibercoin_out,
                                    const char **rest_out);
 
 /** Represents the information stored in a torrc Bridge line. */
@@ -166,7 +166,7 @@ smartlist_t *get_options_for_server_transport(const char *transport);
 #define CL_PORT_SERVER_OPTIONS (1u<<3)
 #define CL_PORT_FORBID_NONLOCAL (1u<<4)
 #define CL_PORT_TAKES_HOSTNAMES (1u<<5)
-#define CL_PORT_IS_UNIXSOCKET (1u<<6)
+#define CL_PORT_IS_ULIBERCOINSOCKET (1u<<6)
 #define CL_PORT_DFLT_GROUP_WRITABLE (1u<<7)
 
 STATIC int options_act(const or_options_t *old_options);

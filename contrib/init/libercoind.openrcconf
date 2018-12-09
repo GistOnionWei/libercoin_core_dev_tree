@@ -1,0 +1,33 @@
+# /etc/conf.d/libercoind: config file for /etc/init.d/libercoind
+
+# Config file location
+#LIBERCOIND_CONFIGFILE="/etc/libercoin/libercoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $LIBERCOIND_USER)
+#LIBERCOIND_PIDDIR="/var/run/libercoind"
+
+# What filename to give the pidfile
+#LIBERCOIND_PIDFILE="${LIBERCOIND_PIDDIR}/libercoind.pid"
+
+# Where to write libercoind data (be mindful that the blockchain is large)
+#LIBERCOIND_DATADIR="/var/lib/libercoind"
+
+# User and group to own libercoind process
+#LIBERCOIND_USER="libercoin"
+#LIBERCOIND_GROUP="libercoin"
+
+# Path to libercoind executable
+#LIBERCOIND_BIN="/usr/bin/libercoind"
+
+# Nice value to run libercoind under
+#LIBERCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#LIBERCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for libercoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+LIBERCOIND_SIGTERM_TIMEOUT=60

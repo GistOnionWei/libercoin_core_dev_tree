@@ -215,7 +215,7 @@ This works with a running Tor, and requires root.
 Profiling Tor with gperftools aka Google-performance-tools
 ----------------------------------------------------------
 
-This should work on nearly any unixy system. It doesn't seem to be compatible
+This should work on nearly any ulibercoiny system. It doesn't seem to be compatible
 with RunAsDaemon though.
 
 Beforehand, install google-perftools.

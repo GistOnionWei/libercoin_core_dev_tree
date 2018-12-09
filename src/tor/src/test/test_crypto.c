@@ -2155,8 +2155,8 @@ test_crypto_ed25519_simple(void *arg)
   ed25519_secret_key_t sec1, sec2;
   ed25519_signature_t sig1, sig2;
   const uint8_t msg[] =
-    "GNU will be able to run Unix programs, "
-    "but will not be identical to Unix.";
+    "GNU will be able to run Ulibercoin programs, "
+    "but will not be identical to Ulibercoin.";
   const uint8_t msg2[] =
     "Microsoft Windows extends the features of the DOS operating system, "
     "yet is compatible with most existing applications that run under DOS.";

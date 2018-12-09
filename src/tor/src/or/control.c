@@ -588,12 +588,12 @@ control_ports_write_to_file(void)
   SMARTLIST_FOREACH_BEGIN(get_connection_array(), const connection_t *, conn) {
     if (conn->type != CONN_TYPE_CONTROL_LISTENER || conn->marked_for_close)
       continue;
-#ifdef AF_UNIX
-    if (conn->socket_family == AF_UNIX) {
-      smartlist_add_asprintf(lines, "UNIX_PORT=%s\n", conn->address);
+#ifdef AF_ULIBERCOIN
+    if (conn->socket_family == AF_ULIBERCOIN) {
+      smartlist_add_asprintf(lines, "ULIBERCOIN_PORT=%s\n", conn->address);
       continue;
     }
-#endif /* defined(AF_UNIX) */
+#endif /* defined(AF_ULIBERCOIN) */
     smartlist_add_asprintf(lines, "PORT=%s:%d\n", conn->address, conn->port);
   } SMARTLIST_FOREACH_END(conn);
 
@@ -5459,7 +5459,7 @@ control_event_stream_status(entry_connection_t *conn, stream_status_event_t tp,
 
   if (tp == STREAM_EVENT_NEW || tp == STREAM_EVENT_NEW_RESOLVE) {
     /*
-     * When the control conn is an AF_UNIX socket and we have no address,
+     * When the control conn is an AF_ULIBERCOIN socket and we have no address,
      * it gets set to "(Tor_internal)"; see dnsserv_launch_request() in
      * dnsserv.c.
      */
@@ -5468,7 +5468,7 @@ control_event_stream_status(entry_connection_t *conn, stream_status_event_t tp,
                    ENTRY_TO_CONN(conn)->address, ENTRY_TO_CONN(conn)->port);
     } else {
       /*
-       * else leave it blank so control on AF_UNIX doesn't need to make
+       * else leave it blank so control on AF_ULIBERCOIN doesn't need to make
        * something up.
        */
       addrport_buf[0] = '\0';

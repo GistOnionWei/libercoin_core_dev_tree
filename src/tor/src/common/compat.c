@@ -843,7 +843,7 @@ set_uint64(void *cp, uint64_t v)
 }
 
 /**
- * Rename the file <b>from</b> to the file <b>to</b>.  On Unix, this is
+ * Rename the file <b>from</b> to the file <b>to</b>.  On Ulibercoin, this is
  * the same as rename(2).  On windows, this removes <b>to</b> first if
  * it already exists.
  * Returns 0 on success.  Returns -1 and sets errno on failure.
@@ -992,7 +992,7 @@ tor_lockfile_unlock(tor_lockfile_t *lockfile)
 }
 
 /** @{ */
-/** Some old versions of Unix didn't define constants for these values,
+/** Some old versions of Ulibercoin didn't define constants for these values,
  * and instead expect you to say 0, 1, or 2. */
 #ifndef SEEK_SET
 #define SEEK_SET 0
@@ -1106,7 +1106,7 @@ tor_close_socket_simple(tor_socket_t s)
   int r = 0;
 
   /* On Windows, you have to call close() on fds returned by open(),
-  * and closesocket() on fds returned by socket().  On Unix, everything
+  * and closesocket() on fds returned by socket().  On Ulibercoin, everything
   * gets close()'d.  We abstract this difference by always using
   * tor_close_socket to close sockets, and always using close() on
   * files.
@@ -1416,7 +1416,7 @@ set_socket_nonblocking(tor_socket_t sock)
  * type,protocol,fd), but works on systems that don't have
  * socketpair.)
  *
- * Currently, only (AF_UNIX, SOCK_STREAM, 0) sockets are supported.
+ * Currently, only (AF_ULIBERCOIN, SOCK_STREAM, 0) sockets are supported.
  *
  * Note that on systems without socketpair, this call will fail if
  * localhost is inaccessible (for example, if the networking
@@ -1535,8 +1535,8 @@ tor_ersatz_socketpair(int family, int type, int protocol, tor_socket_t fd[2])
     memset(&listen_addr_ss, 0, sizeof(listen_addr_ss));
 
     if (protocol
-#ifdef AF_UNIX
-        || family != AF_UNIX
+#ifdef AF_ULIBERCOIN
+        || family != AF_ULIBERCOIN
 #endif
         ) {
 #ifdef _WIN32
@@ -1570,7 +1570,7 @@ tor_ersatz_socketpair(int family, int type, int protocol, tor_socket_t fd[2])
     /* If there is no 127.0.0.1 or ::1, this will and must fail. Otherwise, we
      * risk exposing a socketpair on a routable IP address. (Some BSD jails
      * use a routable address for localhost. Fortunately, they have the real
-     * AF_UNIX socketpair.) */
+     * AF_ULIBERCOIN socketpair.) */
     if (ersatz_domain == AF_INET) {
       tor_addr_from_ipv4h(&listen_tor_addr, INADDR_LOOPBACK);
     } else {
@@ -2313,7 +2313,7 @@ get_parent_directory(char *fname)
    * and to remove the end of the string starting with the path separator
    * before the last non-path-separator.  In perl, this would be
    *   s#[/]*$##; s#/[^/]*$##;
-   * on a unixy platform.
+   * on a ulibercoiny platform.
    */
   cp = fname + strlen(fname);
   at_end = 1;
@@ -2673,7 +2673,7 @@ tor_inet_pton(int af, const char *src, void *dst)
   }
 }
 
-/** Similar behavior to Unix gethostbyname: resolve <b>name</b>, and set
+/** Similar behavior to Ulibercoin gethostbyname: resolve <b>name</b>, and set
  * *<b>addr</b> to the proper IP address, in host byte order.  Returns 0
  * on success, -1 on failure; 1 on transient failure.
  *
@@ -3049,10 +3049,10 @@ tor_gmtime_r(const time_t *timep, struct tm *result)
 #endif /* defined(HAVE_GMTIME_R) || ... */
 
 #if defined(HAVE_MLOCKALL) && HAVE_DECL_MLOCKALL && defined(RLIMIT_MEMLOCK)
-#define HAVE_UNIX_MLOCKALL
+#define HAVE_ULIBERCOIN_MLOCKALL
 #endif
 
-#ifdef HAVE_UNIX_MLOCKALL
+#ifdef HAVE_ULIBERCOIN_MLOCKALL
 /** Attempt to raise the current and max rlimit to infinity for our process.
  * This only needs to be done once and can probably only be done when we have
  * not already dropped privileges.
@@ -3083,7 +3083,7 @@ tor_set_max_memlock(void)
 
   return 0;
 }
-#endif /* defined(HAVE_UNIX_MLOCKALL) */
+#endif /* defined(HAVE_ULIBERCOIN_MLOCKALL) */
 
 /** Attempt to lock all current and all future memory pages.
  * This should only be called once and while we're privileged.
@@ -3108,7 +3108,7 @@ tor_mlockall(void)
    * http://msdn.microsoft.com/en-us/library/aa366895(VS.85).aspx
    */
 
-#ifdef HAVE_UNIX_MLOCKALL
+#ifdef HAVE_ULIBERCOIN_MLOCKALL
   if (tor_set_max_memlock() == 0) {
     log_debug(LD_GENERAL, "RLIMIT_MEMLOCK is now set to RLIM_INFINITY.");
   }
@@ -3129,10 +3129,10 @@ tor_mlockall(void)
                            "pages: %s", strerror(errno));
     return -1;
   }
-#else /* !(defined(HAVE_UNIX_MLOCKALL)) */
+#else /* !(defined(HAVE_ULIBERCOIN_MLOCKALL)) */
   log_warn(LD_GENERAL, "Unable to lock memory pages. mlockall() unsupported?");
   return -1;
-#endif /* defined(HAVE_UNIX_MLOCKALL) */
+#endif /* defined(HAVE_ULIBERCOIN_MLOCKALL) */
 }
 
 /**

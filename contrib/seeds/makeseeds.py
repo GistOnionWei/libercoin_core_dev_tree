@@ -74,7 +74,7 @@ def parseline(line):
         return None
     # Extract uptime %.
     uptime30 = float(sline[7][:-1])
-    # Extract Unix timestamp of last success.
+    # Extract Ulibercoin timestamp of last success.
     lastsuccess = int(sline[2])
     # Extract protocol version.
     version = int(sline[10])

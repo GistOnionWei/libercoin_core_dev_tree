@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef NIX_QT_DELEGATEDSTAKING_H
-#define NIX_QT_DELEGATEDSTAKING_H
+#ifndef LIBERCOIN_QT_DELEGATEDSTAKING_H
+#define LIBERCOIN_QT_DELEGATEDSTAKING_H
 
 #include <QWidget>
 #include <QTableWidget>

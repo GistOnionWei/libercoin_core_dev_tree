@@ -135,14 +135,14 @@ typedef enum {
 typedef struct rend_service_port_config_t {
   /* The incoming HS virtual port we're mapping */
   uint16_t virtual_port;
-  /* Is this an AF_UNIX port? */
-  unsigned int is_unix_addr:1;
-  /* The outgoing TCP port to use, if !is_unix_addr */
+  /* Is this an AF_ULIBERCOIN port? */
+  unsigned int is_ulibercoin_addr:1;
+  /* The outgoing TCP port to use, if !is_ulibercoin_addr */
   uint16_t real_port;
-  /* The outgoing IPv4 or IPv6 address to use, if !is_unix_addr */
+  /* The outgoing IPv4 or IPv6 address to use, if !is_ulibercoin_addr */
   tor_addr_t real_addr;
-  /* The socket path to connect to, if is_unix_addr */
-  char unix_addr[FLEXIBLE_ARRAY_MEMBER];
+  /* The socket path to connect to, if is_ulibercoin_addr */
+  char ulibercoin_addr[FLEXIBLE_ARRAY_MEMBER];
 } rend_service_port_config_t;
 
 /* Hidden service directory index used in a node_t which is set once we set

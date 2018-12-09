@@ -39,7 +39,7 @@ OpenBSD
 -------
 
 Because OpenBSD is primarily focused on security and stability, it uses default
-resource limits stricter than those of more popular Unix-like operating systems.
+resource limits stricter than those of more popular Ulibercoin-like operating systems.
 
 OpenBSD stores a kernel-level file descriptor limit in the sysctl variable
 kern.maxfiles. It defaults to 7,030. To change it to, for example, 16,000 while

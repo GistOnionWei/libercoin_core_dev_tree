@@ -307,7 +307,7 @@ tor_process_monitor_poll_cb(evutil_socket_t unused1, short unused2,
     }
   }
 #else /* !(defined(_WIN32)) */
-  /* Unix makes this part easy, if a bit racy. */
+  /* Ulibercoin makes this part easy, if a bit racy. */
   its_dead_jim = kill(procmon->pid, 0);
   its_dead_jim = its_dead_jim && (errno == ESRCH);
 #endif /* defined(_WIN32) */

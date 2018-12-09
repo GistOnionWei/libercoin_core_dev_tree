@@ -324,7 +324,7 @@ rend_add_service(smartlist_t *service_list, rend_service_t *service)
             rend_service_escaped_dir(service));
   for (i = 0; i < smartlist_len(service->ports); ++i) {
     p = smartlist_get(service->ports, i);
-    if (!(p->is_unix_addr)) {
+    if (!(p->is_ulibercoin_addr)) {
       log_debug(LD_REND,
                 "Service maps port %d to %s",
                 p->virtual_port,
@@ -333,11 +333,11 @@ rend_add_service(smartlist_t *service_list, rend_service_t *service)
 #ifdef HAVE_SYS_UN_H
       log_debug(LD_REND,
                 "Service maps port %d to socket at \"%s\"",
-                p->virtual_port, p->unix_addr);
+                p->virtual_port, p->ulibercoin_addr);
 #else
       log_warn(LD_BUG,
-               "Service maps port %d to an AF_UNIX socket, but we "
-               "have no AF_UNIX support on this platform.  This is "
+               "Service maps port %d to an AF_ULIBERCOIN socket, but we "
+               "have no AF_ULIBERCOIN support on this platform.  This is "
                "probably a bug.",
                p->virtual_port);
       rend_service_free(service);
@@ -362,8 +362,8 @@ rend_service_port_config_new(const char *socket_path)
   const size_t pathlen = strlen(socket_path) + 1;
   rend_service_port_config_t *conf =
     tor_malloc_zero(sizeof(rend_service_port_config_t) + pathlen);
-  memcpy(conf->unix_addr, socket_path, pathlen);
-  conf->is_unix_addr = 1;
+  memcpy(conf->ulibercoin_addr, socket_path, pathlen);
+  conf->is_ulibercoin_addr = 1;
   return conf;
 }
 
@@ -385,7 +385,7 @@ rend_service_parse_port_config(const char *string, const char *sep,
   uint16_t p;
   tor_addr_t addr;
   rend_service_port_config_t *result = NULL;
-  unsigned int is_unix_addr = 0;
+  unsigned int is_ulibercoin_addr = 0;
   const char *socket_path = NULL;
   char *err_msg = NULL;
   char *addrport = NULL;
@@ -413,17 +413,17 @@ rend_service_parse_port_config(const char *string, const char *sep,
 
     const char *addrport_element = smartlist_get(sl,1);
     const char *rest = NULL;
-    int is_unix;
+    int is_ulibercoin;
     ret = port_cfg_line_extract_addrport(addrport_element, &addrport,
-                                         &is_unix, &rest);
+                                         &is_ulibercoin, &rest);
     if (ret < 0) {
       tor_asprintf(&err_msg, "Couldn't process address <%s> from hidden "
                    "service configuration", addrport_element);
       goto err;
     }
-    if (is_unix) {
+    if (is_ulibercoin) {
       socket_path = addrport;
-      is_unix_addr = 1;
+      is_ulibercoin_addr = 1;
     } else if (strchr(addrport, ':') || strchr(addrport, '.')) {
       /* else try it as an IP:port pair if it has a : or . in it */
       if (tor_addr_port_lookup(addrport, &addr, &p)<0) {
@@ -445,14 +445,14 @@ rend_service_parse_port_config(const char *string, const char *sep,
     }
   }
 
-  /* Allow room for unix_addr */
+  /* Allow room for ulibercoin_addr */
   result = rend_service_port_config_new(socket_path);
   result->virtual_port = virtport;
-  result->is_unix_addr = is_unix_addr;
-  if (!is_unix_addr) {
+  result->is_ulibercoin_addr = is_ulibercoin_addr;
+  if (!is_ulibercoin_addr) {
     result->real_port = realport;
     tor_addr_copy(&result->real_addr, &addr);
-    result->unix_addr[0] = '\0';
+    result->ulibercoin_addr[0] = '\0';
   }
 
  err:

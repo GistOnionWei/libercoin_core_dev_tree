@@ -5,7 +5,7 @@
 #include <qt/receiverequestdialog.h>
 #include <qt/forms/ui_receiverequestdialog.h>
 
-#include <qt/nixunits.h>
+#include <qt/libercoinunits.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
@@ -21,7 +21,7 @@
 #endif
 
 #if defined(HAVE_CONFIG_H)
-#include <config/nix-config.h> /* for USE_QRCODE */
+#include <config/libercoin-config.h> /* for USE_QRCODE */
 #endif
 
 #ifdef USE_QRCODE

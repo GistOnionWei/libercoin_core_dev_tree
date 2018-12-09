@@ -29,7 +29,7 @@ get_ticks(void) {
 	uint64_t t;
 	__asm__ __volatile__("mov %0=ar.itc" : "=r" (t));
 	return t;
-#elif defined(OS_NIX)
+#elif defined(OS_LIBERCOIN)
 	timeval t2;
 	gettimeofday(&t2, NULL);
 	t = ((uint64_t)t2.tv_usec << 32) | (uint64_t)t2.tv_sec;

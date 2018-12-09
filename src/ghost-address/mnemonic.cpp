@@ -85,7 +85,7 @@ static void NormaliseUnicode(std::string &str)
 
 static void NormaliseInput(std::string &str)
 {
-    nix::TrimWhitespace(str);
+    libercoin::TrimWhitespace(str);
     NormaliseUnicode(str);
 };
 
@@ -284,7 +284,7 @@ int MnemonicEncode(int nLanguage, const std::vector<uint8_t> &vEntropy, std::str
     };
 
     if (nLanguage == WLL_JAPANESE)
-        nix::ReplaceStrInPlace(sWordList, " ", "\u3000");
+        libercoin::ReplaceStrInPlace(sWordList, " ", "\u3000");
 
     return 0;
 };

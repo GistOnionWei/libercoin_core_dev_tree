@@ -152,7 +152,7 @@ Whitespace and C conformance
 Invoke `make check-spaces` from time to time, so it can tell you about
 deviations from our C whitespace style.  Generally, we use:
 
-   - Unix-style line endings
+   - Ulibercoin-style line endings
    - K&R-style indentation
    - No space before newlines
    - A blank line at the end of each file

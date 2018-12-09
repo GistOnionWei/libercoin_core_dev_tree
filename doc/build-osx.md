@@ -40,17 +40,17 @@ from the root of the repository.
 
 **Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
-Build NIX Core
+Build LIBERCOIN Core
 ------------------------
 
-1. Clone the nix source code and cd into `nix`
+1. Clone the libercoin source code and cd into `libercoin`
 
-        git clone https://github.com/nix/nix
-        cd nix
+        git clone https://github.com/libercoin/libercoin
+        cd libercoin
 
-2.  Build nix-core:
+2.  Build libercoin-core:
 
-    Configure and build the headless nix binaries as well as the GUI (if Qt is found).
+    Configure and build the headless libercoin binaries as well as the GUI (if Qt is found).
 
     You can disable the GUI build by passing `--without-gui` to configure.
 
@@ -69,37 +69,37 @@ Build NIX Core
 Running
 -------
 
-NIX Core is now available at `./src/nixd`
+LIBERCOIN Core is now available at `./src/libercoind`
 
 Before running, it's recommended you create an RPC configuration file.
 
-    echo -e "rpcuser=nixrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/NIX/nix.conf"
+    echo -e "rpcuser=libercoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/LIBERCOIN/libercoin.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/NIX/nix.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/LIBERCOIN/libercoin.conf"
 
-The first time you run nixd, it will start downloading the blockchain. This process could take several hours.
+The first time you run libercoind, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/NIX/debug.log
+    tail -f $HOME/Library/Application\ Support/LIBERCOIN/debug.log
 
 Other commands:
 -------
 
-    ./src/nixd -daemon # Starts the nix daemon.
-    ./src/nix-cli --help # Outputs a list of command-line options.
-    ./src/nix-cli help # Outputs a list of RPC commands when the daemon is running.
+    ./src/libercoind -daemon # Starts the libercoin daemon.
+    ./src/libercoin-cli --help # Outputs a list of command-line options.
+    ./src/libercoin-cli help # Outputs a list of RPC commands when the daemon is running.
 
 Using Qt Creator as IDE
 ------------------------
-You can use Qt Creator as an IDE, for nix development.
+You can use Qt Creator as an IDE, for libercoin development.
 Download and install the community edition of [Qt Creator](https://www.qt.io/download/).
 Uncheck everything except Qt Creator during the installation process.
 
 1. Make sure you installed everything through Homebrew mentioned above
 2. Do a proper ./configure --enable-debug
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
-4. Enter "nix-qt" as project name, enter src/qt as location
+4. Enter "libercoin-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."
@@ -112,4 +112,4 @@ Notes
 
 * Tested on OS X 10.8 through 10.13 on 64-bit Intel processors only.
 
-* Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/nix/nix/issues/7714)
+* Building with downloaded Qt binaries is not officially supported. See the notes in [#7714](https://github.com/libercoin/libercoin/issues/7714)

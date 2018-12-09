@@ -76,7 +76,7 @@ tor_gettimeofday(struct timeval *timeval)
 {
 #ifdef _WIN32
   /* Epoch bias copied from perl: number of units between windows epoch and
-   * Unix epoch. */
+   * Ulibercoin epoch. */
 #define EPOCH_BIAS U64_LITERAL(116444736000000000)
 #define UNITS_PER_SEC U64_LITERAL(10000000)
 #define USEC_PER_SEC U64_LITERAL(1000000)

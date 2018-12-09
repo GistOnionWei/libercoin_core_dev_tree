@@ -2,11 +2,11 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-TESTS += test/test_nix
-bin_PROGRAMS += test/test_nix
-noinst_PROGRAMS += test/test_nix_fuzzy
+TESTS += test/test_libercoin
+bin_PROGRAMS += test/test_libercoin
+noinst_PROGRAMS += test/test_libercoin_fuzzy
 TEST_SRCDIR = test
-TEST_BINARY=test/test_nix$(EXEEXT)
+TEST_BINARY=test/test_libercoin$(EXEEXT)
 
 JSON_TEST_FILES = \
   test/data/script_tests.json \
@@ -21,8 +21,8 @@ RAW_TEST_FILES =
 
 GENERATED_TEST_FILES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
-# test_nix binary #
-NIX_TESTS =\
+# test_libercoin binary #
+LIBERCOIN_TESTS =\
   test/arith_uint256_tests.cpp \
   test/scriptnum10.h \
   test/addrman_tests.cpp \
@@ -75,9 +75,9 @@ NIX_TESTS =\
   test/sigopcount_tests.cpp \
   test/skiplist_tests.cpp \
   test/streams_tests.cpp \
-  test/test_nix.cpp \
-  test/test_nix.h \
-  test/test_nix_main.cpp \
+  test/test_libercoin.cpp \
+  test/test_libercoin.h \
+  test/test_libercoin_main.cpp \
   test/timedata_tests.cpp \
   test/torcontrol_tests.cpp \
   test/transaction_tests.cpp \
@@ -88,7 +88,7 @@ NIX_TESTS =\
   test/util_tests.cpp
 
 if ENABLE_WALLET
-NIX_TESTS += \
+LIBERCOIN_TESTS += \
   wallet/test/wallet_test_fixture.cpp \
   wallet/test/wallet_test_fixture.h \
   wallet/test/accounting_tests.cpp \
@@ -96,61 +96,61 @@ NIX_TESTS += \
   wallet/test/crypto_tests.cpp
 endif
 
-test_test_nix_SOURCES = $(NIX_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
-test_test_nix_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES) $(TESTDEFS) $(EVENT_CFLAGS)
-test_test_nix_LDADD =
+test_test_libercoin_SOURCES = $(LIBERCOIN_TESTS) $(JSON_TEST_FILES) $(RAW_TEST_FILES)
+test_test_libercoin_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES) $(TESTDEFS) $(EVENT_CFLAGS)
+test_test_libercoin_LDADD =
 if ENABLE_WALLET
-test_test_nix_LDADD += $(LIBNIX_WALLET)
+test_test_libercoin_LDADD += $(LIBLIBERCOIN_WALLET)
 endif
-test_test_nix_LDADD += $(LIBNIX_SERVER) $(LIBNIX_CLI) $(LIBNIX_COMMON) $(LIBNIX_UTIL) $(LIBNIX_CONSENSUS) $(LIBNIX_CRYPTO) $(LIBUNIVALUE) \
+test_test_libercoin_LDADD += $(LIBLIBERCOIN_SERVER) $(LIBLIBERCOIN_CLI) $(LIBLIBERCOIN_COMMON) $(LIBLIBERCOIN_UTIL) $(LIBLIBERCOIN_CONSENSUS) $(LIBLIBERCOIN_CRYPTO) $(LIBUNIVALUE) \
   $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) $(BOOST_LIBS) $(BOOST_UNIT_TEST_FRAMEWORK_LIB) $(LIBSECP256K1) $(EVENT_LIBS) $(EVENT_PTHREADS_LIBS)
-test_test_nix_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+test_test_libercoin_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
-test_test_nix_LDADD += $(LIBNIX_CONSENSUS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
-test_test_nix_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
+test_test_libercoin_LDADD += $(LIBLIBERCOIN_CONSENSUS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
+test_test_libercoin_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
 
 if ENABLE_ZMQ
-test_test_nix_LDADD += $(ZMQ_LIBS)
+test_test_libercoin_LDADD += $(ZMQ_LIBS)
 endif
 #
 
-# test_nix_fuzzy binary #
-test_test_nix_fuzzy_SOURCES = test/test_nix_fuzzy.cpp
-test_test_nix_fuzzy_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-test_test_nix_fuzzy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-test_test_nix_fuzzy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# test_libercoin_fuzzy binary #
+test_test_libercoin_fuzzy_SOURCES = test/test_libercoin_fuzzy.cpp
+test_test_libercoin_fuzzy_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+test_test_libercoin_fuzzy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+test_test_libercoin_fuzzy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
-test_test_nix_fuzzy_LDADD = \
+test_test_libercoin_fuzzy_LDADD = \
   $(LIBUNIVALUE) \
-  $(LIBNIX_SERVER) \
-  $(LIBNIX_COMMON) \
-  $(LIBNIX_UTIL) \
-  $(LIBNIX_CONSENSUS) \
-  $(LIBNIX_CRYPTO) \
+  $(LIBLIBERCOIN_SERVER) \
+  $(LIBLIBERCOIN_COMMON) \
+  $(LIBLIBERCOIN_UTIL) \
+  $(LIBLIBERCOIN_CONSENSUS) \
+  $(LIBLIBERCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-test_test_nix_fuzzy_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+test_test_libercoin_fuzzy_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
-nodist_test_test_nix_SOURCES = $(GENERATED_TEST_FILES)
+nodist_test_test_libercoin_SOURCES = $(GENERATED_TEST_FILES)
 
-$(NIX_TESTS): $(GENERATED_TEST_FILES)
+$(LIBERCOIN_TESTS): $(GENERATED_TEST_FILES)
 
-CLEAN_NIX_TEST = test/*.gcda test/*.gcno $(GENERATED_TEST_FILES)
+CLEAN_LIBERCOIN_TEST = test/*.gcda test/*.gcno $(GENERATED_TEST_FILES)
 
-CLEANFILES += $(CLEAN_NIX_TEST)
+CLEANFILES += $(CLEAN_LIBERCOIN_TEST)
 
-nix_test: $(TEST_BINARY)
+libercoin_test: $(TEST_BINARY)
 
-nix_test_check: $(TEST_BINARY) FORCE
+libercoin_test_check: $(TEST_BINARY) FORCE
 	$(MAKE) check-TESTS TESTS=$^
 
-nix_test_clean : FORCE
-	rm -f $(CLEAN_NIX_TEST) $(test_test_nix_OBJECTS) $(TEST_BINARY)
+libercoin_test_clean : FORCE
+	rm -f $(CLEAN_LIBERCOIN_TEST) $(test_test_libercoin_OBJECTS) $(TEST_BINARY)
 
 check-local:
-	@echo "Running test/util/nix-util-test.py..."
-	$(PYTHON) $(top_builddir)/test/util/nix-util-test.py
+	@echo "Running test/util/libercoin-util-test.py..."
+	$(PYTHON) $(top_builddir)/test/util/libercoin-util-test.py
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C secp256k1 check
 if EMBEDDED_UNIVALUE
 	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C univalue check

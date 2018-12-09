@@ -114,7 +114,7 @@ UniValue mnemonic(const JSONRPCRequest &request)
         {
             std::string s = request.params[4].get_str();
 
-            if (!nix::GetStringBool(s, fBip44))
+            if (!libercoin::GetStringBool(s, fBip44))
                 throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown argument for bip44 flag.");
         };
 
@@ -186,7 +186,7 @@ UniValue mnemonic(const JSONRPCRequest &request)
 
         if (request.params.size() > 3)
         {
-            if (!nix::GetStringBool(request.params[3].get_str(), fBip44))
+            if (!libercoin::GetStringBool(request.params[3].get_str(), fBip44))
                 throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown argument for bip44 flag.");
         };
 

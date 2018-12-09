@@ -177,11 +177,11 @@ case $host_os in
 
         AC_EGREP_CPP([AX_PTHREAD_ZOS_MISSING],
             [
-#            if !defined(_OPEN_THREADS) && !defined(_UNIX03_THREADS)
+#            if !defined(_OPEN_THREADS) && !defined(_ULIBERCOIN03_THREADS)
              AX_PTHREAD_ZOS_MISSING
 #            endif
             ],
-            [AC_MSG_WARN([IBM z/OS requires -D_OPEN_THREADS or -D_UNIX03_THREADS to enable pthreads support.])])
+            [AC_MSG_WARN([IBM z/OS requires -D_OPEN_THREADS or -D_ULIBERCOIN03_THREADS to enable pthreads support.])])
         ;;
 
         solaris*)

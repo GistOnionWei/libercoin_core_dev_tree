@@ -181,7 +181,7 @@ test_rend_service_parse_port_config(void *arg)
   rend_service_port_config_free(cfg);
   cfg = NULL;
 
-  /* XXX: Someone should add tests for AF_UNIX targets if supported. */
+  /* XXX: Someone should add tests for AF_ULIBERCOIN targets if supported. */
 
   /* Test empty config. */
   rend_service_port_config_free(cfg);
@@ -196,32 +196,32 @@ test_rend_service_parse_port_config(void *arg)
   tt_assert(err_msg);
   tor_free(err_msg);
 
-  /* unix port */
+  /* ulibercoin port */
   cfg = NULL;
 
-  /* quoted unix port */
+  /* quoted ulibercoin port */
   tor_free(err_msg);
-  cfg = rend_service_parse_port_config("100 unix:\"/tmp/foo bar\"",
+  cfg = rend_service_parse_port_config("100 ulibercoin:\"/tmp/foo bar\"",
                                        " ", &err_msg);
   tt_assert(cfg);
   tt_ptr_op(err_msg, OP_EQ, NULL);
   rend_service_port_config_free(cfg);
   cfg = NULL;
 
-  /* quoted unix port */
+  /* quoted ulibercoin port */
   tor_free(err_msg);
-  cfg = rend_service_parse_port_config("100 unix:\"/tmp/foo bar\"",
+  cfg = rend_service_parse_port_config("100 ulibercoin:\"/tmp/foo bar\"",
                                        " ", &err_msg);
   tt_assert(cfg);
   tt_ptr_op(err_msg, OP_EQ, NULL);
   rend_service_port_config_free(cfg);
   cfg = NULL;
 
-  /* quoted unix port, missing end quote */
-  cfg = rend_service_parse_port_config("100 unix:\"/tmp/foo bar",
+  /* quoted ulibercoin port, missing end quote */
+  cfg = rend_service_parse_port_config("100 ulibercoin:\"/tmp/foo bar",
                                        " ", &err_msg);
   tt_ptr_op(cfg, OP_EQ, NULL);
-  tt_str_op(err_msg, OP_EQ, "Couldn't process address <unix:\"/tmp/foo bar> "
+  tt_str_op(err_msg, OP_EQ, "Couldn't process address <ulibercoin:\"/tmp/foo bar> "
             "from hidden service configuration");
   tor_free(err_msg);
 

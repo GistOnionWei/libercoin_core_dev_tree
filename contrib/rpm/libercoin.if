@@ -1,0 +1,157 @@
+
+## <summary>policy for libercoin</summary>
+
+
+########################################
+## <summary>
+##	Transition to libercoin.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`libercoin_domtrans',`
+	gen_require(`
+		type libercoin_t, libercoin_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, libercoin_exec_t, libercoin_t)
+')
+
+
+########################################
+## <summary>
+##	Execute libercoin server in the libercoin domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`libercoin_initrc_domtrans',`
+	gen_require(`
+		type libercoin_initrc_exec_t;
+	')
+
+	init_labeled_script_domtrans($1, libercoin_initrc_exec_t)
+')
+
+
+########################################
+## <summary>
+##	Search libercoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`libercoin_search_lib',`
+	gen_require(`
+		type libercoin_var_lib_t;
+	')
+
+	allow $1 libercoin_var_lib_t:dir search_dir_perms;
+	files_search_var_lib($1)
+')
+
+########################################
+## <summary>
+##	Read libercoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`libercoin_read_lib_files',`
+	gen_require(`
+		type libercoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	read_files_pattern($1, libercoin_var_lib_t, libercoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage libercoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`libercoin_manage_lib_files',`
+	gen_require(`
+		type libercoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_files_pattern($1, libercoin_var_lib_t, libercoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage libercoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`libercoin_manage_lib_dirs',`
+	gen_require(`
+		type libercoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_dirs_pattern($1, libercoin_var_lib_t, libercoin_var_lib_t)
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	a libercoin environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`libercoin_admin',`
+	gen_require(`
+		type libercoin_t;
+		type libercoin_initrc_exec_t;
+		type libercoin_var_lib_t;
+	')
+
+	allow $1 libercoin_t:process { ptrace signal_perms };
+	ps_process_pattern($1, libercoin_t)
+
+	libercoin_initrc_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 libercoin_initrc_exec_t system_r;
+	allow $2 system_r;
+
+	files_search_var_lib($1)
+	admin_pattern($1, libercoin_var_lib_t)
+
+')
+

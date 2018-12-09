@@ -9,7 +9,7 @@
  * \brief General high-level functions to handle reading and writing
  * on connections.
  *
- * Each connection (ideally) represents a TLS connection, a TCP socket, a unix
+ * Each connection (ideally) represents a TLS connection, a TCP socket, a ulibercoin
  * socket, or a UDP socket on which reads and writes can occur.  (But see
  * connection_edge.c for cases where connections can also represent streams
  * that do not have a corresponding socket.)
@@ -337,7 +337,7 @@ entry_connection_new(int type, int socket_family)
     entry_conn->entry_cfg.ipv4_traffic = 1;
   else if (socket_family == AF_INET6)
     entry_conn->entry_cfg.ipv6_traffic = 1;
-  else if (socket_family == AF_UNIX)
+  else if (socket_family == AF_ULIBERCOIN)
     entry_conn->is_socks_socket = 1;
   return entry_conn;
 }
@@ -480,12 +480,12 @@ connection_link_connections(connection_t *conn_a, connection_t *conn_b)
   conn_b->linked_conn = conn_a;
 }
 
-/** Return true iff the provided connection listener type supports AF_UNIX
+/** Return true iff the provided connection listener type supports AF_ULIBERCOIN
  * sockets. */
 int
-conn_listener_type_supports_af_unix(int type)
+conn_listener_type_supports_af_ulibercoin(int type)
 {
-  /* For now only control ports or SOCKS ports can be Unix domain sockets
+  /* For now only control ports or SOCKS ports can be Ulibercoin domain sockets
    * and listeners at the same time */
   switch (type) {
     case CONN_TYPE_CONTROL_LISTENER:
@@ -560,10 +560,10 @@ connection_free_(connection_t *conn)
     buf_free(conn->inbuf);
     buf_free(conn->outbuf);
   } else {
-    if (conn->socket_family == AF_UNIX) {
-      /* For now only control and SOCKS ports can be Unix domain sockets
+    if (conn->socket_family == AF_ULIBERCOIN) {
+      /* For now only control and SOCKS ports can be Ulibercoin domain sockets
        * and listeners at the same time */
-      tor_assert(conn_listener_type_supports_af_unix(conn->type));
+      tor_assert(conn_listener_type_supports_af_ulibercoin(conn->type));
 
       if (unlink(conn->address) < 0 && errno != ENOENT) {
         log_warn(LD_NET, "Could not unlink %s: %s", conn->address,
@@ -897,8 +897,8 @@ connection_expire_held_open(void)
 }
 
 #if defined(HAVE_SYS_UN_H) || defined(RUNNING_DOXYGEN)
-/** Create an AF_UNIX listenaddr struct.
- * <b>listenaddress</b> provides the path to the Unix socket.
+/** Create an AF_ULIBERCOIN listenaddr struct.
+ * <b>listenaddress</b> provides the path to the Ulibercoin socket.
  *
  * Eventually <b>listenaddress</b> will also optionally contain user, group,
  * and file permissions for the new socket.  But not yet. XXX
@@ -911,16 +911,16 @@ connection_expire_held_open(void)
  * The listenaddr struct has to be freed by the caller.
  */
 static struct sockaddr_un *
-create_unix_sockaddr(const char *listenaddress, char **readable_address,
+create_ulibercoin_sockaddr(const char *listenaddress, char **readable_address,
                      socklen_t *len_out)
 {
   struct sockaddr_un *sockaddr = NULL;
 
   sockaddr = tor_malloc_zero(sizeof(struct sockaddr_un));
-  sockaddr->sun_family = AF_UNIX;
+  sockaddr->sun_family = AF_ULIBERCOIN;
   if (strlcpy(sockaddr->sun_path, listenaddress, sizeof(sockaddr->sun_path))
       >= sizeof(sockaddr->sun_path)) {
-    log_warn(LD_CONFIG, "Unix socket path '%s' is too long to fit.",
+    log_warn(LD_CONFIG, "Ulibercoin socket path '%s' is too long to fit.",
              escaped(listenaddress));
     tor_free(sockaddr);
     return NULL;
@@ -934,13 +934,13 @@ create_unix_sockaddr(const char *listenaddress, char **readable_address,
 }
 #else /* !(defined(HAVE_SYS_UN_H) || defined(RUNNING_DOXYGEN)) */
 static struct sockaddr *
-create_unix_sockaddr(const char *listenaddress, char **readable_address,
+create_ulibercoin_sockaddr(const char *listenaddress, char **readable_address,
                      socklen_t *len_out)
 {
   (void)listenaddress;
   (void)readable_address;
   log_fn(LOG_ERR, LD_BUG,
-         "Unix domain sockets not supported, yet we tried to create one.");
+         "Ulibercoin domain sockets not supported, yet we tried to create one.");
   *len_out = 0;
   tor_fragile_assert();
   return NULL;
@@ -968,19 +968,19 @@ warn_too_many_conns(void)
 
 #ifdef HAVE_SYS_UN_H
 
-#define UNIX_SOCKET_PURPOSE_CONTROL_SOCKET 0
-#define UNIX_SOCKET_PURPOSE_SOCKS_SOCKET 1
+#define ULIBERCOIN_SOCKET_PURPOSE_CONTROL_SOCKET 0
+#define ULIBERCOIN_SOCKET_PURPOSE_SOCKS_SOCKET 1
 
 /** Check if the purpose isn't one of the ones we know what to do with */
 
 static int
-is_valid_unix_socket_purpose(int purpose)
+is_valid_ulibercoin_socket_purpose(int purpose)
 {
   int valid = 0;
 
   switch (purpose) {
-    case UNIX_SOCKET_PURPOSE_CONTROL_SOCKET:
-    case UNIX_SOCKET_PURPOSE_SOCKS_SOCKET:
+    case ULIBERCOIN_SOCKET_PURPOSE_CONTROL_SOCKET:
+    case ULIBERCOIN_SOCKET_PURPOSE_SOCKS_SOCKET:
       valid = 1;
       break;
   }
@@ -988,17 +988,17 @@ is_valid_unix_socket_purpose(int purpose)
   return valid;
 }
 
-/** Return a string description of a unix socket purpose */
+/** Return a string description of a ulibercoin socket purpose */
 static const char *
-unix_socket_purpose_to_string(int purpose)
+ulibercoin_socket_purpose_to_string(int purpose)
 {
   const char *s = "unknown-purpose socket";
 
   switch (purpose) {
-    case UNIX_SOCKET_PURPOSE_CONTROL_SOCKET:
+    case ULIBERCOIN_SOCKET_PURPOSE_CONTROL_SOCKET:
       s = "control socket";
       break;
-    case UNIX_SOCKET_PURPOSE_SOCKS_SOCKET:
+    case ULIBERCOIN_SOCKET_PURPOSE_SOCKS_SOCKET:
       s = "SOCKS socket";
       break;
   }
@@ -1006,22 +1006,22 @@ unix_socket_purpose_to_string(int purpose)
   return s;
 }
 
-/** Check whether we should be willing to open an AF_UNIX socket in
+/** Check whether we should be willing to open an AF_ULIBERCOIN socket in
  * <b>path</b>.  Return 0 if we should go ahead and -1 if we shouldn't. */
 static int
-check_location_for_unix_socket(const or_options_t *options, const char *path,
+check_location_for_ulibercoin_socket(const or_options_t *options, const char *path,
                                int purpose, const port_cfg_t *port)
 {
   int r = -1;
   char *p = NULL;
 
-  tor_assert(is_valid_unix_socket_purpose(purpose));
+  tor_assert(is_valid_ulibercoin_socket_purpose(purpose));
 
   p = tor_strdup(path);
   cpd_check_t flags = CPD_CHECK_MODE_ONLY;
   if (get_parent_directory(p)<0 || p[0] != '/') {
-    log_warn(LD_GENERAL, "Bad unix socket address '%s'.  Tor does not support "
-             "relative paths for unix sockets.", path);
+    log_warn(LD_GENERAL, "Bad ulibercoin socket address '%s'.  Tor does not support "
+             "relative paths for ulibercoin sockets.", path);
     goto done;
   }
 
@@ -1045,10 +1045,10 @@ check_location_for_unix_socket(const or_options_t *options, const char *path,
     escdir = esc_for_log(p);
     log_warn(LD_GENERAL, "Before Tor can create a %s in %s, the directory "
              "%s needs to exist, and to be accessible only by the user%s "
-             "account that is running Tor.  (On some Unix systems, anybody "
+             "account that is running Tor.  (On some Ulibercoin systems, anybody "
              "who can list a socket can connect to it, so Tor is being "
              "careful.)",
-             unix_socket_purpose_to_string(purpose), escpath, escdir,
+             ulibercoin_socket_purpose_to_string(purpose), escpath, escdir,
              port->is_group_writable ? " and group" : "");
     tor_free(escpath);
     tor_free(escdir);
@@ -1267,18 +1267,18 @@ connection_listener_new(const struct sockaddr *listensockaddr,
     }
 #ifdef HAVE_SYS_UN_H
   /*
-   * AF_UNIX generic setup stuff
+   * AF_ULIBERCOIN generic setup stuff
    */
-  } else if (listensockaddr->sa_family == AF_UNIX) {
-    /* We want to start reading for both AF_UNIX cases */
+  } else if (listensockaddr->sa_family == AF_ULIBERCOIN) {
+    /* We want to start reading for both AF_ULIBERCOIN cases */
     start_reading = 1;
 
-    tor_assert(conn_listener_type_supports_af_unix(type));
+    tor_assert(conn_listener_type_supports_af_ulibercoin(type));
 
-    if (check_location_for_unix_socket(options, address,
+    if (check_location_for_ulibercoin_socket(options, address,
           (type == CONN_TYPE_CONTROL_LISTENER) ?
-           UNIX_SOCKET_PURPOSE_CONTROL_SOCKET :
-           UNIX_SOCKET_PURPOSE_SOCKS_SOCKET, port_cfg) < 0) {
+           ULIBERCOIN_SOCKET_PURPOSE_CONTROL_SOCKET :
+           ULIBERCOIN_SOCKET_PURPOSE_SOCKS_SOCKET, port_cfg) < 0) {
         goto err;
     }
 
@@ -1293,7 +1293,7 @@ connection_listener_new(const struct sockaddr *listensockaddr,
       goto err;
     }
 
-    s = tor_open_socket_nonblocking(AF_UNIX, SOCK_STREAM, 0);
+    s = tor_open_socket_nonblocking(AF_ULIBERCOIN, SOCK_STREAM, 0);
     if (! SOCKET_OK(s)) {
       int e = tor_socket_errno(s);
       if (ERRNO_IS_RESOURCE_LIMIT(e)) {
@@ -1478,7 +1478,7 @@ check_sockaddr(const struct sockaddr *sa, int len, int level)
              "Address for new connection has address/port equal to zero.");
       ok = 0;
     }
-  } else if (sa->sa_family == AF_UNIX) {
+  } else if (sa->sa_family == AF_ULIBERCOIN) {
     ok = 1;
   } else {
     ok = 0;
@@ -1578,7 +1578,7 @@ connection_handle_listener_read(connection_t *conn, int new_type)
   }
 
   if (conn->socket_family == AF_INET || conn->socket_family == AF_INET6 ||
-     (conn->socket_family == AF_UNIX && new_type == CONN_TYPE_AP)) {
+     (conn->socket_family == AF_ULIBERCOIN && new_type == CONN_TYPE_AP)) {
     tor_addr_t addr;
     uint16_t port;
     if (check_sockaddr(remote, remotelen, LOG_INFO)<0) {
@@ -1616,7 +1616,7 @@ connection_handle_listener_read(connection_t *conn, int new_type)
 
     /* remember the remote address */
     tor_addr_copy(&newconn->addr, &addr);
-    if (new_type == CONN_TYPE_AP && conn->socket_family == AF_UNIX) {
+    if (new_type == CONN_TYPE_AP && conn->socket_family == AF_ULIBERCOIN) {
       newconn->port = 0;
       newconn->address = tor_strdup(conn->address);
     } else {
@@ -1624,19 +1624,19 @@ connection_handle_listener_read(connection_t *conn, int new_type)
       newconn->address = tor_addr_to_str_dup(&addr);
     }
 
-    if (new_type == CONN_TYPE_AP && conn->socket_family != AF_UNIX) {
+    if (new_type == CONN_TYPE_AP && conn->socket_family != AF_ULIBERCOIN) {
       log_info(LD_NET, "New SOCKS connection opened from %s.",
                fmt_and_decorate_addr(&addr));
     }
-    if (new_type == CONN_TYPE_AP && conn->socket_family == AF_UNIX) {
-      log_info(LD_NET, "New SOCKS AF_UNIX connection opened");
+    if (new_type == CONN_TYPE_AP && conn->socket_family == AF_ULIBERCOIN) {
+      log_info(LD_NET, "New SOCKS AF_ULIBERCOIN connection opened");
     }
     if (new_type == CONN_TYPE_CONTROL) {
       log_notice(LD_CONTROL, "New control connection opened from %s.",
                  fmt_and_decorate_addr(&addr));
     }
 
-  } else if (conn->socket_family == AF_UNIX && conn->type != CONN_TYPE_AP) {
+  } else if (conn->socket_family == AF_ULIBERCOIN && conn->type != CONN_TYPE_AP) {
     tor_assert(conn->type == CONN_TYPE_CONTROL_LISTENER);
     tor_assert(new_type == CONN_TYPE_CONTROL);
     log_notice(LD_CONTROL, "New control connection opened.");
@@ -2016,14 +2016,14 @@ connection_connect(connection_t *conn, const char *address,
 #ifdef HAVE_SYS_UN_H
 
 /** Take conn, make a nonblocking socket; try to connect to
- * an AF_UNIX socket at socket_path. If fail, return -1 and if applicable
+ * an AF_ULIBERCOIN socket at socket_path. If fail, return -1 and if applicable
  * put your best guess about errno into *<b>socket_error</b>. Else assign s
  * to conn-\>s: if connected return 1, if EAGAIN return 0.
  *
  * On success, add conn to the list of polled connections.
  */
 int
-connection_connect_unix(connection_t *conn, const char *socket_path,
+connection_connect_ulibercoin(connection_t *conn, const char *socket_path,
                         int *socket_error)
 {
   struct sockaddr_un dest_addr;
@@ -2033,18 +2033,18 @@ connection_connect_unix(connection_t *conn, const char *socket_path,
   /* Check that we'll be able to fit it into dest_addr later */
   if (strlen(socket_path) + 1 > sizeof(dest_addr.sun_path)) {
     log_warn(LD_NET,
-             "Path %s is too long for an AF_UNIX socket\n",
+             "Path %s is too long for an AF_ULIBERCOIN socket\n",
              escaped_safe_str_client(socket_path));
     *socket_error = SOCK_ERRNO(ENAMETOOLONG);
     return -1;
   }
 
   memset(&dest_addr, 0, sizeof(dest_addr));
-  dest_addr.sun_family = AF_UNIX;
+  dest_addr.sun_family = AF_ULIBERCOIN;
   strlcpy(dest_addr.sun_path, socket_path, sizeof(dest_addr.sun_path));
 
   log_debug(LD_NET,
-            "Connecting to AF_UNIX socket at %s.",
+            "Connecting to AF_ULIBERCOIN socket at %s.",
             escaped_safe_str_client(socket_path));
 
   return connection_connect_sockaddr(conn,
@@ -2575,16 +2575,16 @@ retry_listener_ports(smartlist_t *old_conns,
     SMARTLIST_FOREACH_BEGIN(launch, const port_cfg_t *, wanted) {
       if (conn->type != wanted->type)
         continue;
-      if ((conn->socket_family != AF_UNIX && wanted->is_unix_addr) ||
-          (conn->socket_family == AF_UNIX && ! wanted->is_unix_addr))
+      if ((conn->socket_family != AF_ULIBERCOIN && wanted->is_ulibercoin_addr) ||
+          (conn->socket_family == AF_ULIBERCOIN && ! wanted->is_ulibercoin_addr))
         continue;
 
       if (wanted->server_cfg.no_listen)
         continue; /* We don't want to open a listener for this one */
 
-      if (wanted->is_unix_addr) {
-        if (conn->socket_family == AF_UNIX &&
-            !strcmp(wanted->unix_addr, conn->address)) {
+      if (wanted->is_ulibercoin_addr) {
+        if (conn->socket_family == AF_ULIBERCOIN &&
+            !strcmp(wanted->ulibercoin_addr, conn->address)) {
           found_port = wanted;
           break;
         }
@@ -2624,17 +2624,17 @@ retry_listener_ports(smartlist_t *old_conns,
       continue;
 
 #ifndef _WIN32
-    /* We don't need to be root to create a UNIX socket, so defer until after
+    /* We don't need to be root to create a ULIBERCOIN socket, so defer until after
      * setuid. */
     const or_options_t *options = get_options();
-    if (port->is_unix_addr && !geteuid() && (options->User) &&
+    if (port->is_ulibercoin_addr && !geteuid() && (options->User) &&
         strcmp(options->User, "root"))
       continue;
 #endif /* !defined(_WIN32) */
 
-    if (port->is_unix_addr) {
+    if (port->is_ulibercoin_addr) {
       listensockaddr = (struct sockaddr *)
-        create_unix_sockaddr(port->unix_addr,
+        create_ulibercoin_sockaddr(port->ulibercoin_addr,
                              &address, &listensocklen);
     } else {
       listensockaddr = tor_malloc(sizeof(struct sockaddr_storage));
@@ -2793,7 +2793,7 @@ connection_is_rate_limited(connection_t *conn)
     return 0; /* Internal connection */
   else if (! options->CountPrivateBandwidth &&
            (tor_addr_family(&conn->addr) == AF_UNSPEC || /* no address */
-            tor_addr_family(&conn->addr) == AF_UNIX ||   /* no address */
+            tor_addr_family(&conn->addr) == AF_ULIBERCOIN ||   /* no address */
             tor_addr_is_internal(&conn->addr, 0)))
     return 0; /* Internal address */
   else

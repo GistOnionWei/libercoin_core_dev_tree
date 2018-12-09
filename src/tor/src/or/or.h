@@ -1349,7 +1349,7 @@ typedef struct connection_t {
   time_t timestamp_created; /**< When was this connection_t created? */
 
   int socket_family; /**< Address family of this connection's socket.  Usually
-                      * AF_INET, but it can also be AF_UNIX, or AF_INET6 */
+                      * AF_INET, but it can also be AF_ULIBERCOIN, or AF_INET6 */
   tor_addr_t addr; /**< IP that socket "s" is directly connected to;
                     * may be the IP address for a proxy or pluggable transport,
                     * see "address" for the address of the final destination.
@@ -3597,11 +3597,11 @@ static inline const origin_circuit_t *CONST_TO_ORIGIN_CIRCUIT(
 
 /** Configuration for a single port that we're listening on. */
 typedef struct port_cfg_t {
-  tor_addr_t addr; /**< The actual IP to listen on, if !is_unix_addr. */
+  tor_addr_t addr; /**< The actual IP to listen on, if !is_ulibercoin_addr. */
   int port; /**< The configured port, or CFG_AUTO_PORT to tell Tor to pick its
              * own port. */
   uint8_t type; /**< One of CONN_TYPE_*_LISTENER */
-  unsigned is_unix_addr : 1; /**< True iff this is an AF_UNIX address. */
+  unsigned is_ulibercoin_addr : 1; /**< True iff this is an AF_ULIBERCOIN address. */
 
   unsigned is_group_writable : 1;
   unsigned is_world_writable : 1;
@@ -3611,9 +3611,9 @@ typedef struct port_cfg_t {
 
   server_port_cfg_t server_cfg;
 
-  /* Unix sockets only: */
-  /** Path for an AF_UNIX address */
-  char unix_addr[FLEXIBLE_ARRAY_MEMBER];
+  /* Ulibercoin sockets only: */
+  /** Path for an AF_ULIBERCOIN address */
+  char ulibercoin_addr[FLEXIBLE_ARRAY_MEMBER];
 } port_cfg_t;
 
 typedef struct routerset_t routerset_t;
@@ -3734,7 +3734,7 @@ typedef struct {
   config_line_t *HTTPTunnelPort_lines;
   config_line_t *ControlPort_lines; /**< Ports to listen on for control
                                * connections. */
-  config_line_t *ControlSocket; /**< List of Unix Domain Sockets to listen on
+  config_line_t *ControlSocket; /**< List of Ulibercoin Domain Sockets to listen on
                                  * for control connections. */
 
   int ControlSocketsGroupWritable; /**< Boolean: Are control sockets g+rw? */
@@ -3756,7 +3756,7 @@ typedef struct {
    * Derived booleans: For server ports and ControlPort, true iff there is a
    * non-listener port on an AF_INET or AF_INET6 address of the given type
    * configured in one of the _lines options above.
-   * For client ports, also true if there is a unix socket configured.
+   * For client ports, also true if there is a ulibercoin socket configured.
    * If you are checking for client ports, you may want to use:
    *   SocksPort_set || TransPort_set || NATDPort_set || DNSPort_set ||
    *   HTTPTunnelPort_set
@@ -3882,7 +3882,7 @@ typedef struct {
                               *   have this many. */
   int ConnLimit_low_thresh; /**< try to get down to here after socket
                              *   exhaustion. */
-  int RunAsDaemon; /**< If true, run in the background. (Unix only) */
+  int RunAsDaemon; /**< If true, run in the background. (Ulibercoin only) */
   int FascistFirewall; /**< Whether to prefer ORs reachable on open ports. */
   smartlist_t *FirewallPorts; /**< Which ports our firewall allows
                                * (strings). */
@@ -4152,7 +4152,7 @@ typedef struct {
                                * DNS poisoning attacks. */
   char *ServerDNSResolvConfFile; /**< If provided, we configure our internal
                      * resolver from the file here rather than from
-                     * /etc/resolv.conf (Unix) or the registry (Windows). */
+                     * /etc/resolv.conf (Ulibercoin) or the registry (Windows). */
   char *DirPortFrontPage; /**< This is a full path to a file with an html
                     disclaimer. This allows a server administrator to show
                     that they're running Tor and anyone visiting their server

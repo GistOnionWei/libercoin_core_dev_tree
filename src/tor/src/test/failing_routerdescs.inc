@@ -901,7 +901,7 @@ static const char EX_RI_ED_BAD_SIG2[] =
   "-----END RSA PUBLIC KEY-----\n"
   "onion-key\n"
   "-----BEGIN RSA PUBLIC KEY-----\n"
-  "MIGJAoGBAMoI9vQT4g2sV2dViGOWOzxckk367T9sMjVwcYfJCmnixGxjWeKScQFB\n"
+  "MIGJAoGBAMoI9vQT4g2sV2dViGOWOzxckk367T9sMjVwcYfJCmlibercoinGxjWeKScQFB\n"
   "K9v1uK73cfZR8AxiUGK4/iOX/9en14mJOGF7fftAqypFLAt1TBvb07IgXljOBoHc\n"
   "Paw4oZoJQzEoazt0Oa181LyNnNIoaZpHVZd1+a1Gs1gKoM4xDBv1AgMBAAE=\n"
   "-----END RSA PUBLIC KEY-----\n"

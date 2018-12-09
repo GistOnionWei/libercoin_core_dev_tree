@@ -1,0 +1,92 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/libercoin/.libercoin" ]; then
+	LIBERCOIND_DEFAULT_DATADIR="/var/lib/libercoin/.libercoin"
+else
+	LIBERCOIND_DEFAULT_DATADIR="/var/lib/libercoind"
+fi
+
+LIBERCOIND_CONFIGFILE=${LIBERCOIND_CONFIGFILE:-/etc/libercoin/libercoin.conf}
+LIBERCOIND_PIDDIR=${LIBERCOIND_PIDDIR:-/var/run/libercoind}
+LIBERCOIND_PIDFILE=${LIBERCOIND_PIDFILE:-${LIBERCOIND_PIDDIR}/libercoind.pid}
+LIBERCOIND_DATADIR=${LIBERCOIND_DATADIR:-${LIBERCOIND_DEFAULT_DATADIR}}
+LIBERCOIND_USER=${LIBERCOIND_USER:-${LIBERCOIN_USER:-libercoin}}
+LIBERCOIND_GROUP=${LIBERCOIND_GROUP:-libercoin}
+LIBERCOIND_BIN=${LIBERCOIND_BIN:-/usr/bin/libercoind}
+LIBERCOIND_NICE=${LIBERCOIND_NICE:-${NICELEVEL:-0}}
+LIBERCOIND_OPTS="${LIBERCOIND_OPTS:-${LIBERCOIN_OPTS}}"
+
+name="LIBERCOIN Core Daemon"
+description="LIBERCOIN cryptocurrency P2P network daemon"
+
+command="/usr/bin/libercoind"
+command_args="-pid=\"${LIBERCOIND_PIDFILE}\" \
+		-conf=\"${LIBERCOIND_CONFIGFILE}\" \
+		-datadir=\"${LIBERCOIND_DATADIR}\" \
+		-daemon \
+		${LIBERCOIND_OPTS}"
+
+required_files="${LIBERCOIND_CONFIGFILE}"
+start_stop_daemon_args="-u ${LIBERCOIND_USER} \
+			-N ${LIBERCOIND_NICE} -w 2000"
+pidfile="${LIBERCOIND_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${LIBERCOIND_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${LIBERCOIND_USER}:${LIBERCOIND_GROUP}" \
+	"${LIBERCOIND_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${LIBERCOIND_USER}:${LIBERCOIND_GROUP}" \
+	"${LIBERCOIND_PIDDIR}"
+
+	checkpath -f \
+	-o ${LIBERCOIND_USER}:${LIBERCOIND_GROUP} \
+	-m 0660 \
+	${LIBERCOIND_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${LIBERCOIND_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run libercoind."
+		eerror "The setting must appear in ${LIBERCOIND_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following "
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"LIBERCOIN Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

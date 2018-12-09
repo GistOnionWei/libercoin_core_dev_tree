@@ -3139,9 +3139,9 @@ bool CWallet::GetFeeForTransaction(const std::vector<CRecipient>& vecSend, CAmou
                     if (!SelectCoins(vAvailableCoins, nValueToSelect, setCoins, nValueIn, &coin_control))
                     {
                         if (nCoinType == ONLY_NOT40000IFMN) {
-                            strFailReason = _("Unable to locate enough funds for this transaction that are not equal 40000 NIX.");
+                            strFailReason = _("Unable to locate enough funds for this transaction that are not equal 40000 LIBERCOIN.");
                         } else if (nCoinType == ONLY_NONDENOMINATED_NOT40000IFMN) {
-                            strFailReason = _("Unable to locate enough PrivateSend non-denominated funds for this transaction that are not equal 40000 NIX.");
+                            strFailReason = _("Unable to locate enough PrivateSend non-denominated funds for this transaction that are not equal 40000 LIBERCOIN.");
                         } else if (nCoinType == ONLY_DENOMINATED) {
                             strFailReason = _("Unable to locate enough PrivateSend denominated funds for this transaction.");
                             strFailReason += _("PrivateSend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.");
@@ -3475,9 +3475,9 @@ bool CWallet::CreateTransaction(const std::vector<CRecipient>& vecSend, CWalletT
                     if (!SelectCoins(vAvailableCoins, nValueToSelect, setCoins, nValueIn, &coin_control))
                     {
                         if (nCoinType == ONLY_NOT40000IFMN) {
-                            strFailReason = _("Unable to locate enough funds for this transaction that are not equal 40000 NIX.");
+                            strFailReason = _("Unable to locate enough funds for this transaction that are not equal 40000 LIBERCOIN.");
                         } else if (nCoinType == ONLY_NONDENOMINATED_NOT40000IFMN) {
-                            strFailReason = _("Unable to locate enough PrivateSend non-denominated funds for this transaction that are not equal 40000 NIX.");
+                            strFailReason = _("Unable to locate enough PrivateSend non-denominated funds for this transaction that are not equal 40000 LIBERCOIN.");
                         } else if (nCoinType == ONLY_DENOMINATED) {
                             strFailReason = _("Unable to locate enough PrivateSend denominated funds for this transaction.");
                             strFailReason += _("PrivateSend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.");
@@ -7248,10 +7248,10 @@ std::string CWallet::GhostModeSpendTrigger(string totalAmount, string toKey, vec
                         amountGhosted += currentDenomination[x + 2];
                         amountGhosted += currentDenomination[x + 3];
                     }
-                    return "GhostModeSpendTrigger(): Error: Was only able to unghost %s NIX - %s." + std::to_string(amountGhosted) + stringError;
+                    return "GhostModeSpendTrigger(): Error: Was only able to unghost %s LIBERCOIN - %s." + std::to_string(amountGhosted) + stringError;
                 }
                 else
-                    return "GhostModeSpendTrigger(): Error: Failed to unghost ghosted NIX - %s." +  stringError;
+                    return "GhostModeSpendTrigger(): Error: Failed to unghost ghosted LIBERCOIN - %s." +  stringError;
             }
 
             startIndex = endIndex + 1;
@@ -7261,7 +7261,7 @@ std::string CWallet::GhostModeSpendTrigger(string totalAmount, string toKey, vec
                 endIndex = denominationBatch.size() - 1;
         }
 
-        return "Sucessfully sent " + totalAmount + " ghosted NIX";
+        return "Sucessfully sent " + totalAmount + " ghosted LIBERCOIN";
     }
     else {
 
@@ -8329,7 +8329,7 @@ bool CWallet::CreateCoinStake(unsigned int nBits, int64_t nTime, int nBlockHeigh
             txNew.vout.clear();
 
             // Mark as coin stake transaction
-            txNew.nVersion = NIX_TXN_VERSION;
+            txNew.nVersion = LIBERCOIN_TXN_VERSION;
             txNew.SetType(TXN_COINSTAKE);
 
             txNew.vin.push_back(CTxIn(pcoin.first->GetHash(), pcoin.second));

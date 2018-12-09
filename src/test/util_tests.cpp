@@ -660,7 +660,7 @@ BOOST_AUTO_TEST_CASE(test_LockDirectory)
     // won't fork while holding the lock (which might be undefined, and is not
     // relevant as test case as that is avoided with -daemonize).
     int fd[2];
-    BOOST_CHECK_EQUAL(socketpair(AF_UNIX, SOCK_STREAM, 0, fd), 0);
+    BOOST_CHECK_EQUAL(socketpair(AF_ULIBERCOIN, SOCK_STREAM, 0, fd), 0);
     pid_t pid = fork();
     if (!pid) {
         BOOST_CHECK_EQUAL(close(fd[1]), 0); // Child: close parent end

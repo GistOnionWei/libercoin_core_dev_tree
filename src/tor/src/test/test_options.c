@@ -3291,7 +3291,7 @@ test_options_validate__control(void *ignored)
 #ifdef HAVE_SYS_UN_H
   free_options_test_data(tdata);
   tdata = get_options_test_data(TEST_OPTIONS_DEFAULT_VALUES
-                                "ControlSocket unix:/tmp WorldWritable\n"
+                                "ControlSocket ulibercoin:/tmp WorldWritable\n"
                                 );
   mock_clean_saved_logs();
   ret = options_validate(tdata->old_opt, tdata->opt, tdata->def_opt, 0, &msg);
@@ -3305,7 +3305,7 @@ test_options_validate__control(void *ignored)
 
   free_options_test_data(tdata);
   tdata = get_options_test_data(TEST_OPTIONS_DEFAULT_VALUES
-                                "ControlSocket unix:/tmp WorldWritable\n"
+                                "ControlSocket ulibercoin:/tmp WorldWritable\n"
                                 "HashedControlPassword 16:872860B76453A77D60CA"
                                 "2BB8C1A7042072093276A3D701AD684053EC4C\n"
                                 );
@@ -3321,7 +3321,7 @@ test_options_validate__control(void *ignored)
 
   free_options_test_data(tdata);
   tdata = get_options_test_data(TEST_OPTIONS_DEFAULT_VALUES
-                                "ControlSocket unix:/tmp WorldWritable\n"
+                                "ControlSocket ulibercoin:/tmp WorldWritable\n"
                                 "__HashedControlSessionPassword 16:872860B7645"
                                 "3A77D60CA2BB8C1A7042072093276A3D701AD684053EC"
                                 "4C\n"
@@ -3338,7 +3338,7 @@ test_options_validate__control(void *ignored)
 
   free_options_test_data(tdata);
   tdata = get_options_test_data(TEST_OPTIONS_DEFAULT_VALUES
-                                "ControlSocket unix:/tmp WorldWritable\n"
+                                "ControlSocket ulibercoin:/tmp WorldWritable\n"
                                 "CookieAuthentication 1\n"
                                 );
   mock_clean_saved_logs();

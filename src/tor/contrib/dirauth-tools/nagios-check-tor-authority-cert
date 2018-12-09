@@ -68,16 +68,16 @@ if ! [ -s "$TMPFILE" ] ; then
 fi
 
 expirydate="$(awk '$1=="dir-key-expires" {printf "%s %s", $2, $3}' < "$TMPFILE")"
-expiryunix=$(TZ=UTC date -d "$expirydate" +%s)
+expiryulibercoin=$(TZ=UTC date -d "$expirydate" +%s)
 now=$(date +%s)
 
-if [ "$now" -ge "$expiryunix" ]; then
+if [ "$now" -ge "$expiryulibercoin" ]; then
 	echo "CRITICAL: Certificate expired $expirydate (authority $identity)."
 	exit 2
-elif [ "$(( $now + 7*24*60*60 ))" -ge "$expiryunix" ]; then
+elif [ "$(( $now + 7*24*60*60 ))" -ge "$expiryulibercoin" ]; then
 	echo "CRITICAL: Certificate expires $expirydate (authority $identity)."
 	exit 2
-elif [ "$(( $now + 30*24*60*60 ))" -ge "$expiryunix" ]; then
+elif [ "$(( $now + 30*24*60*60 ))" -ge "$expiryulibercoin" ]; then
 	echo "WARNING: Certificate expires $expirydate (authority $identity)."
 	exit 1
 else

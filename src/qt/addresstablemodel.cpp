@@ -527,7 +527,7 @@ void AddressTableModel::warningBox(QString msg)
 }
 
 
-bool AddressTableModel::ghostNIX(string &stringError, string denomAmount)
+bool AddressTableModel::ghostLIBERCOIN(string &stringError, string denomAmount)
 {
     WalletModel::UnlockContext ctx(walletModel->requestUnlock());
     if(!ctx.isValid())

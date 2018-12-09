@@ -56,7 +56,7 @@
  * string, use the buf_pullup function to make them so.  Don't do this more
  * than necessary.
  *
- * The major free Unix kernels have handled buffers like this since, like,
+ * The major free Ulibercoin kernels have handled buffers like this since, like,
  * forever.
  */
 

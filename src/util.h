@@ -11,7 +11,7 @@
 #define BITCOIN_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include <config/nix-config.h>
+#include <config/libercoin-config.h>
 #endif
 
 #include <compat.h>
@@ -340,7 +340,7 @@ void RenameThread(const char* name);
  */
 template <typename Callable> void TraceThread(const char* name,  Callable func)
 {
-    std::string s = strprintf("nix-%s", name);
+    std::string s = strprintf("libercoin-%s", name);
     RenameThread(s.c_str());
     try
     {
@@ -385,7 +385,7 @@ std::pair<bool,std::string> ReadBinaryFileTor(const std::string &filename, size_
  */
 bool WriteBinaryFileTor(const std::string &filename, const std::string &data);
 
-namespace nix
+namespace libercoin
 {
     void *memrchr(const void *s, int c, size_t n);
 

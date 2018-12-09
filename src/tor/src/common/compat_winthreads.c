@@ -24,7 +24,7 @@
 #define SPIN_COUNT 2000
 
 /** Minimalist interface to run a void function in the background.  On
- * Unix calls fork, on win32 calls beginthread.  Returns -1 on failure.
+ * Ulibercoin calls fork, on win32 calls beginthread.  Returns -1 on failure.
  * func should not return, but rather should call spawn_exit.
  *
  * NOTE: if <b>data</b> is used, it should not be allocated on the stack,

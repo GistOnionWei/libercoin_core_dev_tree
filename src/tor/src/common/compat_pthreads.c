@@ -55,7 +55,7 @@ static pthread_attr_t attr_detached;
 static int threads_initialized = 0;
 
 /** Minimalist interface to run a void function in the background.  On
- * Unix calls pthread_create, on win32 calls beginthread.  Returns -1 on
+ * Ulibercoin calls pthread_create, on win32 calls beginthread.  Returns -1 on
  * failure.
  * func should not return, but rather should call spawn_exit.
  *

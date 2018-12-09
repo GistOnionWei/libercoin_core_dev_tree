@@ -177,7 +177,7 @@ static void RandAddSeedPerfmon()
 
 #ifndef WIN32
 /** Fallback: get 32 bytes of system entropy from /dev/urandom. The most
- * compatible way to get cryptographic randomness on UNIX-ish platforms.
+ * compatible way to get cryptographic randomness on ULIBERCOIN-ish platforms.
  */
 void GetDevURandom(unsigned char *ent32)
 {

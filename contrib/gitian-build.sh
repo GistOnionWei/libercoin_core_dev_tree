@@ -16,7 +16,7 @@ osx=true
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/nixplatform/nixcore
+url=https://github.com/libercoinplatform/libercoincore
 proc=4
 mem=8000
 lxc=true
@@ -30,7 +30,7 @@ commitFiles=true
 read -d '' usage <<- EOF
 Usage: $scriptName [-c|u|v|b|s|B|o|h|j|m|] signer version
 
-Run this script from the directory containing the nix, gitian-builder, gitian.sigs, and nix-detached-sigs.
+Run this script from the directory containing the libercoin, gitian-builder, gitian.sigs, and libercoin-detached-sigs.
 
 Arguments:
 signer          GPG signer to sign each build assert file
@@ -38,7 +38,7 @@ version		Version number, commit, or branch to build. If building a commit or bra
 
 Options:
 -c|--commit	Indicate that the version argument is for a commit or branch
--u|--url	Specify the URL of the repository. Default is https://github.com/nixplatform/nixcore
+-u|--url	Specify the URL of the repository. Default is https://github.com/libercoinplatform/libercoincore
 -v|--verify 	Verify the Gitian build
 -b|--build	Do a Gitian build
 -s|--sign	Make signed binaries for Windows and Mac OSX
@@ -229,8 +229,8 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/nixplatform/gitian.sigs.git
-    git clone https://github.com/nixplatform/nix-detached-sigs.git
+    git clone https://github.com/libercoinplatform/gitian.sigs.git
+    git clone https://github.com/libercoinplatform/libercoin-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]
@@ -244,7 +244,7 @@ then
 fi
 
 # Set up build
-pushd ./nix
+pushd ./libercoin
 git fetch
 git checkout ${COMMIT}
 popd
@@ -253,7 +253,7 @@ popd
 if [[ $build = true ]]
 then
 	# Make output folder
-	mkdir -p ./nix-binaries/${VERSION}
+	mkdir -p ./libercoin-binaries/${VERSION}
 
 	# Build Dependencies
 	echo ""
@@ -263,7 +263,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../nix/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../libercoin/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -271,9 +271,9 @@ then
             echo ""
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit nix=${COMMIT} --url nix=${url} ../nix/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../nix/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/nix-*.tar.gz build/out/src/nix-*.tar.gz ../nix-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit libercoin=${COMMIT} --url libercoin=${url} ../libercoin/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../libercoin/contrib/gitian-descriptors/gitian-linux.yml
+	    mv build/out/libercoin-*.tar.gz build/out/src/libercoin-*.tar.gz ../libercoin-binaries/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -281,10 +281,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit nix=${COMMIT} --url nix=${url} ../nix/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../nix/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/nix-*-win-unsigned.tar.gz inputs/nix-win-unsigned.tar.gz
-	    mv build/out/nix-*.zip build/out/nix-*.exe ../nix-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit libercoin=${COMMIT} --url libercoin=${url} ../libercoin/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../libercoin/contrib/gitian-descriptors/gitian-win.yml
+	    mv build/out/libercoin-*-win-unsigned.tar.gz inputs/libercoin-win-unsigned.tar.gz
+	    mv build/out/libercoin-*.zip build/out/libercoin-*.exe ../libercoin-binaries/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -292,10 +292,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit nix=${COMMIT} --url nix=${url} ../nix/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../nix/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/nix-*-osx-unsigned.tar.gz inputs/nix-osx-unsigned.tar.gz
-	    mv build/out/nix-*.tar.gz build/out/nix-*.dmg ../nix-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit libercoin=${COMMIT} --url libercoin=${url} ../libercoin/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../libercoin/contrib/gitian-descriptors/gitian-osx.yml
+	    mv build/out/libercoin-*-osx-unsigned.tar.gz inputs/libercoin-osx-unsigned.tar.gz
+	    mv build/out/libercoin-*.tar.gz build/out/libercoin-*.dmg ../libercoin-binaries/${VERSION}
 	fi
 	popd
 
@@ -322,27 +322,27 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../nix/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../libercoin/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../nix/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../libercoin/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../nix/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../libercoin/contrib/gitian-descriptors/gitian-osx.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../nix/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../libercoin/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../nix/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../libercoin/contrib/gitian-descriptors/gitian-osx-signer.yml
 	popd
 fi
 
@@ -357,10 +357,10 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../nix/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../nix/contrib/gitian-descriptors/gitian-win-signer.yml
-	    mv build/out/nix-*win64-setup.exe ../nix-binaries/${VERSION}
-	    mv build/out/nix-*win32-setup.exe ../nix-binaries/${VERSION}
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../libercoin/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../libercoin/contrib/gitian-descriptors/gitian-win-signer.yml
+	    mv build/out/libercoin-*win64-setup.exe ../libercoin-binaries/${VERSION}
+	    mv build/out/libercoin-*win32-setup.exe ../libercoin-binaries/${VERSION}
 	fi
 	# Sign Mac OSX
 	if [[ $osx = true ]]
@@ -368,9 +368,9 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../nix/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../nix/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/nix-osx-signed.dmg ../nix-binaries/${VERSION}/nix-${VERSION}-osx.dmg
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../libercoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../libercoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    mv build/out/libercoin-osx-signed.dmg ../libercoin-binaries/${VERSION}/libercoin-${VERSION}-osx.dmg
 	fi
 	popd
 

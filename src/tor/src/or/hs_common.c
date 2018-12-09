@@ -46,41 +46,41 @@ static const char *str_ed25519_basepoint =
 #ifdef HAVE_SYS_UN_H
 
 /** Given <b>ports</b>, a smarlist containing rend_service_port_config_t,
- * add the given <b>p</b>, a AF_UNIX port to the list. Return 0 on success
- * else return -ENOSYS if AF_UNIX is not supported (see function in the
+ * add the given <b>p</b>, a AF_ULIBERCOIN port to the list. Return 0 on success
+ * else return -ENOSYS if AF_ULIBERCOIN is not supported (see function in the
  * #else statement below). */
 static int
-add_unix_port(smartlist_t *ports, rend_service_port_config_t *p)
+add_ulibercoin_port(smartlist_t *ports, rend_service_port_config_t *p)
 {
   tor_assert(ports);
   tor_assert(p);
-  tor_assert(p->is_unix_addr);
+  tor_assert(p->is_ulibercoin_addr);
 
   smartlist_add(ports, p);
   return 0;
 }
 
 /** Given <b>conn</b> set it to use the given port <b>p</b> values. Return 0
- * on success else return -ENOSYS if AF_UNIX is not supported (see function
+ * on success else return -ENOSYS if AF_ULIBERCOIN is not supported (see function
  * in the #else statement below). */
 static int
-set_unix_port(edge_connection_t *conn, rend_service_port_config_t *p)
+set_ulibercoin_port(edge_connection_t *conn, rend_service_port_config_t *p)
 {
   tor_assert(conn);
   tor_assert(p);
-  tor_assert(p->is_unix_addr);
+  tor_assert(p->is_ulibercoin_addr);
 
-  conn->base_.socket_family = AF_UNIX;
+  conn->base_.socket_family = AF_ULIBERCOIN;
   tor_addr_make_unspec(&conn->base_.addr);
   conn->base_.port = 1;
-  conn->base_.address = tor_strdup(p->unix_addr);
+  conn->base_.address = tor_strdup(p->ulibercoin_addr);
   return 0;
 }
 
 #else /* !(defined(HAVE_SYS_UN_H)) */
 
 static int
-set_unix_port(edge_connection_t *conn, rend_service_port_config_t *p)
+set_ulibercoin_port(edge_connection_t *conn, rend_service_port_config_t *p)
 {
   (void) conn;
   (void) p;
@@ -88,7 +88,7 @@ set_unix_port(edge_connection_t *conn, rend_service_port_config_t *p)
 }
 
 static int
-add_unix_port(smartlist_t *ports, rend_service_port_config_t *p)
+add_ulibercoin_port(smartlist_t *ports, rend_service_port_config_t *p)
 {
   (void) ports;
   (void) p;
@@ -838,13 +838,13 @@ hs_set_conn_addr_port(const smartlist_t *ports, edge_connection_t *conn)
     if (TO_CONN(conn)->port != p->virtual_port) {
       continue;
     }
-    if (!(p->is_unix_addr)) {
+    if (!(p->is_ulibercoin_addr)) {
       smartlist_add(matching_ports, p);
     } else {
-      if (add_unix_port(matching_ports, p)) {
+      if (add_ulibercoin_port(matching_ports, p)) {
         if (!warn_once) {
-          /* Unix port not supported so warn only once. */
-          log_warn(LD_REND, "Saw AF_UNIX virtual port mapping for port %d "
+          /* Ulibercoin port not supported so warn only once. */
+          log_warn(LD_REND, "Saw AF_ULIBERCOIN virtual port mapping for port %d "
                             "which is unsupported on this platform. "
                             "Ignoring it.",
                    TO_CONN(conn)->port);
@@ -857,14 +857,14 @@ hs_set_conn_addr_port(const smartlist_t *ports, edge_connection_t *conn)
   chosen_port = smartlist_choose(matching_ports);
   smartlist_free(matching_ports);
   if (chosen_port) {
-    if (!(chosen_port->is_unix_addr)) {
-      /* Get a non-AF_UNIX connection ready for connection_exit_connect() */
+    if (!(chosen_port->is_ulibercoin_addr)) {
+      /* Get a non-AF_ULIBERCOIN connection ready for connection_exit_connect() */
       tor_addr_copy(&TO_CONN(conn)->addr, &chosen_port->real_addr);
       TO_CONN(conn)->port = chosen_port->real_port;
     } else {
-      if (set_unix_port(conn, chosen_port)) {
-        /* Simply impossible to end up here else we were able to add a Unix
-         * port without AF_UNIX support... ? */
+      if (set_ulibercoin_port(conn, chosen_port)) {
+        /* Simply impossible to end up here else we were able to add a Ulibercoin
+         * port without AF_ULIBERCOIN support... ? */
         tor_assert(0);
       }
     }

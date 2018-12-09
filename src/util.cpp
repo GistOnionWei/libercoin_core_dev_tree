@@ -88,8 +88,8 @@ int nWalletBackups = 10;
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "nix.conf";
-const char * const BITCOIN_PID_FILENAME = "nixd.pid";
+const char * const BITCOIN_CONF_FILENAME = "libercoin.conf";
+const char * const BITCOIN_PID_FILENAME = "libercoind.pid";
 const char * const DEFAULT_DEBUGLOGFILE = "debug.log";
 
 ArgsManager gArgs;
@@ -600,7 +600,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "nix";
+    const char* pszModule = "libercoin";
 #endif
     if (pex)
         return strprintf(
@@ -619,13 +619,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 
 fs::path GetDefaultDataDir()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\nix
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\nix
-    // Mac: ~/Library/Application Support/nix
-    // Unix: ~/.nix
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\libercoin
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\libercoin
+    // Mac: ~/Library/Application Support/libercoin
+    // Ulibercoin: ~/.libercoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "nix";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "libercoin";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -635,10 +635,10 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/nix";
+    return pathRet / "Library/Application Support/libercoin";
 #else
-    // Unix
-    return pathRet / ".nix";
+    // Ulibercoin
+    return pathRet / ".libercoin";
 #endif
 #endif
 }
@@ -700,7 +700,7 @@ void ArgsManager::ReadConfigFile(const std::string& confPath)
 {
     fs::ifstream streamConfig(GetConfigFile(confPath));
     if (!streamConfig.good())
-        return; // No nix.conf file is OK
+        return; // No libercoin.conf file is OK
 
     {
         LOCK(cs_args);
@@ -709,7 +709,7 @@ void ArgsManager::ReadConfigFile(const std::string& confPath)
 
         for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
         {
-            // Don't overwrite existing settings so command line settings override nix.conf
+            // Don't overwrite existing settings so command line settings override libercoin.conf
             std::string strKey = std::string("-") + it->string_key;
             std::string strValue = it->value[0];
             InterpretNegativeSetting(strKey, strValue);
@@ -990,8 +990,8 @@ std::string CopyrightHolders(const std::string& strPrefix)
     std::string strCopyrightHolders = strPrefix + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
 
     // Check for untranslated substitution to make sure Bitcoin Core copyright is not removed by accident
-    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("NIX Core") == std::string::npos) {
-        strCopyrightHolders += "\n" + strPrefix + "The NIX Core developers";
+    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("LIBERCOIN Core") == std::string::npos) {
+        strCopyrightHolders += "\n" + strPrefix + "The LIBERCOIN Core developers";
     }
     return strCopyrightHolders;
 }
@@ -1035,7 +1035,7 @@ bool WriteBinaryFileTor(const std::string &filename, const std::string &data)
     return true;
 }
 
-namespace nix
+namespace libercoin
 {
 static bool icompare_pred(unsigned char a, unsigned char b)
 {
@@ -1251,4 +1251,4 @@ bool endsWith(const std::string &str, const std::string &suffix)
     return str.size() >= suffix.size() &&
             str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
 };
-} // nix
+} // libercoin

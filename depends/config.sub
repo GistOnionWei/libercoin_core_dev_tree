@@ -464,7 +464,7 @@ case $basic_machine in
 		basic_machine=i386-unknown
 		os=-bsd
 		;;
-	3b1 | 7300 | 7300-att | att-7300 | pc7300 | safari | unixpc)
+	3b1 | 7300 | 7300-att | att-7300 | pc7300 | safari | ulibercoinpc)
 		basic_machine=m68000-att
 		;;
 	3b*)
@@ -508,7 +508,7 @@ case $basic_machine in
 		basic_machine=m68k-unknown
 		os=-amigaos
 		;;
-	amigaunix | amix)
+	amigaulibercoin | amix)
 		basic_machine=m68k-unknown
 		os=-sysv4
 		;;
@@ -533,7 +533,7 @@ case $basic_machine in
 		;;
 	balance)
 		basic_machine=ns32k-sequent
-		os=-dynix
+		os=-dylibercoin
 		;;
 	blackfin)
 		basic_machine=bfin-unknown
@@ -673,7 +673,7 @@ case $basic_machine in
 	fx2800)
 		basic_machine=i860-alliant
 		;;
-	genix)
+	gelibercoin)
 		basic_machine=ns32k-ns
 		;;
 	gmicro)
@@ -1182,7 +1182,7 @@ case $basic_machine in
 		;;
 	symmetry)
 		basic_machine=i386-sequent
-		os=-dynix
+		os=-dylibercoin
 		;;
 	t3e)
 		basic_machine=alphaev5-cray
@@ -1381,7 +1381,7 @@ case $os in
 	-svr4*)
 		os=-sysv4
 		;;
-	-unixware*)
+	-ulibercoinware*)
 		os=-sysv4.2uw
 		;;
 	-gnu/linux*)
@@ -1391,14 +1391,14 @@ case $os in
 	# The portable systems comes first.
 	# Each alternative MUST END IN A *, to match a version number.
 	# -sysv* is not here because it comes later, after sysvr4.
-	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
+	-gnu* | -bsd* | -mach* | -milibercoin* | -gelibercoin* | -ultrix* | -irix* \
 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
 	      | -sym* | -kopensolaris* | -plan9* \
 	      | -amigaos* | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
 	      | -aos* | -aros* | -cloudabi* | -sortix* \
 	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
-	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
+	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xelibercoin* \
 	      | -hiux* | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \
 	      | -bitrig* | -openbsd* | -solidbsd* | -libertybsd* \
 	      | -ekkobsd* | -kfreebsd* | -freebsd* | -riscix* | -lynxos* \
@@ -1411,13 +1411,13 @@ case $os in
 	      | -linux-newlib* | -linux-musl* | -linux-uclibc* \
 	      | -uxpv* | -beos* | -mpeix* | -udk* | -moxiebox* \
 	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
-	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
+	      | -openstep* | -oskit* | -colibercoin* | -pw32* | -nonstopux* \
 	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
-	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+	      | -powermax* | -dlibercoin* | -nx6 | -nx7 | -sei* | -dragonfly* \
 	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* \
-	      | -onefs* | -tirtos* | -phoenix* | -fuchsia* | -redox*)
+	      | -onefs* | -tirtos* | -phoelibercoin* | -fuchsia* | -redox*)
 	# Remember, each alternative MUST END IN *, to match a version number.
 		;;
 	-qnx*)
@@ -1471,7 +1471,7 @@ case $os in
 	-utek*)
 		os=-bsd
 		;;
-	-dynix*)
+	-dylibercoin*)
 		os=-bsd
 		;;
 	-acis*)
@@ -1498,11 +1498,11 @@ case $os in
 	-nsk*)
 		os=-nsk
 		;;
-	# Preserve the version number of sinix5.
-	-sinix5.*)
-		os=`echo $os | sed -e 's|sinix|sysv|'`
+	# Preserve the version number of silibercoin5.
+	-silibercoin5.*)
+		os=`echo $os | sed -e 's|silibercoin|sysv|'`
 		;;
-	-sinix*)
+	-silibercoin*)
 		os=-sysv4
 		;;
 	-tpf*)
@@ -1532,8 +1532,8 @@ case $os in
 	-es1800*)
 		os=-ose
 		;;
-	-xenix)
-		os=-xenix
+	-xelibercoin)
+		os=-xelibercoin
 		;;
 	-*mint | -mint[0-9]* | -*MiNT | -MiNT[0-9]*)
 		os=-mint
@@ -1704,7 +1704,7 @@ case $basic_machine in
 		os=-unos
 		;;
 	*-ns)
-		os=-genix
+		os=-gelibercoin
 		;;
 	i370-*)
 		os=-mvs
@@ -1787,7 +1787,7 @@ case $basic_machine in
 			-luna*)
 				vendor=omron
 				;;
-			-genix*)
+			-gelibercoin*)
 				vendor=ns
 				;;
 			-mvs* | -opened*)

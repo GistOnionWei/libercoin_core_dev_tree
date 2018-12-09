@@ -2,17 +2,17 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-bin_PROGRAMS += bench/bench_nix
+bin_PROGRAMS += bench/bench_libercoin
 BENCH_SRCDIR = bench
-BENCH_BINARY = bench/bench_nix$(EXEEXT)
+BENCH_BINARY = bench/bench_libercoin$(EXEEXT)
 
 RAW_BENCH_FILES = \
   bench/data/block413567.raw
 GENERATED_BENCH_FILES = $(RAW_BENCH_FILES:.raw=.raw.h)
 
-bench_bench_nix_SOURCES = \
+bench_bench_libercoin_SOURCES = \
   $(RAW_BENCH_FILES) \
-  bench/bench_nix.cpp \
+  bench/bench_libercoin.cpp \
   bench/bench.cpp \
   bench/bench.h \
   bench/checkblock.cpp \
@@ -29,16 +29,16 @@ bench_bench_nix_SOURCES = \
   bench/perf.h \
   bench/prevector_destructor.cpp
 
-nodist_bench_bench_nix_SOURCES = $(GENERATED_BENCH_FILES)
+nodist_bench_bench_libercoin_SOURCES = $(GENERATED_BENCH_FILES)
 
-bench_bench_nix_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES) $(EVENT_CLFAGS) $(EVENT_PTHREADS_CFLAGS) -I$(builddir)/bench/
-bench_bench_nix_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bench_bench_nix_LDADD = \
-  $(LIBNIX_SERVER) \
-  $(LIBNIX_COMMON) \
-  $(LIBNIX_UTIL) \
-  $(LIBNIX_CONSENSUS) \
-  $(LIBNIX_CRYPTO) \
+bench_bench_libercoin_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES) $(EVENT_CLFAGS) $(EVENT_PTHREADS_CFLAGS) -I$(builddir)/bench/
+bench_bench_libercoin_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bench_bench_libercoin_LDADD = \
+  $(LIBLIBERCOIN_SERVER) \
+  $(LIBLIBERCOIN_COMMON) \
+  $(LIBLIBERCOIN_UTIL) \
+  $(LIBLIBERCOIN_CONSENSUS) \
+  $(LIBLIBERCOIN_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
@@ -46,30 +46,30 @@ bench_bench_nix_LDADD = \
   $(LIBUNIVALUE)
 
 if ENABLE_ZMQ
-bench_bench_nix_LDADD += $(LIBNIX_ZMQ) $(ZMQ_LIBS)
+bench_bench_libercoin_LDADD += $(LIBLIBERCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
 if ENABLE_WALLET
-bench_bench_nix_SOURCES += bench/coin_selection.cpp
-bench_bench_nix_LDADD += $(LIBNIX_WALLET) $(LIBNIX_CRYPTO)
+bench_bench_libercoin_SOURCES += bench/coin_selection.cpp
+bench_bench_libercoin_LDADD += $(LIBLIBERCOIN_WALLET) $(LIBLIBERCOIN_CRYPTO)
 endif
 
-bench_bench_nix_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-bench_bench_nix_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bench_bench_libercoin_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+bench_bench_libercoin_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
-CLEAN_NIX_BENCH = bench/*.gcda bench/*.gcno $(GENERATED_BENCH_FILES)
+CLEAN_LIBERCOIN_BENCH = bench/*.gcda bench/*.gcno $(GENERATED_BENCH_FILES)
 
-CLEANFILES += $(CLEAN_NIX_BENCH)
+CLEANFILES += $(CLEAN_LIBERCOIN_BENCH)
 
 bench/checkblock.cpp: bench/data/block413567.raw.h
 
-nix_bench: $(BENCH_BINARY)
+libercoin_bench: $(BENCH_BINARY)
 
 bench: $(BENCH_BINARY) FORCE
 	$(BENCH_BINARY)
 
-nix_bench_clean : FORCE
-	rm -f $(CLEAN_NIX_BENCH) $(bench_bench_nix_OBJECTS) $(BENCH_BINARY)
+libercoin_bench_clean : FORCE
+	rm -f $(CLEAN_LIBERCOIN_BENCH) $(bench_bench_libercoin_OBJECTS) $(BENCH_BINARY)
 
 %.raw.h: %.raw
 	@$(MKDIR_P) $(@D)

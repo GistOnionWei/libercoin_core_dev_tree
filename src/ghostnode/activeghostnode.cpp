@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -224,7 +224,7 @@ void CActiveGhostnode::ManageStateInitial() {
     }
 
     if (vpwallets.front()->GetBalance() < GHOSTNODE_COIN_REQUIRED * COIN) {
-        //LogPrint("CActiveGhostnode::ManageStateInitial -- %s: Wallet balance is < 40000 NIX\n", GetStateString());
+        //LogPrint("CActiveGhostnode::ManageStateInitial -- %s: Wallet balance is < 40000 LIBERCOIN\n", GetStateString());
         return;
     }
 

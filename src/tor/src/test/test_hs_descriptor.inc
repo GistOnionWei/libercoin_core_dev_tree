@@ -152,7 +152,7 @@ static const char* HS_DESC_BAD_SIG =
 "Jw8uBBOQ53W4lLbYfQYTVgieClVhmYMu7Ye0xYZ5B2jf714sjZRMa0LCbsyj58xH\n"
 "uzs8ddNN1fLMzb0JRBE8JWj5PbxhA/sTwMkD7SnEMBUTtP0obmuQ982aTfyvQCH/\n"
 "ve8OUPtYf5XWNv18mpR+h+riMt1Y8Eb6BJzTMFNWagMJAe3JV6A6upHroNFo2FxY\n"
-"1XPRM1Rt0zKo7GD+oXnixfpl1aG8yqZhYo1ZC9buaHwH6zvM+xoiGD0iujeDtpVy\n"
+"1XPRM1Rt0zKo7GD+oXlibercoinfpl1aG8yqZhYo1ZC9buaHwH6zvM+xoiGD0iujeDtpVy\n"
 "Vp6cAqqaGmrNwcPVBLc7hNKrJnbFKyhjL5/xp9j6jQov1aWQ8HsaNvh0p2ljmlwb\n"
 "daTYZcwLgSgPna7HhiqnOSAmXZ7St/qe/b9TqBtIVzwzmtevgMyG98QV0syFP5X6\n"
 "2Jc1g9733sTZp7njq4Cu07JhpICpinhLWR3nkODJbjk/mpLcQZgtV6W749AUo8oT\n"

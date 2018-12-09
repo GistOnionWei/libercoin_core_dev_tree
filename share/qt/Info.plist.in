@@ -11,7 +11,7 @@
   </array>
 
   <key>CFBundleIconFile</key>
-  <string>nix.icns</string>
+  <string>libercoin.icns</string>
 
   <key>CFBundlePackageType</key>
   <string>APPL</string>
@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>NIX-Qt</string>
+  <string>LIBERCOIN-Qt</string>
   
   <key>CFBundleName</key>
-  <string>NIX-Qt</string>
+  <string>LIBERCOIN-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.nixfoundation.NIX-Qt</string>
+  <string>org.libercoinfoundation.LIBERCOIN-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.nix.NIXPayment</string>
+      <string>org.libercoin.LIBERCOINPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>nix</string>
+        <string>libercoin</string>
       </array>
     </dict>
   </array>
@@ -58,9 +58,9 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.nix.paymentrequest</string>
+      <string>org.libercoin.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>NIX payment request</string>
+      <string>LIBERCOIN payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
@@ -68,10 +68,10 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-nix-payment-request</string>
+        <string>application/x-libercoin-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>nixpaymentrequest</string>
+          <string>libercoinpaymentrequest</string>
         </array>
       </dict>
     </dict>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.nix.paymentrequest</string>
+        <string>org.libercoin.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

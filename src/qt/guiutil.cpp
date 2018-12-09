@@ -4,8 +4,8 @@
 
 #include <qt/guiutil.h>
 
-#include <qt/nixaddressvalidator.h>
-#include <qt/nixunits.h>
+#include <qt/libercoinaddressvalidator.h>
+#include <qt/libercoinunits.h>
 #include <qt/qvalidatedlineedit.h>
 #include <qt/walletmodel.h>
 
@@ -127,7 +127,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a NIX address (e.g. %1)").arg(
+    widget->setPlaceholderText(QObject::tr("Enter a LIBERCOIN address (e.g. %1)").arg(
         QString::fromStdString(DummyAddress(Params()))));
 #endif
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
@@ -146,7 +146,7 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
     // return if URI is not valid or is no bitcoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("NIX"))
+    if(!uri.isValid() || uri.scheme() != QString("LIBERCOIN"))
         return false;
 
     SendCoinsRecipient rv;
@@ -210,9 +210,9 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
     //
     //    Cannot handle this later, because bitcoin:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("nix://", Qt::CaseInsensitive))
+    if(uri.startsWith("libercoin://", Qt::CaseInsensitive))
     {
-        uri.replace(0, 10, "nix:");
+        uri.replace(0, 10, "libercoin:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -220,7 +220,7 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString formatBitcoinURI(const SendCoinsRecipient &info)
 {
-    QString ret = QString("nix:%1").arg(info.address);
+    QString ret = QString("libercoin:%1").arg(info.address);
     int paramCount = 0;
 
     if (info.amount)
@@ -615,15 +615,15 @@ fs::path static StartupShortcutPath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "nix.lnk";
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "libercoin.lnk";
     if (chain == CBaseChainParams::TESTNET) // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "nix (testnet).lnk";
-    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("nix (%s).lnk", chain);
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "libercoin (testnet).lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("libercoin (%s).lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
 {
-    // check for nix*.lnk
+    // check for libercoin*.lnk
     return fs::exists(StartupShortcutPath());
 }
 
@@ -713,8 +713,8 @@ fs::path static GetAutostartFilePath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetAutostartDir() / "nix.desktop";
-    return GetAutostartDir() / strprintf("nix-%s.lnk", chain);
+        return GetAutostartDir() / "libercoin.desktop";
+    return GetAutostartDir() / strprintf("libercoin-%s.lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -758,9 +758,9 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == CBaseChainParams::MAIN)
-            optionFile << "Name=nix\n";
+            optionFile << "Name=libercoin\n";
         else
-            optionFile << strprintf("Name=nix (%s)\n", chain);
+            optionFile << strprintf("Name=libercoin (%s)\n", chain);
         optionFile << "Exec=" << pszExePath << strprintf(" -min -testnet=%d -regtest=%d\n", gArgs.GetBoolArg("-testnet", false), gArgs.GetBoolArg("-regtest", false));
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";

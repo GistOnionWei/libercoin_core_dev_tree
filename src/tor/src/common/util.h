@@ -419,7 +419,7 @@ struct process_environment_t {
   char *windows_environment_block;
   /** A pointer to a NULL-terminated array of pointers to
    * NUL-terminated strings of the form "NAME=VALUE". */
-  char **unixoid_environment_block;
+  char **ulibercoinoid_environment_block;
 };
 
 process_environment_t *process_environment_make(struct smartlist_t *env_vars);

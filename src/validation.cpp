@@ -57,7 +57,7 @@
 
 
 #if defined(NDEBUG)
-# error "NIX cannot be compiled without assertions."
+# error "LIBERCOIN cannot be compiled without assertions."
 #endif
 
 #define MICRO 0.000001
@@ -356,7 +356,7 @@ CTxMemPool mempool(&feeEstimator);
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const std::string strMessageMagic = "NIX Signed Message:\n";
+const std::string strMessageMagic = "LIBERCOIN Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -1472,7 +1472,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     CAmount nSubsidy = 64 * COIN;
     // Subsidy is cut in half every 1,050,000 blocks which will occur approximately every 4 years.
     nSubsidy >>= halvings;
-    //On genesis, create 38 million NIX for faucet
+    //On genesis, create 38 million LIBERCOIN for faucet
     if(nHeight == 1)
         nSubsidy = 38000000 * COIN;
 
@@ -2087,7 +2087,7 @@ static bool WriteTxIndexDataForBlock(const CBlock& block, CValidationState& stat
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("nix-scriptch");
+    RenameThread("libercoin-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -2756,11 +2756,11 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
     if(!pindex->pprev->IsProofOfStake() && pindex->IsProofOfStake()){
         CAmount nTotalSupply = pindex->pprev->nHeight * GetBlockSubsidy(pindex->pprev->nHeight, Params().GetConsensus()) + GetBlockSubsidy(1, Params().GetConsensus());
         pindex->nMoneySupply = nTotalSupply;
-        //LogPrintf("NIX Money Supply: %llf", pindex->nMoneySupply/COIN);
+        //LogPrintf("LIBERCOIN Money Supply: %llf", pindex->nMoneySupply/COIN);
     }
     else if(pindex->IsProofOfStake()){
         pindex->nMoneySupply = (pindex->pprev? pindex->pprev->nMoneySupply : 0) + nMoneyCreated;
-        //LogPrintf("NIX Money Supply: %llf", pindex->nMoneySupply/COIN);
+        //LogPrintf("LIBERCOIN Money Supply: %llf", pindex->nMoneySupply/COIN);
     }
 
     if (fJustCheck)

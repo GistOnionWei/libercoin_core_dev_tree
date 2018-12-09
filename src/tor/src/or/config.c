@@ -118,11 +118,11 @@
 #include <systemd/sd-daemon.h>
 #endif /* defined(HAVE_SYSTEMD) */
 
-/* Prefix used to indicate a Unix socket in a FooPort configuration. */
-static const char unix_socket_prefix[] = "unix:";
-/* Prefix used to indicate a Unix socket with spaces in it, in a FooPort
+/* Prefix used to indicate a Ulibercoin socket in a FooPort configuration. */
+static const char ulibercoin_socket_prefix[] = "ulibercoin:";
+/* Prefix used to indicate a Ulibercoin socket with spaces in it, in a FooPort
  * configuration. */
-static const char unix_q_socket_prefix[] = "unix:\"";
+static const char ulibercoin_q_socket_prefix[] = "ulibercoin:\"";
 
 /** A list of abbreviations and aliases to map command-line options, obsolete
  * option names, or alternative option names, to their current values. */
@@ -1286,7 +1286,7 @@ options_act_reversible(const or_options_t *old_options, char **msg)
 
 #ifndef HAVE_SYS_UN_H
   if (options->ControlSocket || options->ControlSocketsGroupWritable) {
-    *msg = tor_strdup("Unix domain sockets (ControlSocket) not supported "
+    *msg = tor_strdup("Ulibercoin domain sockets (ControlSocket) not supported "
                       "on this OS/with this build.");
     goto rollback;
   }
@@ -6452,8 +6452,8 @@ warn_nonlocal_client_ports(const smartlist_t *ports,
   SMARTLIST_FOREACH_BEGIN(ports, const port_cfg_t *, port) {
     if (port->type != listener_type)
       continue;
-    if (port->is_unix_addr) {
-      /* Unix sockets aren't accessible over a network. */
+    if (port->is_ulibercoin_addr) {
+      /* Ulibercoin sockets aren't accessible over a network. */
     } else if (!tor_addr_is_internal(&port->addr, 1)) {
       log_warn(LD_CONFIG, "You specified a public address '%s' for %sPort. "
                "Other people on the Internet might find your computer and "
@@ -6478,7 +6478,7 @@ warn_nonlocal_ext_orports(const smartlist_t *ports, const char *portname)
   SMARTLIST_FOREACH_BEGIN(ports, const port_cfg_t *, port) {
     if (port->type != CONN_TYPE_EXT_OR_LISTENER)
       continue;
-    if (port->is_unix_addr)
+    if (port->is_ulibercoin_addr)
       continue;
     /* XXX maybe warn even if address is RFC1918? */
     if (!tor_addr_is_internal(&port->addr, 1)) {
@@ -6502,7 +6502,7 @@ warn_nonlocal_controller_ports(smartlist_t *ports, unsigned forbid_nonlocal)
   SMARTLIST_FOREACH_BEGIN(ports, port_cfg_t *, port) {
     if (port->type != CONN_TYPE_CONTROL_LISTENER)
       continue;
-    if (port->is_unix_addr)
+    if (port->is_ulibercoin_addr)
       continue;
     if (!tor_addr_is_loopback(&port->addr)) {
       if (forbid_nonlocal) {
@@ -6535,10 +6535,10 @@ warn_nonlocal_controller_ports(smartlist_t *ports, unsigned forbid_nonlocal)
 
 /**
  * Take a string (<b>line</b>) that begins with either an address:port, a
- * port, or an AF_UNIX address, optionally quoted, prefixed with
- * "unix:". Parse that line, and on success, set <b>addrport_out</b> to a new
+ * port, or an AF_ULIBERCOIN address, optionally quoted, prefixed with
+ * "ulibercoin:". Parse that line, and on success, set <b>addrport_out</b> to a new
  * string containing the beginning portion (without prefix).  Iff there was a
- * unix: prefix, set <b>is_unix_out</b> to true.  On success, also set
+ * ulibercoin: prefix, set <b>is_ulibercoin_out</b> to true.  On success, also set
  * <b>rest_out</b> to point to the part of the line after the address portion.
  *
  * Return 0 on success, -1 on failure.
@@ -6546,22 +6546,22 @@ warn_nonlocal_controller_ports(smartlist_t *ports, unsigned forbid_nonlocal)
 int
 port_cfg_line_extract_addrport(const char *line,
                                char **addrport_out,
-                               int *is_unix_out,
+                               int *is_ulibercoin_out,
                                const char **rest_out)
 {
   tor_assert(line);
   tor_assert(addrport_out);
-  tor_assert(is_unix_out);
+  tor_assert(is_ulibercoin_out);
   tor_assert(rest_out);
 
   line = eat_whitespace(line);
 
-  if (!strcmpstart(line, unix_q_socket_prefix)) {
-    // It starts with unix:"
+  if (!strcmpstart(line, ulibercoin_q_socket_prefix)) {
+    // It starts with ulibercoin:"
     size_t sz;
-    *is_unix_out = 1;
+    *is_ulibercoin_out = 1;
     *addrport_out = NULL;
-    line += strlen(unix_socket_prefix); /*No q: Keep the quote */
+    line += strlen(ulibercoin_socket_prefix); /*No q: Keep the quote */
     *rest_out = unescape_string(line, addrport_out, &sz);
     if (!*rest_out || (*addrport_out && sz != strlen(*addrport_out))) {
       tor_free(*addrport_out);
@@ -6570,12 +6570,12 @@ port_cfg_line_extract_addrport(const char *line,
     *rest_out = eat_whitespace(*rest_out);
     return 0;
   } else {
-    // Is there a unix: prefix?
-    if (!strcmpstart(line, unix_socket_prefix)) {
-      line += strlen(unix_socket_prefix);
-      *is_unix_out = 1;
+    // Is there a ulibercoin: prefix?
+    if (!strcmpstart(line, ulibercoin_socket_prefix)) {
+      line += strlen(ulibercoin_socket_prefix);
+      *is_ulibercoin_out = 1;
     } else {
-      *is_unix_out = 0;
+      *is_ulibercoin_out = 0;
     }
 
     const char *end = find_whitespace(line);
@@ -6702,19 +6702,19 @@ parse_port_config(smartlist_t *out,
   const unsigned default_to_group_writable =
     flags & CL_PORT_DFLT_GROUP_WRITABLE;
   const unsigned takes_hostnames = flags & CL_PORT_TAKES_HOSTNAMES;
-  const unsigned is_unix_socket = flags & CL_PORT_IS_UNIXSOCKET;
+  const unsigned is_ulibercoin_socket = flags & CL_PORT_IS_ULIBERCOINSOCKET;
   int got_zero_port=0, got_nonzero_port=0;
-  char *unix_socket_path = NULL;
+  char *ulibercoin_socket_path = NULL;
 
   /* If there's no FooPort, then maybe make a default one. */
   if (! ports) {
     if (defaultport && defaultaddr && out) {
-      port_cfg_t *cfg = port_cfg_new(is_unix_socket ? strlen(defaultaddr) : 0);
+      port_cfg_t *cfg = port_cfg_new(is_ulibercoin_socket ? strlen(defaultaddr) : 0);
        cfg->type = listener_type;
-       if (is_unix_socket) {
+       if (is_ulibercoin_socket) {
          tor_addr_make_unspec(&cfg->addr);
-         memcpy(cfg->unix_addr, defaultaddr, strlen(defaultaddr) + 1);
-         cfg->is_unix_addr = 1;
+         memcpy(cfg->ulibercoin_addr, defaultaddr, strlen(defaultaddr) + 1);
+         cfg->is_ulibercoin_addr = 1;
        } else {
          cfg->port = defaultport;
          tor_addr_parse(&cfg->addr, defaultaddr);
@@ -6750,12 +6750,12 @@ parse_port_config(smartlist_t *out,
       cache_ipv6 = 0, use_cached_ipv6 = 0,
       prefer_ipv6_automap = 1, world_writable = 0, group_writable = 0,
       relax_dirmode_check = 0,
-      has_used_unix_socket_only_option = 0;
+      has_used_ulibercoin_socket_only_option = 0;
 
-    int is_unix_tagged_addr = 0;
+    int is_ulibercoin_tagged_addr = 0;
     const char *rest_of_line = NULL;
     if (port_cfg_line_extract_addrport(ports->value,
-                          &addrport, &is_unix_tagged_addr, &rest_of_line)<0) {
+                          &addrport, &is_ulibercoin_tagged_addr, &rest_of_line)<0) {
       log_warn(LD_CONFIG, "Invalid %sPort line with unparsable address",
                portname);
       goto err;
@@ -6769,28 +6769,28 @@ parse_port_config(smartlist_t *out,
     smartlist_split_string(elts, rest_of_line, NULL,
                            SPLIT_SKIP_SPACE|SPLIT_IGNORE_BLANK, 0);
 
-    /* Let's start to check if it's a Unix socket path. */
-    if (is_unix_tagged_addr) {
+    /* Let's start to check if it's a Ulibercoin socket path. */
+    if (is_ulibercoin_tagged_addr) {
 #ifndef HAVE_SYS_UN_H
-      log_warn(LD_CONFIG, "Unix sockets not supported on this system.");
+      log_warn(LD_CONFIG, "Ulibercoin sockets not supported on this system.");
       goto err;
 #endif
-      unix_socket_path = addrport;
+      ulibercoin_socket_path = addrport;
       addrport = NULL;
     }
 
-    if (unix_socket_path &&
-        ! conn_listener_type_supports_af_unix(listener_type)) {
-      log_warn(LD_CONFIG, "%sPort does not support unix sockets", portname);
+    if (ulibercoin_socket_path &&
+        ! conn_listener_type_supports_af_ulibercoin(listener_type)) {
+      log_warn(LD_CONFIG, "%sPort does not support ulibercoin sockets", portname);
       goto err;
     }
 
-    if (unix_socket_path) {
+    if (ulibercoin_socket_path) {
       port = 1;
-    } else if (is_unix_socket) {
+    } else if (is_ulibercoin_socket) {
       if (BUG(!addrport))
         goto err; // LCOV_EXCL_LINE unreachable, but coverity can't tell that
-      unix_socket_path = tor_strdup(addrport);
+      ulibercoin_socket_path = tor_strdup(addrport);
       if (!strcmp(addrport, "0"))
         port = 0;
       else
@@ -6829,7 +6829,7 @@ parse_port_config(smartlist_t *out,
       }
     }
 
-    if (unix_socket_path && default_to_group_writable)
+    if (ulibercoin_socket_path && default_to_group_writable)
       group_writable = 1;
 
     /* Now parse the rest of the options, if any. */
@@ -6908,15 +6908,15 @@ parse_port_config(smartlist_t *out,
 
         if (!strcasecmp(elt, "GroupWritable")) {
           group_writable = !no;
-          has_used_unix_socket_only_option = 1;
+          has_used_ulibercoin_socket_only_option = 1;
           continue;
         } else if (!strcasecmp(elt, "WorldWritable")) {
           world_writable = !no;
-          has_used_unix_socket_only_option = 1;
+          has_used_ulibercoin_socket_only_option = 1;
           continue;
         } else if (!strcasecmp(elt, "RelaxDirModeCheck")) {
           relax_dirmode_check = !no;
-          has_used_unix_socket_only_option = 1;
+          has_used_ulibercoin_socket_only_option = 1;
           continue;
         }
 
@@ -7043,10 +7043,10 @@ parse_port_config(smartlist_t *out,
       goto err;
     }
 
-    if ( has_used_unix_socket_only_option && ! unix_socket_path) {
+    if ( has_used_ulibercoin_socket_only_option && ! ulibercoin_socket_path) {
       log_warn(LD_CONFIG, "You have a %sPort entry with GroupWritable, "
                "WorldWritable, or RelaxDirModeCheck, but it is not a "
-               "unix socket.", portname);
+               "ulibercoin socket.", portname);
       goto err;
     }
 
@@ -7057,7 +7057,7 @@ parse_port_config(smartlist_t *out,
       goto err;
     }
 
-    if (unix_socket_path && (isolation & ISO_CLIENTADDR)) {
+    if (ulibercoin_socket_path && (isolation & ISO_CLIENTADDR)) {
       /* `IsolateClientAddr` is nonsensical in the context of AF_LOCAL.
        * just silently remove the isolation flag.
        */
@@ -7065,13 +7065,13 @@ parse_port_config(smartlist_t *out,
     }
 
     if (out && port) {
-      size_t namelen = unix_socket_path ? strlen(unix_socket_path) : 0;
+      size_t namelen = ulibercoin_socket_path ? strlen(ulibercoin_socket_path) : 0;
       port_cfg_t *cfg = port_cfg_new(namelen);
-      if (unix_socket_path) {
+      if (ulibercoin_socket_path) {
         tor_addr_make_unspec(&cfg->addr);
-        memcpy(cfg->unix_addr, unix_socket_path, namelen + 1);
-        cfg->is_unix_addr = 1;
-        tor_free(unix_socket_path);
+        memcpy(cfg->ulibercoin_addr, ulibercoin_socket_path, namelen + 1);
+        cfg->is_ulibercoin_addr = 1;
+        tor_free(ulibercoin_socket_path);
       } else {
         tor_addr_copy(&cfg->addr, &addr);
         cfg->port = port;
@@ -7107,7 +7107,7 @@ parse_port_config(smartlist_t *out,
     SMARTLIST_FOREACH(elts, char *, cp, tor_free(cp));
     smartlist_clear(elts);
     tor_free(addrport);
-    tor_free(unix_socket_path);
+    tor_free(ulibercoin_socket_path);
   }
 
   if (warn_nonlocal && out) {
@@ -7130,13 +7130,13 @@ parse_port_config(smartlist_t *out,
  err:
   SMARTLIST_FOREACH(elts, char *, cp, tor_free(cp));
   smartlist_free(elts);
-  tor_free(unix_socket_path);
+  tor_free(ulibercoin_socket_path);
   tor_free(addrport);
   return retval;
 }
 
 /** Return the number of ports which are actually going to listen with type
- * <b>listenertype</b>.  Do not count no_listen ports.  Only count unix
+ * <b>listenertype</b>.  Do not count no_listen ports.  Only count ulibercoin
  * sockets if count_sockets is true. */
 static int
 count_real_listeners(const smartlist_t *ports, int listenertype,
@@ -7146,7 +7146,7 @@ count_real_listeners(const smartlist_t *ports, int listenertype,
   SMARTLIST_FOREACH_BEGIN(ports, port_cfg_t *, port) {
     if (port->server_cfg.no_listen)
       continue;
-    if (!count_sockets && port->is_unix_addr)
+    if (!count_sockets && port->is_ulibercoin_addr)
       continue;
     if (port->type != listenertype)
       continue;
@@ -7242,7 +7242,7 @@ parse_ports(or_options_t *options, int validate_only,
     if (parse_port_config(ports, options->ControlSocket,
                           "ControlSocket",
                           CONN_TYPE_CONTROL_LISTENER, NULL, 0,
-                          control_port_flags | CL_PORT_IS_UNIXSOCKET) < 0) {
+                          control_port_flags | CL_PORT_IS_ULIBERCOINSOCKET) < 0) {
       *msg = tor_strdup("Invalid ControlSocket configuration");
       goto err;
     }
@@ -7311,7 +7311,7 @@ parse_ports(or_options_t *options, int validate_only,
   if (world_writable_control_socket) {
     SMARTLIST_FOREACH(ports, port_cfg_t *, p,
       if (p->type == CONN_TYPE_CONTROL_LISTENER &&
-          p->is_unix_addr &&
+          p->is_ulibercoin_addr &&
           p->is_world_writable) {
         *world_writable_control_socket = 1;
         break;

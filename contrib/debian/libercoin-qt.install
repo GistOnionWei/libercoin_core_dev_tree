@@ -1,0 +1,6 @@
+usr/local/bin/libercoin-qt usr/bin
+share/pixmaps/libercoin32.xpm usr/share/pixmaps
+share/pixmaps/libercoin16.xpm usr/share/pixmaps
+share/pixmaps/libercoin128.png usr/share/pixmaps
+debian/libercoin-qt.desktop usr/share/applications
+debian/libercoin-qt.protocol usr/share/kde4/services/

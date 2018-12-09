@@ -1285,7 +1285,7 @@ public:
     void ListLockedCoins(std::vector<COutPoint>& vOutpts) const;
 
     // ghostnode
-    /// Get 40000 NIX output and keys which can be used for the Ghostnode
+    /// Get 40000 LIBERCOIN output and keys which can be used for the Ghostnode
     bool GetGhostnodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet, std::string strTxHash = "", std::string strOutputIndex = "");
     /// Extract txin information and keys from output
     bool GetVinAndKeysFromOutput(COutput out, CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet);

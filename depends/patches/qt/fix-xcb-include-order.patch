@@ -7,7 +7,7 @@
 -QMAKE_CXXFLAGS += $$QMAKE_CFLAGS_XCB
 -QMAKE_CFLAGS += $$QMAKE_CFLAGS_XCB
  
- CONFIG += qpa/genericunixfontdatabase
+ CONFIG += qpa/genericulibercoinfontdatabase
  
 @@ -89,7 +87,8 @@
  contains(QT_CONFIG, xcb-qt) {

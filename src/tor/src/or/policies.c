@@ -1779,8 +1779,8 @@ policies_parse_exit_policy_reject_private(
 
     SMARTLIST_FOREACH_BEGIN(port_addrs, port_cfg_t *, port) {
 
-      /* Only reject port IP addresses, not port unix sockets */
-      if (!port->is_unix_addr) {
+      /* Only reject port IP addresses, not port ulibercoin sockets */
+      if (!port->is_ulibercoin_addr) {
         addr_policy_append_reject_addr_filter(dest, &port->addr, 1, ipv6_exit);
       }
     } SMARTLIST_FOREACH_END(port);

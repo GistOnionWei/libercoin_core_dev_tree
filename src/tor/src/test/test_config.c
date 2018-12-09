@@ -3739,134 +3739,134 @@ static void
 test_config_port_cfg_line_extract_addrport(void *arg)
 {
   (void)arg;
-  int unixy = 0;
+  int ulibercoiny = 0;
   const char *rest = NULL;
   char *a = NULL;
 
-  tt_int_op(port_cfg_line_extract_addrport("", &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+  tt_int_op(port_cfg_line_extract_addrport("", &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("hello", &a, &unixy, &rest),
+  tt_int_op(port_cfg_line_extract_addrport("hello", &a, &ulibercoiny, &rest),
             OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "hello");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
   tt_int_op(port_cfg_line_extract_addrport(" flipperwalt gersplut",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "flipperwalt");
   tt_str_op(rest, OP_EQ, "gersplut");
   tor_free(a);
 
   tt_int_op(port_cfg_line_extract_addrport(" flipperwalt \t gersplut",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "flipperwalt");
   tt_str_op(rest, OP_EQ, "gersplut");
   tor_free(a);
 
   tt_int_op(port_cfg_line_extract_addrport("flipperwalt \t gersplut",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "flipperwalt");
   tt_str_op(rest, OP_EQ, "gersplut");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:flipperwalt \t gersplut",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:flipperwalt \t gersplut",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "flipperwalt");
   tt_str_op(rest, OP_EQ, "gersplut");
   tor_free(a);
 
   tt_int_op(port_cfg_line_extract_addrport("lolol",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:lolol",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:lolol",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:lolol ",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:lolol ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport(" unix:lolol",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport(" ulibercoin:lolol",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
   tt_int_op(port_cfg_line_extract_addrport("foobar:lolol",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, "foobar:lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
   tt_int_op(port_cfg_line_extract_addrport(":lolol",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 0);
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 0);
   tt_str_op(a, OP_EQ, ":lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lolol\"",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lolol\"",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lolol\" ",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lolol\" ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lolol\" foo ",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lolol\" foo ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lolol");
   tt_str_op(rest, OP_EQ, "foo ");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lol ol\" foo ",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lol ol\" foo ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lol ol");
   tt_str_op(rest, OP_EQ, "foo ");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lol\\\" ol\" foo ",
-                                           &a, &unixy, &rest), OP_EQ, 0);
-  tt_int_op(unixy, OP_EQ, 1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lol\\\" ol\" foo ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, 0);
+  tt_int_op(ulibercoiny, OP_EQ, 1);
   tt_str_op(a, OP_EQ, "lol\" ol");
   tt_str_op(rest, OP_EQ, "foo ");
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lol\\\" ol foo ",
-                                           &a, &unixy, &rest), OP_EQ, -1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lol\\\" ol foo ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, -1);
   tor_free(a);
 
-  tt_int_op(port_cfg_line_extract_addrport("unix:\"lol\\0\" ol foo ",
-                                           &a, &unixy, &rest), OP_EQ, -1);
+  tt_int_op(port_cfg_line_extract_addrport("ulibercoin:\"lol\\0\" ol foo ",
+                                           &a, &ulibercoiny, &rest), OP_EQ, -1);
   tor_free(a);
 
  done:
@@ -3932,20 +3932,20 @@ test_config_parse_port_config__ports__no_ports_given(void *data)
   tt_int_op(smartlist_len(slout), OP_EQ, 1);
   port_cfg = (port_cfg_t *)smartlist_get(slout, 0);
   tt_int_op(port_cfg->port, OP_EQ, 42);
-  tt_int_op(port_cfg->is_unix_addr, OP_EQ, 0);
+  tt_int_op(port_cfg->is_ulibercoin_addr, OP_EQ, 0);
 
   // Test with defaultport, with defaultaddress and out, adds a new port cfg
-  // for a unix address
+  // for a ulibercoin address
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  ret = parse_port_config(slout, NULL, "DNS", 0, "/foo/bar/unixdomain",
-                          42, CL_PORT_IS_UNIXSOCKET);
+  ret = parse_port_config(slout, NULL, "DNS", 0, "/foo/bar/ulibercoindomain",
+                          42, CL_PORT_IS_ULIBERCOINSOCKET);
   tt_int_op(ret, OP_EQ, 0);
   tt_int_op(smartlist_len(slout), OP_EQ, 1);
   port_cfg = (port_cfg_t *)smartlist_get(slout, 0);
   tt_int_op(port_cfg->port, OP_EQ, 0);
-  tt_int_op(port_cfg->is_unix_addr, OP_EQ, 1);
-  tt_str_op(port_cfg->unix_addr, OP_EQ, "/foo/bar/unixdomain");
+  tt_int_op(port_cfg->is_ulibercoin_addr, OP_EQ, 1);
+  tt_str_op(port_cfg->ulibercoin_addr, OP_EQ, "/foo/bar/ulibercoindomain");
 
  done:
   if (slout)
@@ -3971,21 +3971,21 @@ test_config_parse_port_config__ports__ports_given(void *data)
                           0, 0);
   tt_int_op(ret, OP_EQ, -1);
 
-  // Test error when encounters an empty unix domain specification
+  // Test error when encounters an empty ulibercoin domain specification
   config_free_lines(config_port_invalid); config_port_invalid = NULL;
-  config_port_invalid = mock_config_line("DNSPort", "unix:");
+  config_port_invalid = mock_config_line("DNSPort", "ulibercoin:");
   ret = parse_port_config(NULL, config_port_invalid, "DNS", 0, NULL,
                           0, 0);
   tt_int_op(ret, OP_EQ, -1);
 
-  // Test error when encounters a unix domain specification but the listener
+  // Test error when encounters a ulibercoin domain specification but the listener
   // doesn't support domain sockets
-  config_port_valid = mock_config_line("DNSPort", "unix:/tmp/foo/bar");
+  config_port_valid = mock_config_line("DNSPort", "ulibercoin:/tmp/foo/bar");
   ret = parse_port_config(NULL, config_port_valid, "DNS",
                           CONN_TYPE_AP_DNS_LISTENER, NULL, 0, 0);
   tt_int_op(ret, OP_EQ, -1);
 
-  // Test valid unix domain
+  // Test valid ulibercoin domain
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
@@ -3997,8 +3997,8 @@ test_config_parse_port_config__ports__ports_given(void *data)
   tt_int_op(smartlist_len(slout), OP_EQ, 1);
   port_cfg = (port_cfg_t *)smartlist_get(slout, 0);
   tt_int_op(port_cfg->port, OP_EQ, 0);
-  tt_int_op(port_cfg->is_unix_addr, OP_EQ, 1);
-  tt_str_op(port_cfg->unix_addr, OP_EQ, "/tmp/foo/bar");
+  tt_int_op(port_cfg->is_ulibercoin_addr, OP_EQ, 1);
+  tt_str_op(port_cfg->ulibercoin_addr, OP_EQ, "/tmp/foo/bar");
   /* Test entry port defaults as initialised in parse_port_config */
   tt_int_op(port_cfg->entry_cfg.dns_request, OP_EQ, 1);
   tt_int_op(port_cfg->entry_cfg.ipv4_traffic, OP_EQ, 1);
@@ -4010,7 +4010,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   // Test failure if we have no ipv4 and no ipv6 and no onion (DNS only)
   config_free_lines(config_port_invalid); config_port_invalid = NULL;
   config_port_invalid = mock_config_line("SOCKSPort",
-                                         "unix:/tmp/foo/bar NoIPv4Traffic "
+                                         "ulibercoin:/tmp/foo/bar NoIPv4Traffic "
                                          "NoIPv6Traffic "
                                          "NoOnionTraffic");
   ret = parse_port_config(NULL, config_port_invalid, "SOCKS",
@@ -4050,7 +4050,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   config_free_lines(config_port_invalid); config_port_invalid = NULL;
   config_port_invalid = mock_config_line("SOCKSPort",
                                          "NoIPv6Traffic "
-                                         "unix:/tmp/foo/bar NoIPv4Traffic");
+                                         "ulibercoin:/tmp/foo/bar NoIPv4Traffic");
   ret = parse_port_config(NULL, config_port_invalid, "SOCKS",
                           CONN_TYPE_AP_LISTENER, NULL, 0,
                           CL_PORT_TAKES_HOSTNAMES);
@@ -4061,7 +4061,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:/tmp/foo/bar "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:/tmp/foo/bar "
                                        "NoIPv6Traffic "
                                        "NoDNSRequest NoIPv4Traffic");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
@@ -4079,11 +4079,11 @@ test_config_parse_port_config__ports__ports_given(void *data)
   tt_int_op(port_cfg->entry_cfg.onion_traffic, OP_EQ, 1);
 #endif /* defined(_WIN32) */
 
-  // Test success with quoted unix: address.
+  // Test success with quoted ulibercoin: address.
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:\"/tmp/foo/ bar\" "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:\"/tmp/foo/ bar\" "
                                        "NoIPv6Traffic "
                                        "NoDNSRequest NoIPv4Traffic");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
@@ -4101,11 +4101,11 @@ test_config_parse_port_config__ports__ports_given(void *data)
   tt_int_op(port_cfg->entry_cfg.onion_traffic, OP_EQ, 1);
 #endif /* defined(_WIN32) */
 
-  // Test failure with broken quoted unix: address.
+  // Test failure with broken quoted ulibercoin: address.
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:\"/tmp/foo/ bar "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:\"/tmp/foo/ bar "
                                        "NoIPv6Traffic "
                                        "NoDNSRequest NoIPv4Traffic");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
@@ -4113,11 +4113,11 @@ test_config_parse_port_config__ports__ports_given(void *data)
                           CL_PORT_TAKES_HOSTNAMES);
   tt_int_op(ret, OP_EQ, -1);
 
-  // Test failure with empty quoted unix: address.
+  // Test failure with empty quoted ulibercoin: address.
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:\"\" "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:\"\" "
                                        "NoIPv6Traffic "
                                        "NoDNSRequest NoIPv4Traffic");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
@@ -4129,7 +4129,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:/tmp/foo/bar "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:/tmp/foo/bar "
                                        "OnionTrafficOnly");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
                           CONN_TYPE_AP_LISTENER, NULL, 0,
@@ -4150,7 +4150,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:/tmp/foo/bar "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:/tmp/foo/bar "
                                        "NoIPv4Traffic IPv6Traffic");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
                           CONN_TYPE_AP_LISTENER, NULL, 0,
@@ -4169,7 +4169,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:/tmp/foo/bar "
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:/tmp/foo/bar "
                                        "IPv4Traffic IPv6Traffic");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
                           CONN_TYPE_AP_LISTENER, NULL, 0,
@@ -4538,28 +4538,28 @@ test_config_parse_port_config__ports__ports_given(void *data)
   port_cfg = (port_cfg_t *)smartlist_get(slout, 0);
   tt_int_op(port_cfg->entry_cfg.session_group, OP_EQ, 1111122);
 
-  // Test success with a zero unix domain socket, and doesnt add it to out
+  // Test success with a zero ulibercoin domain socket, and doesnt add it to out
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
   config_port_valid = mock_config_line("DNSPort", "0");
   ret = parse_port_config(slout, config_port_valid, "DNS", 0,
-                          "127.0.0.45", 0, CL_PORT_IS_UNIXSOCKET);
+                          "127.0.0.45", 0, CL_PORT_IS_ULIBERCOINSOCKET);
   tt_int_op(ret, OP_EQ, 0);
   tt_int_op(smartlist_len(slout), OP_EQ, 0);
 
-  // Test success with a one unix domain socket, and doesnt add it to out
+  // Test success with a one ulibercoin domain socket, and doesnt add it to out
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
   config_port_valid = mock_config_line("DNSPort", "something");
   ret = parse_port_config(slout, config_port_valid, "DNS", 0,
-                          "127.0.0.45", 0, CL_PORT_IS_UNIXSOCKET);
+                          "127.0.0.45", 0, CL_PORT_IS_ULIBERCOINSOCKET);
   tt_int_op(ret, OP_EQ, 0);
   tt_int_op(smartlist_len(slout), OP_EQ, 1);
   port_cfg = (port_cfg_t *)smartlist_get(slout, 0);
-  tt_int_op(port_cfg->is_unix_addr, OP_EQ, 1);
-  tt_str_op(port_cfg->unix_addr, OP_EQ, "something");
+  tt_int_op(port_cfg->is_ulibercoin_addr, OP_EQ, 1);
+  tt_str_op(port_cfg->ulibercoin_addr, OP_EQ, "something");
 
   // Test success with a port of auto - it uses the default address
   config_free_lines(config_port_valid); config_port_valid = NULL;
@@ -4635,7 +4635,7 @@ test_config_parse_port_config__ports__ports_given(void *data)
   config_free_lines(config_port_valid); config_port_valid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_valid = mock_config_line("SOCKSPort", "unix:/tmp/somewhere");
+  config_port_valid = mock_config_line("SOCKSPort", "ulibercoin:/tmp/somewhere");
   ret = parse_port_config(slout, config_port_valid, "SOCKS",
                           CONN_TYPE_AP_LISTENER, "127.0.0.46", 0,
                           CL_PORT_DFLT_GROUP_WRITABLE);
@@ -4767,11 +4767,11 @@ test_config_parse_port_config__ports__server_options(void *data)
                           0, CL_PORT_SERVER_OPTIONS);
   tt_int_op(ret, OP_EQ, -1);
 
-  // Check for failure with empty unix: address.
+  // Check for failure with empty ulibercoin: address.
   config_free_lines(config_port_invalid); config_port_invalid = NULL;
   SMARTLIST_FOREACH(slout,port_cfg_t *,pf,port_cfg_free(pf));
   smartlist_clear(slout);
-  config_port_invalid = mock_config_line("ORPort", "unix:\"\"");
+  config_port_invalid = mock_config_line("ORPort", "ulibercoin:\"\"");
   ret = parse_port_config(slout, config_port_invalid, "ORPort", 0, NULL,
                           0, CL_PORT_SERVER_OPTIONS);
   tt_int_op(ret, OP_EQ, -1);

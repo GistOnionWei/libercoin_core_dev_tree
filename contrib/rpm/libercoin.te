@@ -1,0 +1,81 @@
+policy_module(libercoin, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type libercoin_t;
+type libercoin_exec_t;
+init_daemon_domain(libercoin_t, libercoin_exec_t)
+
+permissive libercoin_t;
+
+type libercoin_initrc_exec_t;
+init_script_file(libercoin_initrc_exec_t)
+
+type libercoin_conf_t;
+files_type(libercoin_conf_t)
+
+type libercoin_var_lib_t;
+files_type(libercoin_var_lib_t)
+
+type libercoin_var_run_t;
+files_type(libercoin_var_run_t)
+
+type libercoin_port_t;
+corenet_port(libercoin_port_t)
+
+########################################
+#
+# libercoin local policy
+#
+allow libercoin_t self:process { fork };
+
+allow libercoin_t self:fifo_file rw_fifo_file_perms;
+allow libercoin_t self:ulibercoin_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(libercoin_t, libercoin_conf_t, libercoin_conf_t)
+manage_files_pattern(libercoin_t, libercoin_conf_t, libercoin_conf_t)
+
+manage_dirs_pattern(libercoin_t, libercoin_var_lib_t, libercoin_var_lib_t)
+manage_files_pattern(libercoin_t, libercoin_var_lib_t, libercoin_var_lib_t)
+files_var_lib_filetrans(libercoin_t, libercoin_var_lib_t, { dir file })
+
+manage_dirs_pattern(libercoin_t, libercoin_var_run_t, libercoin_var_run_t)
+manage_files_pattern(libercoin_t, libercoin_var_run_t, libercoin_var_run_t)
+
+sysnet_dns_name_resolve(libercoin_t)
+corenet_all_recvfrom_unlabeled(libercoin_t)
+
+allow libercoin_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(libercoin_t)
+corenet_tcp_sendrecv_generic_node(libercoin_t)
+corenet_tcp_sendrecv_all_ports(libercoin_t)
+corenet_tcp_bind_generic_node(libercoin_t)
+
+gen_require(`
+    type libercoin_port_t;
+')
+allow libercoin_t libercoin_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type libercoin_port_t;
+')
+allow libercoin_t libercoin_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(libercoin_t)
+
+files_read_etc_files(libercoin_t)
+
+miscfiles_read_localization(libercoin_t)
+
+sysnet_dns_name_resolve(libercoin_t)
+
+allow libercoin_t libercoin_exec_t:file execute_no_trans;
+allow libercoin_t self:process setsched;
+corecmd_exec_ls(libercoin_t)
+corenet_tcp_connect_http_port(libercoin_t)
+dev_read_urand(libercoin_t)
+fs_getattr_xattr_fs(libercoin_t)
+kernel_read_system_state(libercoin_t)

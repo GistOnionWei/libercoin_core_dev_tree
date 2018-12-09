@@ -13,10 +13,10 @@
 #include <uint256.h>
 
 static const int SERIALIZE_TRANSACTION_NO_WITNESS = 0x40000000;
-static const int32_t NIX_TXN_VERSION = 2;
+static const int32_t LIBERCOIN_TXN_VERSION = 2;
 
 //check when POS is activated
-static const uint8_t NIX_BLOCK_VERSION = 3;
+static const uint8_t LIBERCOIN_BLOCK_VERSION = 3;
 
 enum OutputTypes
 {

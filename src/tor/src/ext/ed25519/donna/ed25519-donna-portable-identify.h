@@ -5,7 +5,7 @@
 	#define OS_SOLARIS
 #else
 	#include <sys/param.h> /* need this to define BSD */
-	#define OS_NIX
+	#define OS_LIBERCOIN
 	#if defined(__linux__)
 		#define OS_LINUX
 	#elif defined(BSD)

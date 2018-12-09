@@ -397,7 +397,7 @@
        <item row="9" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Total NIX Ghosted</string>
+          <string>Total LIBERCOIN Ghosted</string>
          </property>
         </widget>
        </item>
@@ -454,7 +454,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../nix.qrc">
+            <iconset resource="../libercoin.qrc">
              <normaloff>:/icons/fontsmaller</normaloff>:/icons/fontsmaller</iconset>
            </property>
            <property name="iconSize">
@@ -486,7 +486,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../nix.qrc">
+            <iconset resource="../libercoin.qrc">
              <normaloff>:/icons/fontbigger</normaloff>:/icons/fontbigger</iconset>
            </property>
            <property name="iconSize">
@@ -521,7 +521,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../nix.qrc">
+            <iconset resource="../libercoin.qrc">
              <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
            </property>
            <property name="shortcut">
@@ -576,7 +576,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="../nix.qrc">
+            <iconset resource="../libercoin.qrc">
              <normaloff>:/icons/prompticon</normaloff>
              <disabledoff>:/icons/prompticon</disabledoff>:/icons/prompticon</iconset>
            </property>
@@ -1446,7 +1446,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../nix.qrc"/>
+  <include location="../libercoin.qrc"/>
  </resources>
  <connections/>
 </ui>

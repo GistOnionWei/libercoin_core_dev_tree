@@ -1346,7 +1346,7 @@ evdns_err_is_transient(int err)
 
 /** Configure eventdns nameservers if force is true, or if the configuration
  * has changed since the last time we called this function, or if we failed on
- * our last attempt.  On Unix, this reads from /etc/resolv.conf or
+ * our last attempt.  On Ulibercoin, this reads from /etc/resolv.conf or
  * options->ServerDNSResolvConfFile; on Windows, this reads from
  * options->ServerDNSResolvConfFile or the registry.  Return 0 on success or
  * -1 on failure. */

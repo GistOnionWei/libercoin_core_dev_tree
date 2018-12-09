@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -698,7 +698,7 @@ bool CGhostnodeBroadcast::CheckOutpoint(int &nDos) {
     }
 
     // verify that sig time is legit in past
-    // should be at least not earlier than block when 40000 NIX tx got nGhostnodeMinimumConfirmations
+    // should be at least not earlier than block when 40000 LIBERCOIN tx got nGhostnodeMinimumConfirmations
     uint256 hashBlock = uint256();
     CTransactionRef tx2;
     GetTransaction(vin.prevout.hash, tx2, Params().GetConsensus(), hashBlock, true);
@@ -706,7 +706,7 @@ bool CGhostnodeBroadcast::CheckOutpoint(int &nDos) {
         LOCK(cs_main);
         BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
         if (mi != mapBlockIndex.end() && (*mi).second) {
-            CBlockIndex *pMNIndex = (*mi).second; // block for 40k NIX tx -> 1 confirmation
+            CBlockIndex *pMNIndex = (*mi).second; // block for 40k LIBERCOIN tx -> 1 confirmation
             CBlockIndex *pConfIndex = chainActive[pMNIndex->nHeight + Params().GetConsensus().nGhostnodeMinimumConfirmations - 1]; // block where tx got nGhostnodeMinimumConfirmations
             if (pConfIndex->GetBlockTime() > sigTime) {
                 //LogPrint("CGhostnodeBroadcast::CheckOutpoint -- Bad sigTime %d (%d conf block is at %d) for Ghostnode %s %s\n",

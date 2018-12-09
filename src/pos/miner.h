@@ -1,5 +1,5 @@
-#ifndef NIX_POS_MINER_H
-#define NIX_POS_MINER_H
+#ifndef LIBERCOIN_POS_MINER_H
+#define LIBERCOIN_POS_MINER_H
 
 #include <primitives/block.h>
 #include <thread>
@@ -39,5 +39,5 @@ bool ThreadStakeMinerStopped(); // replace interruption_point
 
 void ThreadStakeMiner(size_t nThreadID, std::vector<CWallet*> &vpwallets, size_t nStart, size_t nEnd);
 
-#endif // NIX_POS_MINER_H
+#endif // LIBERCOIN_POS_MINER_H
 

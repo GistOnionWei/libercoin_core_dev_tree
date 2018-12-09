@@ -5,7 +5,7 @@
 #include <qt/overviewpage.h>
 #include <qt/forms/ui_overviewpage.h>
 
-#include <qt/nixunits.h>
+#include <qt/libercoinunits.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
@@ -128,7 +128,7 @@ OverviewPage::OverviewPage(const PlatformStyle *platformStyle, QWidget *parent) 
     ui->setupUi(this);
 
     // read config
-    boost::filesystem::path pathTorSetting = GetDataDir()/"nixtorsetting.dat";
+    boost::filesystem::path pathTorSetting = GetDataDir()/"libercointorsetting.dat";
     std::pair<bool,std::string> torEnabled = ReadBinaryFileTor(pathTorSetting.string().c_str());
     if(torEnabled.first){
         if(torEnabled.second == "enabled"){
@@ -350,16 +350,16 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 void OverviewPage::handleEnabledTorChanged(){
 
     QMessageBox msgBox;
-    boost::filesystem::path pathTorSetting = GetDataDir()/"nixtorsetting.dat";
+    boost::filesystem::path pathTorSetting = GetDataDir()/"libercointorsetting.dat";
     if(ui->checkboxEnabledTor->isChecked()){
         if (WriteBinaryFileTor(pathTorSetting.string().c_str(), "enabled")) {
-            msgBox.setText("Please restart the NIX Core wallet to route your connection to obfuscate your IP address. \nSyncing your wallet might be slower.");
+            msgBox.setText("Please restart the LIBERCOIN Core wallet to route your connection to obfuscate your IP address. \nSyncing your wallet might be slower.");
         }else{
             msgBox.setText("Obfuscation cannot enable");
         }
     }else{
         if (WriteBinaryFileTor(pathTorSetting.string().c_str(), "disabled")) {
-            msgBox.setText("Please restart the NIX Core wallet to disable IP obfuscation.");
+            msgBox.setText("Please restart the LIBERCOIN Core wallet to disable IP obfuscation.");
         } else {
             msgBox.setText("Obfuscation cannot disable");
         }

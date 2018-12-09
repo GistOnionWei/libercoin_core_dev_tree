@@ -26,7 +26,7 @@
 
 #ifdef _WIN32
 /* I've assumed Windows doesn't have the gap between fork and exec
- * that causes the race condition on unix-like platforms */
+ * that causes the race condition on ulibercoin-like platforms */
 #define MATCH_PROCESS_STATUS(s1,s2)         ((s1) == (s2))
 
 #else /* !(defined(_WIN32)) */
@@ -338,7 +338,7 @@ test_util_spawn_background_waitpid_notify(void *arg)
 
   /* We're not going to look at the stdout/stderr output this time. Instead,
    * we're testing whether notify_pending_waitpid_calbacks() can report the
-   * process exit (on unix) and/or whether tor_get_exit_code() can notice it
+   * process exit (on ulibercoin) and/or whether tor_get_exit_code() can notice it
    * (on windows) */
 
 #ifndef _WIN32

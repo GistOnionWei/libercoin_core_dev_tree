@@ -6,7 +6,7 @@
 #include <support/cleanse.h>
 
 #if defined(HAVE_CONFIG_H)
-#include <config/nix-config.h>
+#include <config/libercoin-config.h>
 #endif
 
 #ifdef WIN32

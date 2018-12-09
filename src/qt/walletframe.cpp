@@ -4,7 +4,7 @@
 
 #include <qt/walletframe.h>
 
-#include <qt/nixgui.h>
+#include <qt/libercoingui.h>
 #include <qt/walletview.h>
 
 #include <cassert>

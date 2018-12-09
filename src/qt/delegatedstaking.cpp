@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/nix-config.h"
+#include "config/libercoin-config.h"
 #endif
 
 #include <qt/delegatedstaking.h>
@@ -12,13 +12,13 @@
 
 #include <qt/sendcoinsdialog.h>
 #include <qt/addresstablemodel.h>
-#include <qt/nixgui.h>
+#include <qt/libercoingui.h>
 #include <qt/csvmodelwriter.h>
 #include <qt/editaddressdialog.h>
 #include <net.h>
 
 #include <script/script.h>
-#include <qt/nixunits.h>
+#include <qt/libercoinunits.h>
 #include <qt/clientmodel.h>
 #include <qt/coincontroldialog.h>
 #include <qt/guiutil.h>

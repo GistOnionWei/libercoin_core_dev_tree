@@ -4910,7 +4910,7 @@ test_util_make_environment(void *ptr)
 
   smartlist_t *env_vars = smartlist_new_from_text_lines(env_vars_string);
   smartlist_t *env_vars_sorted = smartlist_new();
-  smartlist_t *env_vars_in_unixoid_env_block_sorted = smartlist_new();
+  smartlist_t *env_vars_in_ulibercoinoid_env_block_sorted = smartlist_new();
 
   process_environment_t *env;
 
@@ -4922,39 +4922,39 @@ test_util_make_environment(void *ptr)
   tt_want(tor_memeq(expected_windows_env_block, env->windows_environment_block,
                     expected_windows_env_block_len));
 
-  /* Now for the Unixoid environment block.  We don't care which order
+  /* Now for the Ulibercoinoid environment block.  We don't care which order
    * these environment variables are in, so we sort both lists first. */
 
   smartlist_add_all(env_vars_sorted, env_vars);
 
   {
     char **v;
-    for (v = env->unixoid_environment_block; *v; ++v) {
-      smartlist_add(env_vars_in_unixoid_env_block_sorted, *v);
+    for (v = env->ulibercoinoid_environment_block; *v; ++v) {
+      smartlist_add(env_vars_in_ulibercoinoid_env_block_sorted, *v);
     }
   }
 
   smartlist_sort_strings(env_vars_sorted);
-  smartlist_sort_strings(env_vars_in_unixoid_env_block_sorted);
+  smartlist_sort_strings(env_vars_in_ulibercoinoid_env_block_sorted);
 
   tt_want_int_op(smartlist_len(env_vars_sorted), OP_EQ,
-                 smartlist_len(env_vars_in_unixoid_env_block_sorted));
+                 smartlist_len(env_vars_in_ulibercoinoid_env_block_sorted));
   {
     int len = smartlist_len(env_vars_sorted);
     int i;
 
-    if (smartlist_len(env_vars_in_unixoid_env_block_sorted) < len) {
-      len = smartlist_len(env_vars_in_unixoid_env_block_sorted);
+    if (smartlist_len(env_vars_in_ulibercoinoid_env_block_sorted) < len) {
+      len = smartlist_len(env_vars_in_ulibercoinoid_env_block_sorted);
     }
 
     for (i = 0; i < len; ++i) {
       tt_want_str_op(smartlist_get(env_vars_sorted, i), OP_EQ,
-                     smartlist_get(env_vars_in_unixoid_env_block_sorted, i));
+                     smartlist_get(env_vars_in_ulibercoinoid_env_block_sorted, i));
     }
   }
 
   /* Clean up. */
-  smartlist_free(env_vars_in_unixoid_env_block_sorted);
+  smartlist_free(env_vars_in_ulibercoinoid_env_block_sorted);
   smartlist_free(env_vars_sorted);
 
   SMARTLIST_FOREACH(env_vars, char *, x, tor_free(x));
@@ -5474,7 +5474,7 @@ test_util_socketpair(void *arg)
     ersatz ? tor_ersatz_socketpair : tor_socketpair;
   int n = get_n_open_sockets();
   tor_socket_t fds[2] = {TOR_INVALID_SOCKET, TOR_INVALID_SOCKET};
-  const int family = AF_UNIX;
+  const int family = AF_ULIBERCOIN;
   int socketpair_result = 0;
 
   socketpair_result = tor_socketpair_fn(family, SOCK_STREAM, 0, fds);
@@ -5483,7 +5483,7 @@ test_util_socketpair(void *arg)
   /* If there is no 127.0.0.1, tor_ersatz_socketpair will and must fail.
    * Otherwise, we risk exposing a socketpair on a routable IP address. (Some
    * BSD jails use a routable address for localhost. Fortunately, they have
-   * the real AF_UNIX socketpair.) */
+   * the real AF_ULIBERCOIN socketpair.) */
   if (ersatz && socketpair_result < 0) {
     /* In my testing, an IPv6-only FreeBSD jail without ::1 returned EINVAL.
      * Assume we're on a machine without 127.0.0.1 or ::1 and give up now. */

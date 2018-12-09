@@ -19,7 +19,7 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const Consens
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
-    //NIX works off DarkGravityWave to calculate diff
+    //LIBERCOIN works off DarkGravityWave to calculate diff
     return DarkGravityWave(pindexLast, params);
 }
 

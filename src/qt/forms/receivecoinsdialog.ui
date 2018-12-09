@@ -131,7 +131,7 @@
              <string>&amp;Request payment</string>
             </property>
             <property name="icon">
-             <iconset resource="../nix.qrc">
+             <iconset resource="../libercoin.qrc">
               <normaloff>:/icons/receiving_addresses</normaloff>:/icons/receiving_addresses</iconset>
             </property>
            </widget>
@@ -151,7 +151,7 @@
              <string>Clear</string>
             </property>
             <property name="icon">
-             <iconset resource="../nix.qrc">
+             <iconset resource="../libercoin.qrc">
               <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
             </property>
             <property name="autoDefault">
@@ -296,7 +296,7 @@
            <string>Show</string>
           </property>
           <property name="icon">
-           <iconset resource="../nix.qrc">
+           <iconset resource="../libercoin.qrc">
             <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
           </property>
           <property name="autoDefault">
@@ -316,7 +316,7 @@
            <string>Remove</string>
           </property>
           <property name="icon">
-           <iconset resource="../nix.qrc">
+           <iconset resource="../libercoin.qrc">
             <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
           </property>
           <property name="autoDefault">
@@ -348,7 +348,7 @@
   <customwidget>
    <class>BitcoinAmountField</class>
    <extends>QLineEdit</extends>
-   <header>qt/nixamountfield.h</header>
+   <header>qt/libercoinamountfield.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
@@ -363,7 +363,7 @@
   <tabstop>removeRequestButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../nix.qrc"/>
+  <include location="../libercoin.qrc"/>
  </resources>
  <connections/>
 </ui>

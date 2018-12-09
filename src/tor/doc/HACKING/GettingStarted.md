@@ -28,7 +28,7 @@ I'm also going to assume that you know a little bit about how to use
 Git, or that you're able to follow one of the several excellent guides
 at http://git-scm.org to learn.
 
-Most Tor developers develop using some Unix-based system, such as Linux,
+Most Tor developers develop using some Ulibercoin-based system, such as Linux,
 BSD, or OSX.  It's okay to develop on Windows if you want, but you're
 going to have a more difficult time.
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2017-2018 The NIX Core developers
+# Copyright (c) 2017-2018 The LIBERCOIN Core developers
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -46,31 +46,31 @@ $(TOR_LIBS): tor.timestamp
 	fi
 
 
-NIX_INCLUDES=-I$(builddir) $(BDB_CPPFLAGS) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
+LIBERCOIN_INCLUDES=-I$(builddir) $(BDB_CPPFLAGS) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
 
-NIX_INCLUDES += -I$(srcdir)/secp256k1/include
-NIX_INCLUDES += $(UNIVALUE_CFLAGS)
+LIBERCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
+LIBERCOIN_INCLUDES += $(UNIVALUE_CFLAGS)
 
-LIBNIX_SERVER=libnix_server.a
-LIBNIX_COMMON=libnix_common.a
-LIBNIX_CONSENSUS=libnix_consensus.a
-LIBNIX_CLI=libnix_cli.a
-LIBNIX_UTIL=libnix_util.a
-LIBNIX_CRYPTO=crypto/libnix_crypto.a
-LIBNIXQT=qt/libnixqt.a
+LIBLIBERCOIN_SERVER=liblibercoin_server.a
+LIBLIBERCOIN_COMMON=liblibercoin_common.a
+LIBLIBERCOIN_CONSENSUS=liblibercoin_consensus.a
+LIBLIBERCOIN_CLI=liblibercoin_cli.a
+LIBLIBERCOIN_UTIL=liblibercoin_util.a
+LIBLIBERCOIN_CRYPTO=crypto/liblibercoin_crypto.a
+LIBLIBERCOINQT=qt/liblibercoinqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 
 if ENABLE_ZMQ
-LIBNIX_ZMQ=libnix_zmq.a
+LIBLIBERCOIN_ZMQ=liblibercoin_zmq.a
 endif
-if BUILD_NIX_LIBS
-LIBNIXCONSENSUS=libnixconsensus.la
+if BUILD_LIBERCOIN_LIBS
+LIBLIBERCOINCONSENSUS=liblibercoinconsensus.la
 endif
 if ENABLE_WALLET
-LIBNIX_WALLET=libnix_wallet.a
+LIBLIBERCOIN_WALLET=liblibercoin_wallet.a
 endif
 if ENABLE_USBDEVICE
-LIBPARTICL_USBDEVICE=libnix_usbdevice.a
+LIBPARTICL_USBDEVICE=liblibercoin_usbdevice.a
 endif
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
@@ -79,34 +79,34 @@ $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES += \
-  $(LIBNIX_CRYPTO) \
-  $(LIBNIX_UTIL) \
-  $(LIBNIX_COMMON) \
-  $(LIBNIX_CONSENSUS) \
-  $(LIBNIX_SERVER) \
-  $(LIBNIX_CLI) \
-  $(LIBNIX_WALLET) \
-  $(LIBNIX_USBDEVICE) \
-  $(LIBNIX_ZMQ)
+  $(LIBLIBERCOIN_CRYPTO) \
+  $(LIBLIBERCOIN_UTIL) \
+  $(LIBLIBERCOIN_COMMON) \
+  $(LIBLIBERCOIN_CONSENSUS) \
+  $(LIBLIBERCOIN_SERVER) \
+  $(LIBLIBERCOIN_CLI) \
+  $(LIBLIBERCOIN_WALLET) \
+  $(LIBLIBERCOIN_USBDEVICE) \
+  $(LIBLIBERCOIN_ZMQ)
 
-lib_LTLIBRARIES = $(LIBNIXCONSENSUS)
+lib_LTLIBRARIES = $(LIBLIBERCOINCONSENSUS)
 
 bin_PROGRAMS =
 noinst_PROGRAMS =
 TESTS =
 BENCHMARKS =
 
-if BUILD_NIXD
-  bin_PROGRAMS += nixd
+if BUILD_LIBERCOIND
+  bin_PROGRAMS += libercoind
 endif
 
-if BUILD_NIX_UTILS
-  bin_PROGRAMS += nix-cli nix-tx
+if BUILD_LIBERCOIN_UTILS
+  bin_PROGRAMS += libercoin-cli libercoin-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
-# nix core #
-NIX_CORE_H = \
+# libercoin core #
+LIBERCOIN_CORE_H = \
   addrdb.h \
   addressindex.h \
   spentindex.h \
@@ -250,12 +250,12 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh "$(abs_top_builddir)/src/obj/build.h" \
 	  "$(abs_top_srcdir)"
-libnix_util_a-clientversion.$(OBJEXT): obj/build.h
+liblibercoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between nixd and nix-qt
-libnix_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-libnix_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_server_a_SOURCES = \
+# server: shared between libercoind and libercoin-qt
+liblibercoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
+liblibercoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_server_a_SOURCES = \
   addrdb.cpp \
   addressindex.cpp \
   addrman.cpp \
@@ -300,22 +300,22 @@ libnix_server_a_SOURCES = \
   validationinterface.cpp \
   versionbits.cpp \
   zerocoin/zerocoin.cpp \
-  $(NIX_CORE_H)
+  $(LIBERCOIN_CORE_H)
 
 if ENABLE_ZMQ
-libnix_zmq_a_CPPFLAGS = $(NIX_INCLUDES) $(ZMQ_CFLAGS)
-libnix_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_zmq_a_SOURCES = \
+liblibercoin_zmq_a_CPPFLAGS = $(LIBERCOIN_INCLUDES) $(ZMQ_CFLAGS)
+liblibercoin_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
   zmq/zmqnotificationinterface.cpp \
   zmq/zmqpublishnotifier.cpp
 endif
 
 if ENABLE_USBDEVICE
-libnix_usbdevice_a_CPPFLAGS = $(NIX_INCLUDES) $(AM_CPPFLAGS)
-libnix_usbdevice_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_usbdevice_a_CFLAGS = -DHAVE_HIDAPI $(AM_CFLAGS)
-libnix_usbdevice_a_SOURCES = \
+liblibercoin_usbdevice_a_CPPFLAGS = $(LIBERCOIN_INCLUDES) $(AM_CPPFLAGS)
+liblibercoin_usbdevice_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_usbdevice_a_CFLAGS = -DHAVE_HIDAPI $(AM_CFLAGS)
+liblibercoin_usbdevice_a_SOURCES = \
   usbdevice/ledger/btchipApdu.h \
   usbdevice/ledger/ledgerLayer.h \
   usbdevice/ledger/ledgerLayer.c \
@@ -330,11 +330,11 @@ libnix_usbdevice_a_SOURCES = \
 endif
 
 
-# wallet: shared between nixd and nix-qt, but only linked
+# wallet: shared between libercoind and libercoin-qt, but only linked
 # when wallet enabled
-libnix_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-libnix_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_wallet_a_SOURCES = \
+liblibercoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+liblibercoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_wallet_a_SOURCES = \
   ghostnode/activeghostnode.cpp \
   ghostnode/darksend.cpp \
   ghostnode/darksend-relay.cpp \
@@ -356,13 +356,13 @@ libnix_wallet_a_SOURCES = \
   wallet/wallet.cpp \
   wallet/walletdb.cpp \
   wallet/walletutil.cpp \
-  $(NIX_CORE_H)
+  $(LIBERCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libnix_crypto_a_CFLAGS = $(AM_CFLAGS) $(PIC_FLAGS)
-crypto_libnix_crypto_a_CPPFLAGS = $(AM_CPPFLAGS)
-crypto_libnix_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-crypto_libnix_crypto_a_SOURCES = \
+crypto_liblibercoin_crypto_a_CFLAGS = $(AM_CFLAGS) $(PIC_FLAGS)
+crypto_liblibercoin_crypto_a_CPPFLAGS = $(AM_CPPFLAGS)
+crypto_liblibercoin_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_liblibercoin_crypto_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
   crypto/chacha20.h \
@@ -401,13 +401,13 @@ crypto_libnix_crypto_a_SOURCES = \
   crypto/Lyra2RE/sph_types.h
 
 if USE_ASM
-crypto_libnix_crypto_a_SOURCES += crypto/sha256_sse4.cpp
+crypto_liblibercoin_crypto_a_SOURCES += crypto/sha256_sse4.cpp
 endif
 
 # consensus: shared between all executables that validate any consensus rules.
-libnix_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-libnix_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_consensus_a_SOURCES = \
+liblibercoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+liblibercoin_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_consensus_a_SOURCES = \
   amount.h \
   arith_uint256.cpp \
   arith_uint256.h \
@@ -426,7 +426,7 @@ libnix_consensus_a_SOURCES = \
   primitives/transaction.h \
   pubkey.cpp \
   pubkey.h \
-  script/nixconsensus.cpp \
+  script/libercoinconsensus.cpp \
   script/interpreter.cpp \
   script/interpreter.h \
   script/script.cpp \
@@ -441,10 +441,10 @@ libnix_consensus_a_SOURCES = \
   utilstrencodings.h \
   version.h
 
-# common: shared between nixd, and nix-qt and non-server tools
-libnix_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-libnix_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_common_a_SOURCES = \
+# common: shared between libercoind, and libercoin-qt and non-server tools
+liblibercoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+liblibercoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_common_a_SOURCES = \
   base58.cpp \
   bech32.cpp \
   chainparams.cpp \
@@ -472,14 +472,14 @@ libnix_common_a_SOURCES = \
   ghost-address/stealth.cpp \
   ghost-address/xxhash.c \
   warnings.cpp \
-  $(NIX_CORE_H)
+  $(LIBERCOIN_CORE_H)
 
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libnix_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-libnix_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_util_a_SOURCES = \
+liblibercoin_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+liblibercoin_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_util_a_SOURCES = \
   support/lockedpool.cpp \
   chainparamsbase.cpp \
   clientversion.cpp \
@@ -519,103 +519,103 @@ libnix_util_a_SOURCES = \
   utilmoneystr.cpp \
   utilstrencodings.cpp \
   utiltime.cpp \
-  $(NIX_CORE_H)
+  $(LIBERCOIN_CORE_H)
 
 
 if GLIBC_BACK_COMPAT
-libnix_util_a_SOURCES += compat/glibc_compat.cpp
+liblibercoin_util_a_SOURCES += compat/glibc_compat.cpp
 endif
 
-# cli: shared between nix-cli and nix-qt
-libnix_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-libnix_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libnix_cli_a_SOURCES = \
+# cli: shared between libercoin-cli and libercoin-qt
+liblibercoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+liblibercoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoin_cli_a_SOURCES = \
   rpc/client.cpp \
-  $(NIX_CORE_H)
+  $(LIBERCOIN_CORE_H)
 
-nodist_libnix_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_liblibercoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# nixd binary #
-nixd_SOURCES = nixd.cpp
-nixd_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-nixd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-nixd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# libercoind binary #
+libercoind_SOURCES = libercoind.cpp
+libercoind_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+libercoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libercoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-nixd_SOURCES += nixd-res.rc
+libercoind_SOURCES += libercoind-res.rc
 endif
 
-nixd_LDADD = \
-  $(LIBNIX_SERVER) \
-  $(LIBNIX_COMMON) \
+libercoind_LDADD = \
+  $(LIBLIBERCOIN_SERVER) \
+  $(LIBLIBERCOIN_COMMON) \
   $(LIBUNIVALUE) \
-  $(LIBNIX_UTIL) \
-  $(LIBNIX_WALLET) \
-  $(LIBNIX_ZMQ) \
-  $(LIBNIX_CONSENSUS) \
-  $(LIBNIX_CRYPTO) \
+  $(LIBLIBERCOIN_UTIL) \
+  $(LIBLIBERCOIN_WALLET) \
+  $(LIBLIBERCOIN_ZMQ) \
+  $(LIBLIBERCOIN_CONSENSUS) \
+  $(LIBLIBERCOIN_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
   $(LIBSECP256K1) \
-  $(LIBNIX_USBDEVICE)
+  $(LIBLIBERCOIN_USBDEVICE)
 
-nixd_LDADD += $(TOR_LIBS) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(USB_LIBS) -lz
+libercoind_LDADD += $(TOR_LIBS) $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(USB_LIBS) -lz
 
-# nix-cli binary #
-nix_cli_SOURCES = nix-cli.cpp
-nix_cli_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES) $(EVENT_CFLAGS)
-nix_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-nix_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# libercoin-cli binary #
+libercoin_cli_SOURCES = libercoin-cli.cpp
+libercoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES) $(EVENT_CFLAGS)
+libercoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libercoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-nix_cli_SOURCES += nix-cli-res.rc
+libercoin_cli_SOURCES += libercoin-cli-res.rc
 endif
 
-nix_cli_LDADD = \
-  $(LIBNIX_CLI) \
+libercoin_cli_LDADD = \
+  $(LIBLIBERCOIN_CLI) \
   $(LIBUNIVALUE) \
-  $(LIBNIX_UTIL) \
-  $(LIBNIX_CRYPTO)
+  $(LIBLIBERCOIN_UTIL) \
+  $(LIBLIBERCOIN_CRYPTO)
 
-nix_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+libercoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# nix-tx binary #
-nix_tx_SOURCES = nix-tx.cpp
-nix_tx_CPPFLAGS = $(AM_CPPFLAGS) $(NIX_INCLUDES)
-nix_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-nix_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# libercoin-tx binary #
+libercoin_tx_SOURCES = libercoin-tx.cpp
+libercoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(LIBERCOIN_INCLUDES)
+libercoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libercoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-nix_tx_SOURCES += nix-tx-res.rc
+libercoin_tx_SOURCES += libercoin-tx-res.rc
 endif
 
-nix_tx_LDADD = \
+libercoin_tx_LDADD = \
   $(LIBUNIVALUE) \
-  $(LIBNIX_COMMON) \
-  $(LIBNIX_UTIL) \
-  $(LIBNIX_CONSENSUS) \
-  $(LIBNIX_CRYPTO) \
+  $(LIBLIBERCOIN_COMMON) \
+  $(LIBLIBERCOIN_UTIL) \
+  $(LIBLIBERCOIN_CONSENSUS) \
+  $(LIBLIBERCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-nix_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+libercoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
-# nixconsensus library #
-if BUILD_NIX_LIBS
-include_HEADERS = script/nixconsensus.h
-libnixconsensus_la_SOURCES = $(crypto_libnix_crypto_a_SOURCES) $(libnix_consensus_a_SOURCES)
+# libercoinconsensus library #
+if BUILD_LIBERCOIN_LIBS
+include_HEADERS = script/libercoinconsensus.h
+liblibercoinconsensus_la_SOURCES = $(crypto_liblibercoin_crypto_a_SOURCES) $(liblibercoin_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
-  libnixconsensus_la_SOURCES += compat/glibc_compat.cpp
+  liblibercoinconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libnixconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libnixconsensus_la_LIBADD = $(LIBSECP256K1)
-libnixconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_NIX_INTERNAL
-libnixconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+liblibercoinconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+liblibercoinconsensus_la_LIBADD = $(LIBSECP256K1)
+liblibercoinconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_LIBERCOIN_INTERNAL
+liblibercoinconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #
@@ -646,12 +646,12 @@ CLEANFILES += tor.timestamp tor.timestamp.tmp
 EXTRA_DIST = $(CTAES_DIST)
 
 
-config/nix-config.h: config/stamp-h1
+config/libercoin-config.h: config/stamp-h1
 	@$(MAKE) -C $(top_builddir) $(subdir)/$(@)
-config/stamp-h1: $(top_srcdir)/$(subdir)/config/nix-config.h.in $(top_builddir)/config.status
+config/stamp-h1: $(top_srcdir)/$(subdir)/config/libercoin-config.h.in $(top_builddir)/config.status
 	$(AM_V_at)$(MAKE) -C $(top_builddir) $(subdir)/$(@)
-$(top_srcdir)/$(subdir)/config/nix-config.h.in:  $(am__configure_deps)
-	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/nix-config.h.in
+$(top_srcdir)/$(subdir)/config/libercoin-config.h.in:  $(am__configure_deps)
+	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/libercoin-config.h.in
 
 clean-local:
 	-$(MAKE) -C secp256k1 clean

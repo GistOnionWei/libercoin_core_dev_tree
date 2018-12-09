@@ -1,11 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin Core developers
-// Copyright (c) 2017-2018 The NIX Core developers
+// Copyright (c) 2017-2018 The LIBERCOIN Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include <config/nix-config.h>
+#include <config/libercoin-config.h>
 #endif
 
 #include <init.h>
@@ -322,7 +322,7 @@ void Shutdown()
     /// for example if the data directory was found to be locked.
     /// Be sure that anything that writes files or flushes caches only does this if the respective
     /// module was initialized.
-    RenameThread("nix-shutoff");
+    RenameThread("libercoin-shutoff");
     mempool.AddTransactionsUpdated(1);
 
     StopHTTPRPC();
@@ -666,8 +666,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/nixplatform/nixcore>";
-    const std::string URL_WEBSITE = "<https://nixplatform.io>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/libercoinplatform/libercoincore>";
+    const std::string URL_WEBSITE = "<https://liberco.in>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2017, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +
@@ -771,7 +771,7 @@ void CleanupBlockRevFiles()
 void ThreadImport(std::vector<fs::path> vImportFiles)
 {
     const CChainParams& chainparams = Params();
-    RenameThread("nix-loadblk");
+    RenameThread("libercoin-loadblk");
 
     {
     CImportingNow imp;
@@ -1379,9 +1379,9 @@ bool AppInitMain()
     // Warn about relative -datadir path.
     if (gArgs.IsArgSet("-datadir") && !fs::path(gArgs.GetArg("-datadir", "")).is_absolute()) {
         LogPrintf("Warning: relative datadir option '%s' specified, which will be interpreted relative to the "
-                  "current working directory '%s'. This is fragile, because if NIX is started in the future "
+                  "current working directory '%s'. This is fragile, because if LIBERCOIN is started in the future "
                   "from a different location, it will be unable to locate the current data files. There could "
-                  "also be data loss if NIX is started while in a temporary directory.\n",
+                  "also be data loss if LIBERCOIN is started while in a temporary directory.\n",
             gArgs.GetArg("-datadir", ""), fs::current_path().string());
     }
 
@@ -1474,7 +1474,7 @@ bool AppInitMain()
 
 
     // Enable tor networking
-    boost::filesystem::path pathTorSetting = GetDataDir()/"nixtorsetting.dat";
+    boost::filesystem::path pathTorSetting = GetDataDir()/"libercointorsetting.dat";
     std::pair<bool,std::string> torEnabledArg = ReadBinaryFileTor(pathTorSetting.string().c_str());
 
     //Enable tor on default
@@ -1577,7 +1577,7 @@ bool AppInitMain()
     bool fReindexChainState = gArgs.GetBoolArg("-reindex-chainstate", false);
 
     //Enable wallet version checking
-    boost::filesystem::path pathVersionSetting = GetDataDir()/"nixversion.dat";
+    boost::filesystem::path pathVersionSetting = GetDataDir()/"libercoinversion.dat";
     std::pair<bool,std::string> versionArg = ReadBinaryFileTor(pathVersionSetting.string().c_str());
 
     if(versionArg.second == "" || std::stoi(versionArg.second) < CLIENT_VERSION){
@@ -1587,7 +1587,7 @@ bool AppInitMain()
         fReindex = true;
     }
 
-    LogPrintf("AppInitMain(): Wallet version %s logged to nixversion.dat", versionArg.second);
+    LogPrintf("AppInitMain(): Wallet version %s logged to libercoinversion.dat", versionArg.second);
 
     // cache size calculations
     int64_t nTotalCache = (gArgs.GetArg("-dbcache", nDefaultDbCache) << 20);
@@ -2011,7 +2011,7 @@ bool AppInitMain()
     flatdb4.Load(netfulfilledman);
 
 
-    // ********************************************************* Step 11c: update block tip in nix modules
+    // ********************************************************* Step 11c: update block tip in libercoin modules
 
 
     mnodeman.UpdatedBlockTip(chainActive.Tip());
@@ -2032,7 +2032,7 @@ bool AppInitMain()
         nMinStakeInterval = gArgs.GetArg("-minstakeinterval", 0);
         nMinerSleep = gArgs.GetArg("-minersleep", 500);
         if (!gArgs.GetBoolArg("-staking", true))
-            LogPrintf("NIX Staking disabled\n");
+            LogPrintf("LIBERCOIN Staking disabled\n");
         else
         {
             size_t nWallets = vpwallets.size();

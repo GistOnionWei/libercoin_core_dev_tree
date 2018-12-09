@@ -1,0 +1,8 @@
+/usr/bin/libercoin-cli		--	gen_context(system_u:object_r:libercoin_exec_t,s0)
+/usr/sbin/libercoind		--	gen_context(system_u:object_r:libercoin_exec_t,s0)
+/usr/lib(64)?/libercoin/libercoind		--	gen_context(system_u:object_r:libercoin_exec_t,s0)
+
+/etc/libercoin(/.*)?		gen_context(system_u:object_r:libercoin_conf_t,s0)
+/var/lib/libercoin(/.*)?		gen_context(system_u:object_r:libercoin_var_lib_t,s0)
+
+(/var)?/run/libercoind(/.*)?   gen_context(system_u:object_r:libercoin_var_run_t,s0)

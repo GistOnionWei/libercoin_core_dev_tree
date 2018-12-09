@@ -324,7 +324,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
     21064:Windows_NT:50:3)
 	echo alpha-dec-winnt3.5
 	exit ;;
-    Amiga*:UNIX_System_V:4.0:*)
+    Amiga*:ULIBERCOIN_System_V:4.0:*)
 	echo m68k-unknown-sysv4
 	exit ;;
     *:[Aa]miga[Oo][Ss]:*:*)
@@ -362,10 +362,10 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
     NILE*:*:*:dcosx)
 	echo pyramid-pyramid-svr4
 	exit ;;
-    DRS?6000:unix:4.0:6*)
+    DRS?6000:ulibercoin:4.0:6*)
 	echo sparc-icl-nx6
 	exit ;;
-    DRS?6000:UNIX_SV:4.2*:7* | DRS?6000:isis:4.2*:7*)
+    DRS?6000:ULIBERCOIN_SV:4.2*:7* | DRS?6000:isis:4.2*:7*)
 	case `/usr/bin/uname -p` in
 	    sparc) echo sparc-icl-nx7; exit ;;
 	esac ;;
@@ -512,8 +512,8 @@ EOF
     Night_Hawk:*:*:PowerMAX_OS | Synergy:PowerMAX_OS:*:*)
 	echo powerpc-harris-powermax
 	exit ;;
-    Night_Hawk:Power_UNIX:*:*)
-	echo powerpc-harris-powerunix
+    Night_Hawk:Power_ULIBERCOIN:*:*)
+	echo powerpc-harris-powerulibercoin
 	exit ;;
     m88k:CX/UX:7*:*)
 	echo m88k-harris-cxux7
@@ -547,11 +547,11 @@ EOF
 	# Delta 88k system running SVR3
 	echo m88k-motorola-sysv3
 	exit ;;
-    XD88*:*:*:*) # Tektronix XD88 system running UTekV (SVR3)
-	echo m88k-tektronix-sysv3
+    XD88*:*:*:*) # Tektrolibercoin XD88 system running UTekV (SVR3)
+	echo m88k-tektrolibercoin-sysv3
 	exit ;;
-    Tek43[0-9][0-9]:UTek:*:*) # Tektronix 4300 system running UTek (BSD)
-	echo m68k-tektronix-bsd
+    Tek43[0-9][0-9]:UTek:*:*) # Tektrolibercoin 4300 system running UTek (BSD)
+	echo m68k-tektrolibercoin-bsd
 	exit ;;
     *:IRIX*:*:*)
 	echo mips-sgi-irix`echo ${UNAME_RELEASE}|sed -e 's/-/_/g'`
@@ -813,13 +813,13 @@ EOF
     *:UNICOS/mp:*:*)
 	echo craynv-cray-unicosmp${UNAME_RELEASE} | sed -e 's/\.[^.]*$/.X/'
 	exit ;;
-    F30[01]:UNIX_System_V:*:* | F700:UNIX_System_V:*:*)
+    F30[01]:ULIBERCOIN_System_V:*:* | F700:ULIBERCOIN_System_V:*:*)
 	FUJITSU_PROC=`uname -m | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz`
 	FUJITSU_SYS=`uname -p | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz | sed -e 's/\///'`
 	FUJITSU_REL=`echo ${UNAME_RELEASE} | sed -e 's/ /_/'`
 	echo "${FUJITSU_PROC}-fujitsu-${FUJITSU_SYS}${FUJITSU_REL}"
 	exit ;;
-    5000:UNIX_System_V:4.*:*)
+    5000:ULIBERCOIN_System_V:4.*:*)
 	FUJITSU_SYS=`uname -p | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz | sed -e 's/\///'`
 	FUJITSU_REL=`echo ${UNAME_RELEASE} | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz | sed -e 's/ /_/'`
 	echo "sparc-fujitsu-${FUJITSU_SYS}${FUJITSU_REL}"
@@ -906,8 +906,8 @@ EOF
 	# other systems with GNU libc and userland
 	echo ${UNAME_MACHINE}-unknown-`echo ${UNAME_SYSTEM} | sed 's,^[^/]*/,,' | tr "[:upper:]" "[:lower:]"``echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'`-${LIBC}
 	exit ;;
-    i*86:Minix:*:*)
-	echo ${UNAME_MACHINE}-pc-minix
+    i*86:Milibercoin:*:*)
+	echo ${UNAME_MACHINE}-pc-milibercoin
 	exit ;;
     aarch64:Linux:*:*)
 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
@@ -1063,14 +1063,14 @@ EOF
     xtensa*:Linux:*:*)
 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
 	exit ;;
-    i*86:DYNIX/ptx:4*:*)
-	# ptx 4.0 does uname -s correctly, with DYNIX/ptx in there.
+    i*86:DYLIBERCOIN/ptx:4*:*)
+	# ptx 4.0 does uname -s correctly, with DYLIBERCOIN/ptx in there.
 	# earlier versions are messed up and put the nodename in both
 	# sysname and nodename.
 	echo i386-sequent-sysv4
 	exit ;;
-    i*86:UNIX_SV:4.2MP:2.*)
-	# Unixware is an offshoot of SVR4, but it has its own version
+    i*86:ULIBERCOIN_SV:4.2MP:2.*)
+	# Ulibercoinware is an offshoot of SVR4, but it has its own version
 	# number series starting with 2...
 	# I am not positive that other SVR4 systems won't match this,
 	# I just have to hope.  -- rms.
@@ -1078,7 +1078,7 @@ EOF
 	echo ${UNAME_MACHINE}-pc-sysv4.2uw${UNAME_VERSION}
 	exit ;;
     i*86:OS/2:*:*)
-	# If we were able to find `uname', then EMX Unix compatibility
+	# If we were able to find `uname', then EMX Ulibercoin compatibility
 	# is probably installed.
 	echo ${UNAME_MACHINE}-pc-os2-emx
 	exit ;;
@@ -1106,7 +1106,7 @@ EOF
 	fi
 	exit ;;
     i*86:*:5:[678]*)
-	# UnixWare 7.x, OpenUNIX and OpenServer 6.
+	# UlibercoinWare 7.x, OpenULIBERCOIN and OpenServer 6.
 	case `/bin/uname -X | grep "^Machine"` in
 	    *486*)	     UNAME_MACHINE=i486 ;;
 	    *Pentium)	     UNAME_MACHINE=i586 ;;
@@ -1158,11 +1158,11 @@ EOF
 	# "miniframe"
 	echo m68010-convergent-sysv
 	exit ;;
-    mc68k:UNIX:SYSTEM5:3.51m)
+    mc68k:ULIBERCOIN:SYSTEM5:3.51m)
 	echo m68k-convergent-sysv
 	exit ;;
-    M680?0:D-NIX:5.3:*)
-	echo m68k-diab-dnix
+    M680?0:D-LIBERCOIN:5.3:*)
+	echo m68k-diab-dlibercoin
 	exit ;;
     M68*:*:R3V[5678]*:*)
 	test -r /sysV68 && { echo 'm68k-motorola-sysv'; exit; } ;;
@@ -1190,7 +1190,7 @@ EOF
     m68*:LynxOS:2.*:* | m68*:LynxOS:3.0*:*)
 	echo m68k-unknown-lynxos${UNAME_RELEASE}
 	exit ;;
-    mc68030:UNIX_System_V:4.*:*)
+    mc68030:ULIBERCOIN_System_V:4.*:*)
 	echo m68k-atari-sysv4
 	exit ;;
     TSUNAMI:LynxOS:2.*:*)
@@ -1202,16 +1202,16 @@ EOF
     PowerPC:LynxOS:2.*:* | PowerPC:LynxOS:3.[01]*:* | PowerPC:LynxOS:4.[02]*:*)
 	echo powerpc-unknown-lynxos${UNAME_RELEASE}
 	exit ;;
-    SM[BE]S:UNIX_SV:*:*)
+    SM[BE]S:ULIBERCOIN_SV:*:*)
 	echo mips-dde-sysv${UNAME_RELEASE}
 	exit ;;
-    RM*:ReliantUNIX-*:*:*)
+    RM*:ReliantULIBERCOIN-*:*:*)
 	echo mips-sni-sysv4
 	exit ;;
-    RM*:SINIX-*:*:*)
+    RM*:SILIBERCOIN-*:*:*)
 	echo mips-sni-sysv4
 	exit ;;
-    *:SINIX-*:*:*)
+    *:SILIBERCOIN-*:*:*)
 	if uname -p 2>/dev/null >/dev/null ; then
 		UNAME_MACHINE=`(uname -p) 2>/dev/null`
 		echo ${UNAME_MACHINE}-sni-sysv4
@@ -1223,7 +1223,7 @@ EOF
 			# says <Richard.M.Bartel@ccMail.Census.GOV>
 	echo i586-unisys-sysv4
 	exit ;;
-    *:UNIX_System_V:4*:FTX*)
+    *:ULIBERCOIN_System_V:4*:FTX*)
 	# From Gerald Hewes <hewes@openmarket.com>.
 	# How about differentiating between stratus architectures? -djm
 	echo hppa1.1-stratus-sysv4
@@ -1246,7 +1246,7 @@ EOF
     news*:NEWS-OS:6*:*)
 	echo mips-sony-newsos6
 	exit ;;
-    R[34]000:*System_V*:*:* | R4000:UNIX_SYSV:*:* | R*000:UNIX_SV:*:*)
+    R[34]000:*System_V*:*:* | R4000:ULIBERCOIN_SYSV:*:* | R*000:ULIBERCOIN_SV:*:*)
 	if [ -d /usr/nec ]; then
 		echo mips-nec-sysv${UNAME_RELEASE}
 	else
@@ -1353,7 +1353,7 @@ EOF
     BS2000:POSIX*:*:*)
 	echo bs2000-siemens-sysv
 	exit ;;
-    DS/*:UNIX_System_V:*:*)
+    DS/*:ULIBERCOIN_System_V:*:*)
 	echo ${UNAME_MACHINE}-${UNAME_SYSTEM}-${UNAME_RELEASE}
 	exit ;;
     *:Plan9:*:*)
@@ -1398,8 +1398,8 @@ EOF
 	    I*) echo ia64-dec-vms ; exit ;;
 	    V*) echo vax-dec-vms ; exit ;;
 	esac ;;
-    *:XENIX:*:SysV)
-	echo i386-pc-xenix
+    *:XELIBERCOIN:*:SysV)
+	echo i386-pc-xelibercoin
 	exit ;;
     i*86:skyos:*:*)
 	echo ${UNAME_MACHINE}-pc-skyos`echo ${UNAME_RELEASE} | sed -e 's/ .*$//'`

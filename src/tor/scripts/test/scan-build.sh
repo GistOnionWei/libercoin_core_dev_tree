@@ -18,14 +18,14 @@ CHECKERS="\
     -enable-checker alpha.core.TestAfterDivZero \
     -enable-checker alpha.security.MallocOverflow \
     -enable-checker alpha.security.ReturnPtrRange \
-    -enable-checker alpha.unix.BlockInCriticalSection \
-    -enable-checker alpha.unix.Chroot \
-    -enable-checker alpha.unix.PthreadLock \
-    -enable-checker alpha.unix.PthreadLock \
-    -enable-checker alpha.unix.SimpleStream \
-    -enable-checker alpha.unix.Stream \
-    -enable-checker alpha.unix.cstring.BufferOverlap \
-    -enable-checker alpha.unix.cstring.NotNullTerminated \
+    -enable-checker alpha.ulibercoin.BlockInCriticalSection \
+    -enable-checker alpha.ulibercoin.Chroot \
+    -enable-checker alpha.ulibercoin.PthreadLock \
+    -enable-checker alpha.ulibercoin.PthreadLock \
+    -enable-checker alpha.ulibercoin.SimpleStream \
+    -enable-checker alpha.ulibercoin.Stream \
+    -enable-checker alpha.ulibercoin.cstring.BufferOverlap \
+    -enable-checker alpha.ulibercoin.cstring.NotNullTerminated \
     -enable-checker alpha.valist.CopyToSelf \
     -enable-checker alpha.valist.Uninitialized \
     -enable-checker alpha.valist.Unterminated \
@@ -36,7 +36,7 @@ CHECKERS="\
 # These have high false-positive rates.
 EXTRA_CHECKERS="\
     -enable-checker alpha.security.ArrayBoundV2 \
-    -enable-checker alpha.unix.cstring.OutOfBounds \
+    -enable-checker alpha.ulibercoin.cstring.OutOfBounds \
     -enable-checker alpha.core.CastSize \
 "
 
@@ -77,4 +77,4 @@ CHECKERS="\
 #    -enable-checker alpha.core.PointerSub
 
 # Needs work
-#    -enable-checker alpha.unix.MallocWithAnnotations
+#    -enable-checker alpha.ulibercoin.MallocWithAnnotations

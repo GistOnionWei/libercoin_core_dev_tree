@@ -1,7 +1,7 @@
 
 Most users who realize that INSTALL files still exist should simply
 follow the directions at
-https://www.torproject.org/docs/tor-doc-unix
+https://www.torproject.org/docs/tor-doc-ulibercoin
 
 If you got the source from git, run "./autogen.sh", which will
 run the various auto* programs. Then you can run ./configure, and

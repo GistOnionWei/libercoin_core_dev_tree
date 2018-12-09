@@ -1009,9 +1009,9 @@ test_addr_sockaddr_to_str(void *arg)
 
 #ifdef HAVE_SYS_UN_H
   memset(&s_un,0,sizeof(s_un));
-  s_un.sun_family = AF_UNIX;
+  s_un.sun_family = AF_ULIBERCOIN;
   strlcpy(s_un.sun_path, "/here/is/a/path", sizeof(s_un.sun_path));
-  CHECK(s_un, "unix:/here/is/a/path");
+  CHECK(s_un, "ulibercoin:/here/is/a/path");
 #endif /* defined(HAVE_SYS_UN_H) */
 
   memset(&sin6,0,sizeof(sin6));

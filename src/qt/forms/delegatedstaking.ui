@@ -282,10 +282,10 @@
               <item>
                <widget class="QPushButton" name="sendButton">
                 <property name="toolTip">
-                 <string>Convert Ghosted NIX</string>
+                 <string>Convert Ghosted LIBERCOIN</string>
                 </property>
                 <property name="text">
-                 <string>&amp;Send NIX</string>
+                 <string>&amp;Send LIBERCOIN</string>
                 </property>
                 <property name="autoDefault">
                  <bool>false</bool>
@@ -376,7 +376,7 @@
   <customwidget>
    <class>BitcoinAmountField</class>
    <extends>QLineEdit</extends>
-   <header>qt/nixamountfield.h</header>
+   <header>qt/libercoinamountfield.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
